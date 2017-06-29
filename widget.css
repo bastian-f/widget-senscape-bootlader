@@ -1,10 +1,18 @@
 /* CSS for ChiliPeppr Widget */
 
-#com-chilipeppr-widget-template {
+#com-senscape-widget-bootloader {
    
 }
 
-#com-chilipeppr-widget-template .nav-tabs>li>a {
+#com-senscape-widget-bootloader .nav-tabs>li>a {
     padding: 2px 6px;
+}
+
+.bootloader-buttons{
+    height:100px;
+    border:1px solid;
+    border-radius:4px;
+    padding:10px;
+    
 }
 
