@@ -164,7 +164,7 @@ is only loaded and inlined once into the final ChiliPeppr workspace.
 We are given back a reference to the instantiated singleton so its
 not instantiated more than once. Then we call it's attachTo method
 which creates the full pulldown menu for us and attaches the click
-events.</td></tr>
+events.</td></tr><tr valign="top"><td>loadDropTestWidget</td><td>function</td><td>function (callback) <br><br>Load Senscape Bootloader Wedget via chilipeppr.load()</td></tr>
       </tbody>
   </table>
 

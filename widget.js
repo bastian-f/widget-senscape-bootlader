@@ -136,6 +136,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
+            this.loadDropTestWidget();
 
             console.log("I am done being initted.");
         },
@@ -345,6 +346,27 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 });
             });
 
+        },
+                        /**
+         * Load Senscape Bootloader Wedget via chilipeppr.load()
+         */
+        loadDropTestWidget: function(callback) {
+    chilipeppr.load(
+  "#drop-test-widget-instance",
+  "http://raw.githubusercontent.com/chilipeppr/elem-dragdrop/master/auto-generated-widget.html",
+  function() {
+    // Callback after widget loaded into #myDivElemDragdrop
+    // Now use require.js to get reference to instantiated widget
+    cprequire(
+      ["inline:drop-test-widget"], // the id you gave your widget
+      function(myObjElemDragdrop) {
+        // Callback that is passed reference to the newly loaded widget
+        console.log("Element / Drag Drop just got loaded.", myObjElemDragdrop);
+        myObjElemDragdrop.init();
+      }
+    );
+  }
+);
         },
 
     }

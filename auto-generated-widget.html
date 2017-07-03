@@ -175,6 +175,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
+            this.loadDropTestWidget();
 
             console.log("I am done being initted.");
         },
@@ -385,6 +386,27 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             });
 
         },
+                        /**
+         * Load Senscape Bootloader Wedget via chilipeppr.load()
+         */
+        loadDropTestWidget: function(callback) {
+    chilipeppr.load(
+  "#drop-test-widget-instance",
+  "http://raw.githubusercontent.com/chilipeppr/elem-dragdrop/master/auto-generated-widget.html",
+  function() {
+    // Callback after widget loaded into #myDivElemDragdrop
+    // Now use require.js to get reference to instantiated widget
+    cprequire(
+      ["inline:drop-test-widget"], // the id you gave your widget
+      function(myObjElemDragdrop) {
+        // Callback that is passed reference to the newly loaded widget
+        console.log("Element / Drag Drop just got loaded.", myObjElemDragdrop);
+        myObjElemDragdrop.init();
+      }
+    );
+  }
+);
+        },
 
     }
 });
@@ -449,9 +471,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             <!--</div>-->
 
             <div class="bootloader-buttons">
-                 <div id="com-chilipeppr-ws-gcode-dragdropoverlay" class="hidden">
-                <div class="well">Drag and Drop Gcode Files Onto Browser Window</div>
-</div>
+                            <div id="drop-test-widget-instance">
+                <p class="sample">drop test goes here</p>
+            </div>
+                 
                 <div class="btn-group">
                     <button type="button" class="btn btn-xs btn-default btn-sayhello" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Load image..." data-content="Choose an image file from your hard disk.">Load image...
                 </div>
