@@ -353,7 +353,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         loadDropTestWidget: function(callback) {
 chilipeppr.load(
   "#drop-test-widget-instance",
-  "http://raw.githubusercontent.com/chilipeppr/elem-dragdrop/master/auto-generated-widget.html",
+  "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
   function() {
     // Callback after widget loaded into #myDivElemDragdrop
     // Now use require.js to get reference to instantiated widget
@@ -367,6 +367,7 @@ chilipeppr.load(
     );
   }
 );
+
         },
 
     }
