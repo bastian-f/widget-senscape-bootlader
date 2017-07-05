@@ -194,6 +194,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
+            
+                        // Init Hello World 2 button on Tab 1. Notice the use
+            // of the slick .bind(this) technique to correctly set "this"
+            // when the callback is called
+            $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
 
         },
         /**
@@ -207,6 +212,30 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 "Hello World 2 from Tab 1 from widget " + this.id,
                 2000 /* show for 2 second */
             );
+        
+        },
+                /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onTomcatBtnClick: function(evt) {
+            console.log("saying hello 2 from btn in tab 1");
+               var xmlHttp = new XMLHttpRequest();
+            console.log("request created");
+    xmlHttp.open( "GET", "https://chilipeppr-servlet-c9-bastianf.c9users.io/examples/servlets/servlet/RequestInfoExample", false ); // false for synchronous request
+    xmlHttp.send( null );
+    var response = xmlHttp.responseText;
+            chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Tomcat Server Status",
+         //       "Hello Worl from Tab 1 from widget " + this.id,
+                response,
+                2000 /* show for 2 second */
+                
+            );
+       //     var msg = $('#com-chilipeppr-widget-spconsole-consoleform "test"');
+//console.log("msg:", msg.val());
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
+        
         },
         /**
          * User options are available in this property for reference by your
