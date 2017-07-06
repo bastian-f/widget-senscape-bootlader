@@ -3,6 +3,42 @@
 
 // ChiliPeppr Widget/Element Javascript
 
+function getServlet(sUrl, timeout, callback){
+    var xhr = new XMLHttpRequest();
+    xhr.ontimeout = function () {
+        console.error("The request for " + url + " timed out.");
+    };
+    xhr.onload = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                callback.apply(xhr);
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.open("GET", sUrl, true);
+    xhr.timeout = timeout;
+    xhr.send(null);
+}
+
+function showMessage (sMsg) {
+       console.log(this.responseText);
+    chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Tomcat Server Status",
+                //       "Hello Worl from Tab 1 from widget " + this.id,
+               // response,
+               this.responseText,
+                2000 /* show for 2 second */
+            );
+    if (this.responseText === "led=on"){
+        var ledOn = '{"device":"senscape","led":{"state":true}}';
+          chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+    }
+  //alert(sMsg + this.responseText);
+}
+
 requirejs.config({
     /*
     Dependencies can be defined here. ChiliPeppr uses require.js so
@@ -212,9 +248,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestBtnClick.bind(this));
+            
+            $('#' + this.id + ' .btn-servlet-led-on-test').click(this.onServletLedOnTestBtnClick.bind(this));
 
         },
-        
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
@@ -226,7 +263,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 "Hello World 2 from Tab 1 from widget " + this.id,
                 2000 /* show for 2 second */
             );
-        
         },
         /**
          * onTomcatBtnClick is an example of a button click event callback
@@ -255,6 +291,35 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         /**
          * onTomcatBtnClick is an example of a button click event callback
          */
+        onServletLedOnTestBtnClick: function(evt) {
+            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=on";
+            getServlet(url, 2000, showMessage);
+      /*      var ledOn = '{"device":"senscape","led":{"state":true}}';
+            console.log(ledOn);
+            var cmd = {
+                            D: ledOn + "\r\n"
+                         //   Id: "console" + that.globalCmdCtr++
+                        }
+                console.log("JSON:")
+                console.log(cmd);
+       //         chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
+   //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
+        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+
+     //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
+        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");}*/
+        },
+        /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onLedOffTestBtnClick: function(evt) {
+            var ledOff = '{"device":"senscape","led":{"state":false}}';
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
+        },
+        /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
         onLedOnTestBtnClick: function(evt) {
             var ledOn = '{"device":"senscape","led":{"state":true}}';
             console.log(ledOn);
@@ -271,13 +336,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
      //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
-        },
-        /**
-         * onTomcatBtnClick is an example of a button click event callback
-         */
-        onLedOffTestBtnClick: function(evt) {
-            var ledOff = '{"device":"senscape","led":{"state":false}}';
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
         },
         /**
          * User options are available in this property for reference by your
