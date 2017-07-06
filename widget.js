@@ -211,7 +211,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestClick.bind(this));
+            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestBtnClick.bind(this));
 
         },
         /**
