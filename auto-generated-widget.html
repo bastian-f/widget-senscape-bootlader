@@ -233,26 +233,24 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
+              $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
             
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
-            $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
             
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
+      //       $('#' + this.id + ' .btn-led-on-test').click(this.onMessageTestBtnClick.bind(this));
             
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-led-on-test').click(this.onLedOnClick.bind(this));
+            $('#' + this.id + ' .btn-led-on-test').click(this.onLedOnTestBtnClick.bind(this));
             
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffClick.bind(this));
+    //        $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestClick.bind(this));
 
         },
         /**
@@ -296,12 +294,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onTomcatBtnClick is an example of a button click event callback
          */
         onLedOnTestBtnClick: function(evt) {
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", '{"device":"senscape","led":{"state":true}}\r\n');
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
+        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
         },
         /**
          * onTomcatBtnClick is an example of a button click event callback
          */
-        onLedOffTestBtnClick: function(evt) {
+   /*     onLedOffTestBtnClick: function(evt) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", '{"device":"senscape","led":{"state":true}}\r\n');
         },
         /**
@@ -447,23 +446,22 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * Load Senscape Bootloader Wedget via chilipeppr.load()
          */
         loadDropTestWidget: function(callback) {
-chilipeppr.load(
-  "#drop-test-widget-instance",
-  "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
-  function() {
-    // Callback after widget loaded into #myDivElemDragdrop
-    // Now use require.js to get reference to instantiated widget
-    cprequire(
-      ["inline:com-chilipeppr-elem-dragdrop"], // the id you gave your widget
-      function(myObjElemDragdrop) {
-        // Callback that is passed reference to the newly loaded widget
-        console.log("Element / Drag Drop just got loaded.", myObjElemDragdrop);
-        myObjElemDragdrop.init();
-      }
-    );
-  }
-);
-
+            chilipeppr.load(
+                "#drop-test-widget-instance",
+                "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
+                function() {
+                // Callback after widget loaded into #myDivElemDragdrop
+                // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-elem-dragdrop"], // the id you gave your widget
+                        function(myObjElemDragdrop) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Element / Drag Drop just got loaded.", myObjElemDragdrop);
+                            myObjElemDragdrop.init();
+                        }
+                    );
+                }
+            );
         },
 
     }
