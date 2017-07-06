@@ -256,9 +256,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          */
         onLedOnTestBtnClick: function(evt) {
             var ledOn = {"device":"senscape","led":{"state":true}};
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
+            var cmd = {
+                            D: ledOn + newline,
+                            Id: "console" + that.globalCmdCtr++
+                        }
+chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
+   //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
+     //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
         },
         /**
