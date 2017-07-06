@@ -195,10 +195,25 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
             
-                        // Init Hello World 2 button on Tab 1. Notice the use
+            // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
+            
+            // Init Hello World 2 button on Tab 1. Notice the use
+            // of the slick .bind(this) technique to correctly set "this"
+            // when the callback is called
+            $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
+            
+            // Init Hello World 2 button on Tab 1. Notice the use
+            // of the slick .bind(this) technique to correctly set "this"
+            // when the callback is called
+            $('#' + this.id + ' .btn-led-on-test').click(this.onLedOnClick.bind(this));
+            
+            // Init Hello World 2 button on Tab 1. Notice the use
+            // of the slick .bind(this) technique to correctly set "this"
+            // when the callback is called
+            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffClick.bind(this));
 
         },
         /**
@@ -214,28 +229,41 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             );
         
         },
-                /**
+        /**
          * onTomcatBtnClick is an example of a button click event callback
          */
         onTomcatBtnClick: function(evt) {
             console.log("saying hello 2 from btn in tab 1");
-               var xmlHttp = new XMLHttpRequest();
+            var xmlHttp = new XMLHttpRequest();
             console.log("request created");
-    xmlHttp.open( "GET", "https://chilipeppr-servlet-c9-bastianf.c9users.io/examples/servlets/servlet/RequestInfoExample", false ); // false for synchronous request
-    xmlHttp.send( null );
-    var response = xmlHttp.responseText;
+            xmlHttp.open( "GET", "https://chilipeppr-servlet-c9-bastianf.c9users.io/examples/servlets/servlet/RequestInfoExample", false ); // false for synchronous request
+            xmlHttp.send( null );
+            var response = xmlHttp.responseText;
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Tomcat Server Status",
-         //       "Hello Worl from Tab 1 from widget " + this.id,
+                //       "Hello Worl from Tab 1 from widget " + this.id,
                 response,
                 2000 /* show for 2 second */
-                
             );
-       //     var msg = $('#com-chilipeppr-widget-spconsole-consoleform "test"');
-//console.log("msg:", msg.val());
+        },
+        /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onMessageTestBtnClick: function(evt) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
-        
+        },
+        /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onLedOnTestBtnClick: function(evt) {
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", '{"device":"senscape","led":{"state":true}}\r\n');
+        },
+        /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onLedOffTestBtnClick: function(evt) {
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", '{"device":"senscape","led":{"state":true}}\r\n');
         },
         /**
          * User options are available in this property for reference by your
