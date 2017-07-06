@@ -255,16 +255,19 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onTomcatBtnClick is an example of a button click event callback
          */
         onLedOnTestBtnClick: function(evt) {
-            var ledOn = {"device":"senscape","led":{"state":true}};
+            var ledOn = '{"device":"senscape","led":{"state":true}}';
+            console.log(ledOn);
             var cmd = {
                             D: ledOn + "\r\n"
                          //   Id: "console" + that.globalCmdCtr++
                         }
                 console.log("JSON:")
                 console.log(cmd);
-                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
+       //         chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
    //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+
      //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
         },
