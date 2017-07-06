@@ -250,7 +250,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-    //        $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestClick.bind(this));
+            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestClick.bind(this));
 
         },
         /**
@@ -313,8 +313,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         /**
          * onTomcatBtnClick is an example of a button click event callback
          */
-   /*     onLedOffTestBtnClick: function(evt) {
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", '{"device":"senscape","led":{"state":true}}\r\n');
+        onLedOffTestBtnClick: function(evt) {
+            var ledOff = '{"device":"senscape","led":{"state":false}}';
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
         },
         /**
          * User options are available in this property for reference by your
