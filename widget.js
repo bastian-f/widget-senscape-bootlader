@@ -260,6 +260,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                             D: ledOn + newline,
                             Id: "console" + that.globalCmdCtr++
                         }
+                console.out("JSON:")
                 console.out(cmd);
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
    //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
