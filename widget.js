@@ -3,6 +3,22 @@
 
 // ChiliPeppr Widget/Element Javascript
 
+var ledStatus = 0;
+
+function ledOn(){
+           console.log("LED ON!")
+        var ledOn = '{"device":"senscape","led":{"state":true}}';
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+        ledStatus = 1;
+}
+
+function ledOff(){
+            console.log("LED OFF!")
+        var ledOff = '{"device":"senscape","led":{"state":false}}';
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
+        ledStatus = 0;
+}
+
 function getServlet(sUrl, timeout, callback){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
@@ -31,14 +47,10 @@ function showMessage (sMsg) {
     );
     var res = this.responseText.toString();
     if (res.trim() == "led=on"){
-        console.log("LED ON!")
-        var ledOn = '{"device":"senscape","led":{"state":true}}';
-        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+        ledOn();
     }
     else if (res.trim() == "led=off"){
-        console.log("LED OFF!")
-        var ledOff = '{"device":"senscape","led":{"state":false}}';
-        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
+        ledOff();
     }
     else console.log("Invalid message!");
 }
@@ -344,7 +356,12 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 //       "Hello Worl from Tab 1 from widget " + this.id,
                 data.dataline,
                 2000 /* show for 2 second */
+             
             );
+               var noErrorRes = '{"device":"senscape","error":false}';
+                if (data.dataline.trim() == noErrorRes){
+                    
+                }
             }
 },
         /**
