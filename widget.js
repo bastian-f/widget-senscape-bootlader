@@ -19,6 +19,11 @@ function ledOff(){
         ledStatus = 0;
 }
 
+function passToServlet(message){
+            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?" + message;
+            getServlet(url, 2000, showMessage);
+}
+
 function getServlet(sUrl, timeout, callback){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
@@ -368,8 +373,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 2000 /* show for 2 second */
              
             );
-                    if (ledStatus === 0) ledOn();
-                    else if (ledStatus === 1) ledOff();
+               //     if (ledStatus === 0) ledOn();
+                //    else if (ledStatus === 1) ledOff();
+                passToServlet("true");
                     
                 }
                 else {
