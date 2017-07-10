@@ -18,7 +18,7 @@ function ledOff(){
 
 function passToServlet(message){
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?" + message;
-            getServlet(url, 5000, showMessage);
+            getServlet(url, 50000, showMessage);
 }
 
 function getServlet(sUrl, timeout, callback){
