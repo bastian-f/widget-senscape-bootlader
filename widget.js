@@ -6,7 +6,7 @@
 function getServlet(sUrl, timeout, callback){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
-        console.error("The request for " + url + " timed out.");
+        console.error("The request for " + sUrl + " timed out.");
     };
     xhr.onload = function() {
         if (xhr.readyState === 4) {
@@ -33,11 +33,19 @@ function showMessage (sMsg) {
                 2000 /* show for 2 second */
             );
     console.log("RESPONSE:" + this.responseText);
-    if (this.responseText.localCompare("led=on")){
+    var res = this.responseText.toString();
+    console.log("RES:" + res);
+    if (res.trim() == "led=on"){
         console.log("LED ON!")
         var ledOn = '{"device":"senscape","led":{"state":true}}';
-          chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
     }
+    else if (res.trim() == "led=off"){
+        console.log("LED OFF!")
+        var ledOff = '{"device":"senscape","led":{"state":false}}';
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
+    }
+    else console.log("why not?");
   //alert(sMsg + this.responseText);
 }
 
@@ -252,6 +260,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestBtnClick.bind(this));
             
             $('#' + this.id + ' .btn-servlet-led-on-test').click(this.onServletLedOnTestBtnClick.bind(this));
+            
+            $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this))
 
         },
         /**
@@ -296,21 +306,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletLedOnTestBtnClick: function(evt) {
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=on";
             getServlet(url, 2000, showMessage);
-      /*      var ledOn = '{"device":"senscape","led":{"state":true}}';
-            console.log(ledOn);
-            var cmd = {
-                            D: ledOn + "\r\n"
-                         //   Id: "console" + that.globalCmdCtr++
-                        }
-                console.log("JSON:")
-                console.log(cmd);
-       //         chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
-   //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
-        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
-
-     //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
-        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");}*/
+        },
+          /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onServletLedOffTestBtnClick: function(evt) {
+            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=off";
+            getServlet(url, 2000, showMessage);
         },
         /**
          * onTomcatBtnClick is an example of a button click event callback
