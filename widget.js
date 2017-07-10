@@ -360,6 +360,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             );
                var noErrorRes = '{"device":"senscape","error":false}';
                 if (data.dataline.trim() == noErrorRes){
+                    if (ledStatus === 0) ledOn();
+                    else if (ledStatus === 1) ledOff();
                     
                 }
             }
