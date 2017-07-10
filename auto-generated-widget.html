@@ -62,18 +62,13 @@ function getServlet(sUrl, timeout, callback){
 }
 
 function showMessage (sMsg) {
-       console.log(this.responseText);
     chilipeppr.publish(
-                '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Tomcat Server Status",
-                //       "Hello Worl from Tab 1 from widget " + this.id,
-               // response,
-               this.responseText,
-                2000 /* show for 2 second */
-            );
-    console.log("RESPONSE:" + this.responseText);
+        '/com-chilipeppr-elem-flashmsg/flashmsg',
+        "Tomcat Server Status",
+        this.responseText,
+        2000 /* show for 2 second */
+    );
     var res = this.responseText.toString();
-    console.log("RES:" + res);
     if (res.trim() == "led=on"){
         console.log("LED ON!")
         var ledOn = '{"device":"senscape","led":{"state":true}}';
@@ -84,8 +79,7 @@ function showMessage (sMsg) {
         var ledOff = '{"device":"senscape","led":{"state":false}}';
         chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
     }
-    else console.log("why not?");
-  //alert(sMsg + this.responseText);
+    else console.log("Invalid message!");
 }
 
 requirejs.config({
@@ -192,6 +186,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Define a key:value pair here as strings to document what signals you subscribe to
             // so other widgets can publish to this widget to have it do something.
             // '/onExampleConsume': 'Example: This widget subscribe to this signal so other widgets can send to us and we'll do something with it.'
+             '/com-chilipeppr-widget-serialport/recvline': "(High-level mode) When in high-level mode, i.e. setSinglePortMode(), this is the signal we receive incoming serial data on. This signal sends us data in a per-line format so we do not have to piece the data together like we do in low-level mode.",
         },
         /**
          * Document the foreign publish signals, i.e. signals owned by other widgets
@@ -222,6 +217,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             this.btnSetup();
             this.forkSetup();
             this.loadDropTestWidget();
+            chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
 
             console.log("I am done being initted.");
         },
@@ -279,27 +275,34 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
-              $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
-            
+             
+            // This buttons tests the connection to the Tomcat server where the servlet is hosted.
+            // It returns the status of the server.
+            $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
             
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
-      //       $('#' + this.id + ' .btn-led-on-test').click(this.onMessageTestBtnClick.bind(this));
             
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
+            // This button tests the serial connection sending a direct message to the node.
+            // It turns a led on.
             $('#' + this.id + ' .btn-led-on-test').click(this.onLedOnTestBtnClick.bind(this));
             
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
+            // This button tests the serial connection sending a direct message to the node.
+            // It turns a led off.
             $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestBtnClick.bind(this));
             
+            // This button tests the connection to the node via the servlet on the tomcat server.
+            // It sends sends a message to the servlet, waits for the response and it is correct 
+            // it sends a message to the node via the serial connection.
+            // It turns a led on.
             $('#' + this.id + ' .btn-servlet-led-on-test').click(this.onServletLedOnTestBtnClick.bind(this));
             
+            // This button tests the connection to the node via the servlet on the tomcat server.
+            // It sends sends a message to the servlet, waits for the response and it is correct 
+            // it sends a message to the node via the serial connection.
+            // It turns a led off.
             $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this))
 
         },
@@ -365,21 +368,24 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          */
         onLedOnTestBtnClick: function(evt) {
             var ledOn = '{"device":"senscape","led":{"state":true}}';
-            console.log(ledOn);
-            var cmd = {
-                            D: ledOn + "\r\n"
-                         //   Id: "console" + that.globalCmdCtr++
-                        }
-                console.log("JSON:")
-                console.log(cmd);
-       //         chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", cmd);
-   //          chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", ledOn);
-        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "{'device': 'senscape', 'led': {'state': true}}\r\n");
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
-
-     //       chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "\r\n");
-        //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
         },
+        onRecvLine: function(data) {
+            // if we are in json mode, then we don't want recvlines
+          //  if (this.isInJsonMode) return;
+            
+            if (data.dataline) {
+                console.log(data.dataline);
+             //   this.appendLog(data.dataline);
+                         chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Tomcat Server Status",
+                //       "Hello Worl from Tab 1 from widget " + this.id,
+                data.dataline,
+                2000 /* show for 2 second */
+            );
+            }
+},
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
