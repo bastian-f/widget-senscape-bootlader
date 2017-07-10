@@ -71,7 +71,9 @@ function showMessage (sMsg) {
                this.responseText,
                 2000 /* show for 2 second */
             );
-    if (this.responseText === "led=on"){
+    console.log("RESPONSE:" + this.responseText);
+    if (this.responseText.localCompare("led=on")){
+        console.log("LED ON!")
         var ledOn = '{"device":"senscape","led":{"state":true}}';
           chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
     }
