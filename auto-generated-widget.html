@@ -83,12 +83,12 @@ function getServlet(sUrl, timeout, callback){
 }
 
 function showMessage (sMsg) {
-    chilipeppr.publish(
+ /*   chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
         "Tomcat Server Status",
         this.responseText,
         2000 /* show for 2 second */
-    );
+//    );
     var res = this.responseText.toString();
     if (res.trim() == "led=on"){
         ledOn();
@@ -394,24 +394,24 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             if (data.dataline) {
                 console.log(data.dataline);
              //   this.appendLog(data.dataline);
-                         chilipeppr.publish(
+         /*                chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Tomcat Server Status",
                 //       "Hello Worl from Tab 1 from widget " + this.id,
                 data.dataline,
                 2000 /* show for 2 second */
              
-            );
+          //  );
                var noErrorRes = '{"device":"senscape","error":false}';
                 if (data.dataline.trim() == noErrorRes){
-                               chilipeppr.publish(
+          /*                     chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Tomcat Server Status",
                 //       "Hello Worl from Tab 1 from widget " + this.id,
                 "true",
                 2000 /* show for 2 second */
              
-            );
+         //   );
                //     if (ledStatus === 0) ledOn();
                 //    else if (ledStatus === 1) ledOff();
                 passToServlet("true");
