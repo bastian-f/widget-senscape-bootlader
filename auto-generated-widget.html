@@ -43,6 +43,7 @@
 // ChiliPeppr Widget/Element Javascript
 
 
+
 function ledOn(){
            console.log("LED ON!")
         var ledOn = '{"device":"senscape","led":{"state":true}}';
@@ -84,7 +85,7 @@ function postServlet(sUrl, timeout, callback){
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
     };
-    xhr.onload = function() {
+ /*   xhr.onload = function() {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
                 callback.apply(xhr);
@@ -92,7 +93,19 @@ function postServlet(sUrl, timeout, callback){
                 console.error(xhr.statusText);
             }
         }
-    };
+    };*/
+    xhr.onload = function (oEvent) {
+  var arrayBuffer = xhr.response; // Note: not oReq.responseText
+  if (arrayBuffer) {
+    var byteArray = new Uint8Array(arrayBuffer);
+    for (var i = 0; i < byteArray.byteLength; i++) {
+      // do something with each byte in the array
+      console.error(byteArray[i]);
+    }
+    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
+  }
+};
+    xhr.responseType = "arraybuffer";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
     xhr.send('test');
@@ -238,7 +251,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
-                         '/com-chilipeppr-widget-serialport/recvline': "(High-level mode) When in high-level mode, i.e. setSinglePortMode(), this is the signal we receive incoming serial data on. This signal sends us data in a per-line format so we do not have to piece the data together like we do in low-level mode.",
+                  //       '/com-chilipeppr-widget-serialport/recvline': "(High-level mode) When in high-level mode, i.e. setSinglePortMode(), this is the signal we receive incoming serial data on. This signal sends us data in a per-line format so we do not have to piece the data together like we do in low-level mode.",
 
         },
         /**
@@ -420,7 +433,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletSlipTestBtnClick: function(evt) {
             
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
-            postServlet(url, 2000, showMessage);
+            postServlet(url, 20000, showMessage);
         },
           /**
          * onTomcatBtnClick is an example of a button click event callback
