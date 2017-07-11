@@ -40,6 +40,25 @@ function getServlet(sUrl, timeout, callback){
     xhr.send(null);
 }
 
+function postServlet(sUrl, timeout, callback){
+    var xhr = new XMLHttpRequest();
+    xhr.ontimeout = function () {
+        console.error("The request for " + sUrl + " timed out.");
+    };
+    xhr.onload = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                callback.apply(xhr);
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };
+    xhr.open("POST", sUrl, true);
+    xhr.timeout = timeout;
+    xhr.send('test');
+}
+
 function showMessage (sMsg) {
  /*   chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
@@ -48,6 +67,7 @@ function showMessage (sMsg) {
         2000 /* show for 2 second */
 //    );
     var res = this.responseText.toString();
+    console.error(res);
     if (res.trim() == "led=on"){
         ledOn();
     }
@@ -280,8 +300,38 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // it sends a message to the node via the serial connection.
             // It turns a led off.
             $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this))
+            
+            $('#' + this.id + ' .btn-servlet-slip-test').click(this.onServletSlipTestBtnClick.bind(this))
 
         },
+        isAlreadySubscribedToWsRecv: false,
+        consoleSubscribeToLowLevelSerial: function() {
+            // subscribe to websocket events
+            if (this.isAlreadySubscribedToWsRecv) {
+                console.warn("already subscribed to /ws/recv in console, so not subscribing again");
+            } else {
+                this.isAlreadySubscribedToWsRecv = true;
+                chilipeppr.subscribe("/com-chilipeppr-widget-serialport/ws/recv", this, function(msg) {
+            
+                    // make sure the data is for the port we're bound to
+            //        if (msg.match(/^\{/)) {
+                        // it's json
+                        //console.log("it is json");
+                        var data = $.parseJSON(msg);
+                        if (this.portBoundTo && this.portBoundTo.Name && data.P && data.P == this.portBoundTo.Name) {
+                            // this is our serial port data
+                            var d = data.D;
+                            // convert newlines
+                            //console.log("data before replace:", d);
+                            //d.replace(/\r\n|\r|\n/gm, "<br/>");
+                            //var spd = $("<div/>").text(data.D);
+                            //console.log("data after replace:", d);
+                            console.error(d);
+                        }
+            //        }
+                });
+            }
+},
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
@@ -325,6 +375,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=on";
             getServlet(url, 2000, showMessage);
         },
+                /**
+         * onTomcatBtnClick is an example of a button click event callback
+         */
+        onServletSlipTestBtnClick: function(evt) {
+            
+            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
+            postServlet(url, 2000, showMessage);
+        },
           /**
          * onTomcatBtnClick is an example of a button click event callback
          */
@@ -336,6 +394,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onTomcatBtnClick is an example of a button click event callback
          */
         onLedOffTestBtnClick: function(evt) {
+              var that = this;
+
+                that.consoleSubscribeToLowLevelSerial();
             var ledOff = '{"device":"senscape","led":{"state":false}}';
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
         },
