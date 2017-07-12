@@ -71,8 +71,8 @@ function postServlet(sUrl, timeout, callback){
     }
     var hexas = toHexString(byteArray);
     console.error(hexas);
-    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", hexas);
-    //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
+    //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", hexas);
+    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
   }
 };
     xhr.responseType = "arraybuffer";
