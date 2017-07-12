@@ -62,8 +62,9 @@ function postServlet(sUrl, timeout, callback){
     for (var i = 0; i < byteArray.byteLength; i++) {
       // do something with each byte in the array
       console.error(byteArray[i]);
+      chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
     }
-    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
+  //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
   }
 };
     xhr.responseType = "arraybuffer";
