@@ -42,6 +42,11 @@
 
 // ChiliPeppr Widget/Element Javascript
 
+function toHexString(byteArray) {
+  return Array.from(byteArray, function(byte) {
+    return ('0' + (byte & 0xFF).toString(16)).slice(-2);
+  }).join('')
+}
 
 
 function ledOn(){
@@ -101,9 +106,12 @@ function postServlet(sUrl, timeout, callback){
     for (var i = 0; i < byteArray.byteLength; i++) {
       // do something with each byte in the array
       console.error(byteArray[i]);
-      chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
+   //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
     }
-  //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
+    var hexas = toHexString(byteArray);
+    console.error(hexas);
+    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", hexas);
+    //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
   }
 };
     xhr.responseType = "arraybuffer";
