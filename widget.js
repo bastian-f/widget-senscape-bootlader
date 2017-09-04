@@ -82,6 +82,40 @@ function postServlet(sUrl, timeout, callback){
     xhr.send('test');
 }
 
+function postServletRecString(sUrl, timeout, callback){
+    var xhr = new XMLHttpRequest();
+    xhr.ontimeout = function () {
+        console.error("The request for " + sUrl + " timed out.");
+    };
+ /*   xhr.onload = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                callback.apply(xhr);
+            } else {
+                console.error(xhr.statusText);
+            }
+        }
+    };*/
+    xhr.onload = function (oEvent) {
+        var arrayBuffer = xhr.response; // Note: not oReq.responseText
+        xhr.onload = function () {
+            if (xhr.readyState === xhr.DONE) {
+                if (xhr.status === 200) {
+                    console.error(xhr.response);
+                    console.error(xhr.responseText);
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", xhr.responseText);
+                }
+            }
+            
+        }
+    };
+    xhr.responseType = "test";
+    xhr.open("POST", sUrl, true);
+    xhr.timeout = timeout;
+//    xhr.send('C045040A0000FF080123456789ABCDEFD08EC0');
+    xhr.send('test');
+}
+
 function showMessage (sMsg) {
  /*   chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
@@ -405,7 +439,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletSlipTestBtnClick: function(evt) {
             
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
-            postServlet(url, 20000, showMessage);
+            postServletRecString(url, 20000, showMessage);
         },
           /**
          * onTomcatBtnClick is an example of a button click event callback
