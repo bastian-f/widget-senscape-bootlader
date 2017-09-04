@@ -140,7 +140,7 @@ function postServletRecString(sUrl, timeout, callback){
         console.error("response")
         console.error(xhr.response)
         console.error(xhr.responseText)
-        xhr.onload = function () {
+      //  xhr.onload = function () {
          //   if (xhr.readyState === xhr.DONE) {
            //     console.error("Done")
             //    if (xhr.status === 200) {
@@ -150,7 +150,7 @@ function postServletRecString(sUrl, timeout, callback){
             //    }
     //        }
             
-        }
+     //   }
     };
     xhr.responseType = "test";
     xhr.open("POST", sUrl, true);
