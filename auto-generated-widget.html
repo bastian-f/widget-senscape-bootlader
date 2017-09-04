@@ -100,23 +100,24 @@ function postServlet(sUrl, timeout, callback){
         }
     };*/
     xhr.onload = function (oEvent) {
-  var arrayBuffer = xhr.response; // Note: not oReq.responseText
-  if (arrayBuffer) {
-    var byteArray = new Uint8Array(arrayBuffer);
-    for (var i = 0; i < byteArray.byteLength; i++) {
-      // do something with each byte in the array
-      console.error(byteArray[i]);
-   //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
-    }
-    var hexas = toHexString(byteArray);
-    console.error(hexas);
-    //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", hexas);
-    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
-  }
-};
+        var arrayBuffer = xhr.response; // Note: not oReq.responseText
+        if (arrayBuffer) {
+            var byteArray = new Uint8Array(arrayBuffer);
+            for (var i = 0; i < byteArray.byteLength; i++) {
+                // do something with each byte in the array
+                console.error(byteArray[i]);
+                //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
+            }
+            var hexas = toHexString(byteArray);
+            console.error(hexas);
+            //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", hexas);
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray);
+        }
+    };
     xhr.responseType = "arraybuffer";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
+    xhr.send('C045040A0000FF080123456789ABCDEFD08EC0');
     xhr.send('test');
 }
 
@@ -135,7 +136,7 @@ function showMessage (sMsg) {
     else if (res.trim() == "led=off"){
         ledOff();
     }
-    else console.log("Invalid message!");
+    else console.error("Invalid message!");
 }
 
 requirejs.config({
