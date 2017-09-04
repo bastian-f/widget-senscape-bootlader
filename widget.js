@@ -97,21 +97,10 @@ function postServletRecString(sUrl, timeout, callback){
         }
     };*/
     xhr.onload = function (oEvent) {
-        var arrayBuffer = xhr.response; // Note: not oReq.responseText
         console.error("response")
         console.error(xhr.response)
         console.error(xhr.responseText)
-      //  xhr.onload = function () {
-         //   if (xhr.readyState === xhr.DONE) {
-           //     console.error("Done")
-            //    if (xhr.status === 200) {
-                    console.error(xhr.response);
-                    console.error(xhr.responseText);
-                    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", xhr.responseText);
-            //    }
-    //        }
-            
-     //   }
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", xhr.responseText);
     };
     xhr.responseType = "test";
     xhr.open("POST", sUrl, true);
