@@ -99,8 +99,9 @@ function postServletRecString(sUrl, timeout, callback){
     xhr.onload = function (oEvent) {
         console.error("response")
         console.error(xhr.response)
-        console.error(xhr.responseText)
-        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", xhr.responseText);
+        var res = xhr.responseText
+        console.error("sending")
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", res);
     };
     xhr.responseType = "test";
     xhr.open("POST", sUrl, true);
