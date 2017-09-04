@@ -137,7 +137,9 @@ function postServletRecString(sUrl, timeout, callback){
     };*/
     xhr.onload = function (oEvent) {
         var arrayBuffer = xhr.response; // Note: not oReq.responseText
+        console.error("response")
         console.error(xhr.response)
+        console.error(xhr.responseText)
         xhr.onload = function () {
             if (xhr.readyState === xhr.DONE) {
                 if (xhr.status === 200) {
