@@ -102,13 +102,14 @@ function postServletRecString(sUrl, timeout, callback){
         console.error(xhr.response)
         console.error(xhr.responseText)
         xhr.onload = function () {
-            if (xhr.readyState === xhr.DONE) {
-                if (xhr.status === 200) {
+         //   if (xhr.readyState === xhr.DONE) {
+           //     console.error("Done")
+            //    if (xhr.status === 200) {
                     console.error(xhr.response);
                     console.error(xhr.responseText);
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/send", xhr.responseText);
-                }
-            }
+            //    }
+    //        }
             
         }
     };
