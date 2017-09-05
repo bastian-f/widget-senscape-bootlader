@@ -452,9 +452,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onRecvLine: function(data) {
             console.error("received!");
             var arrayBuffer = data.dataline;
-            console.error("firstCs: " + arrayBuffer.substring(0,2));
-            console.error("compare: " + arrayBuffer.substring(0,2).localeCompare("c0"));
-            if (arrayBuffer.substring(0,2).localeCompare("c0") == 0) {
+            console.error("firstCs: " + arrayBuffer.trim().substring(0,2));
+            console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
+            if (arrayBuffer.trim().substring(0,2).localeCompare("c0") == 0) {
                 console.error("valid data!");
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer.trim() + '\n');
             }
