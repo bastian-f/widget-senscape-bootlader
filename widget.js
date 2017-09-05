@@ -459,20 +459,31 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
             if (arrayBuffer.trim().substring(0,2).localeCompare("c0") === 0 && started === 0) {
                 console.error("valid data, starting new payload!");
-                if (arrayBuffer.substring(arrayBuffer.length -3, arrayBuffer.length -1).localeCompare("c0")) {
+                if (arrayBuffer.substring(arrayBuffer.length -3, arrayBuffer.length -1).localeCompare("c0") === 0) {
+                    console.error("got complete package!")
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer.trim() + '\n');
                 }
                 else {
+                    console.error("uncomplete package, storing!");
                     globArray = arrayBuffer.concat("");
-                    if (globArray.substring(globArray.length -3, globArray.length -1).localeCompare("c0")) {
+                    started = 1;
+                   
+                }
+            }
+            else if (started == 1){
+                console.error("concatenating!")
+                globArray = globArray.concat(arrayBuffer);
+                if (globArray.substring(globArray.length -3, globArray.length -1).localeCompare("c0") === 0) {
+                    console.error("package finished!");
+                    started = 0;
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/send", globArray.trim() + '\n');
                     globArray = "";
                 }
-                    
-                }
-            }
+                 
+                
+            }  
            
-            if (arrayBuffer) {
+   /*         if (arrayBuffer) {
                 var noErrorRes = '{"device":"senscape","error":false}';
                 if (arrayBuffer.trim() == noErrorRes){
                     passToServlet("true");
@@ -505,7 +516,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     }
                     */
                     
-                    var str = String.fromCharCode.apply(null, new Uint16Array(arrayBuffer));
+      /*              var str = String.fromCharCode.apply(null, new Uint16Array(arrayBuffer));
                     console.error("str: " + str);
                       var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
                       var bufView = new Uint16Array(buf);
@@ -521,7 +532,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         console.error(utf8.charcodeAt(i));
                     }
 */
-    str = arrayBuffer;
+/*    str = arrayBuffer;
     byteArray = [];
     for (var i = 0; i < str.length; i++)
         if (str.charCodeAt(i) <= 0x7F)
@@ -547,7 +558,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         
 
                 }
-            }
+            }*/
         },
         /**
          * User options are available in this property for reference by your
