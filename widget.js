@@ -451,7 +451,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         onRecvLine: function(data) {
             console.error("received!");
-            console.error(data.dataline.substring(0,2))
+            console.error(data.dataline.substring(0,2));
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", data.dataline.trim());
             var arrayBuffer = data.dataline;
             if (arrayBuffer) {
