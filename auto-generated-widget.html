@@ -525,13 +525,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     
                     var str = String.fromCharCode.apply(null, new Uint16Array(arrayBuffer));
                     console.error("str: " + str);
-  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-  var bufView = new Uint16Array(buf);
-  for (var i=0, strLen=str.length; i<strLen; i++) {
-    bufView[i] = str.charCodeAt(i);
-    console.error(bufView[i]);
-  }
-  console.error(buf);
+                      var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+                      var bufView = new Uint16Array(buf);
+                      for (var i=0, strLen=str.length; i<strLen; i++) {
+                        bufView[i] = str.charCodeAt(i);
+                        console.error(bufView[i]);
+                      }
+                      console.error(buf);
 
                   /*  var arr = [];
                     for (var i = 0; i < utf8.length; i++) {
@@ -539,6 +539,19 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         console.error(utf8.charcodeAt(i));
                     }
 */
+var str = arrayBuffer;
+    var byteArray = [];
+    for (var i = 0; i < str.length; i++)
+        if (str.charCodeAt(i) <= 0x7F)
+            byteArray.push(str.charCodeAt(i));
+        else {
+            var h = encodeURIComponent(str.charAt(i)).substr(1).split('%');
+            for (var j = 0; j < h.length; j++)
+                byteArray.push(parseInt(h[j], 16));
+        }
+    console.error("byteArray: " + byteArray);
+        
+
                 }
             }
         },
