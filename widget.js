@@ -482,6 +482,15 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         bytes[i] = binary_string.charCodeAt(i);
                         console.error(bytes[i]);
                     }
+                    
+                    var str = String.fromCharCode.apply(null, new Uint16Array(arrayBuffer));
+  var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
+  var bufView = new Uint16Array(buf);
+  for (var i=0, strLen=str.length; i<strLen; i++) {
+    bufView[i] = str.charCodeAt(i);
+    console.error(bufView[i]);
+  }
+  console.error(buf);
 
                   /*  var arr = [];
                     for (var i = 0; i < utf8.length; i++) {
