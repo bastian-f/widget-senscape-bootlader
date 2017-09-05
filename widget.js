@@ -463,6 +463,17 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         2000 /* show for 2 second */
                     );
                     console.error(data.dataline.toString());
+                    var arrayBuffer = data.dataline; // Note: not oReq.responseText
+                    if (arrayBuffer) {
+                        var byteArray = new Uint8Array(arrayBuffer);
+                        for (var i = 0; i < byteArray.byteLength; i++) {
+                            // do something with each byte in the array
+                            console.error(byteArray[i]);
+                            //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
+                        }
+                        var hexas = toHexString(byteArray);
+                        console.error(hexas);
+                    }
                 }
             }
         },
