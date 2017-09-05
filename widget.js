@@ -722,5 +722,5 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             );
         },
 
-    }
+    };
 });
