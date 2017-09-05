@@ -459,6 +459,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
             if (arrayBuffer.trim().substring(0,2).localeCompare("c0") === 0 && started === 0) {
                 console.error("valid data, starting new payload!");
+                console.error("last: " + arrayBuffer.substring(arrayBuffer.length -3, arrayBuffer.length -1));
                 if (arrayBuffer.substring(arrayBuffer.length -3, arrayBuffer.length -1).localeCompare("c0") === 0) {
                     console.error("got complete package!")
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer.trim() + '\n');
