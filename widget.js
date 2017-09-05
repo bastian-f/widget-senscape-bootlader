@@ -457,17 +457,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     passToServlet("true");
                 }
                 else {
-                    chilipeppr.publish(
-                        '/com-chilipeppr-elem-flashmsg/flashmsg',
-                        "Tomcat Server Status",
-                        "false",
-                        2000 /* show for 2 second */
-                    );
-                    console.error("type of arrayBuffer: " + typeof arrayBuffer)
-                    console.error(arrayBuffer.toString());
+                    console.error("type of arrayBuffer: " + typeof arrayBuffer);
+                    console.error("arrayBuffer: " + arrayBuffer.toString());
                      // Note: not oReq.responseText
                     var byteArray = new Uint8Array(arrayBuffer);
-                    console.error("length: " + byteArray.byteLength)
+                    console.error("length: " + byteArray.byteLength);
                     for (var i = 0; i < byteArray.byteLength; i++) {
                         // do something with each byte in the array
                         console.error(byteArray[i]);
