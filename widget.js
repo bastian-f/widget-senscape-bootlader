@@ -474,6 +474,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error("utf8: " + utf8);
                     var ints = parseInt(arrayBuffer, 2);
                     console.error(ints);
+                    
+                    var binary_string =  window.atob(arrayBuffer);
+                    var len = binary_string.length;
+                    var bytes = new Uint8Array( len );
+                    for (var i = 0; i < len; i++)        {
+                        bytes[i] = binary_string.charCodeAt(i);
+                        console.error(bytes[i]);
+                    }
 
                   /*  var arr = [];
                     for (var i = 0; i < utf8.length; i++) {
