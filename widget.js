@@ -87,15 +87,6 @@ function postServletRecString(sUrl, timeout, callback){
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
     };
- /*   xhr.onload = function() {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                callback.apply(xhr);
-            } else {
-                console.error(xhr.statusText);
-            }
-        }
-    };*/
     xhr.onload = function (oEvent) {
         console.error("response")
         console.error(xhr.response)
@@ -106,7 +97,6 @@ function postServletRecString(sUrl, timeout, callback){
     xhr.responseType = "test";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
-//    xhr.send('C045040A0000FF080123456789ABCDEFD08EC0');
     xhr.send('test');
 }
 
@@ -472,6 +462,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         "false",
                         2000 /* show for 2 second */
                     );
+                    console.error(data.dataline);
                 }
             }
         },
