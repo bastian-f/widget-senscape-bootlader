@@ -539,7 +539,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         console.error(utf8.charcodeAt(i));
                     }
 */
-var str = arrayBuffer;
+var str = utf8;
     var byteArray = [];
     for (var i = 0; i < str.length; i++)
         if (str.charCodeAt(i) <= 0x7F)
