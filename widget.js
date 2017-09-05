@@ -471,7 +471,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error(hexas);
                    
                     var utf8 = unescape(encodeURIComponent(arrayBuffer));
-                    console.error(utf8);
+                    console.error("utf8: " + utf8);
 
                     var arr = [];
                     for (var i = 0; i < utf8.length; i++) {
