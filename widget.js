@@ -489,7 +489,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error("arrayBuffer length: " + arrayBuffer.length);
                     console.error("pos c0: " + arrayBuffer.indexOf("c0"));
                     // Got only end of package
-                    if (arrayBuffer.indexOf("c0") == arrayBuffer.length -1) {
+                    if (arrayBuffer.indexOf("c0") == arrayBuffer.length -2) {
                 //    if (globArray.substring(globArray.length -2, globArray.length).localeCompare("c0") === 0) {
                         console.error("got package end, package finished!");
                         started = 0;
