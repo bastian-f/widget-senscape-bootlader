@@ -455,6 +455,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         onRecvLine: function(data) {
             console.error("received!");
+            var arrayBuffer = data.dataline.trim();
+            console.error("length: " + arrayBuffer.length);
+            console.error("data: " + arrayBuffer);
+            arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
+            console.error("length2: " + arrayBuffer.length);
+            console.error("data2: " + arrayBuffer);
+            
         /*    var arrayBuffer = data.dataline.trim();
             console.error("firstCs: " + arrayBuffer.trim().substring(0,2));
             console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
