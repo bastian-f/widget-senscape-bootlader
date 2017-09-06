@@ -473,7 +473,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 }
                 else {
                     console.error("uncomplete package, storing!");
-                    globArray = arrayBuffer.concat("");
+                    console.error("data: " + arrayBuffer.trim());
+                    globArray = arrayBuffer.trim().concat("");
                     started = 1;
                    
                 }
@@ -502,13 +503,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     // Got end of package and more data
                     else {
                         console.error("got package end and more!");
-                        
+                        console.error("data: " + arrayBuffer.trim());
                     }
                 }
                 // Got more data but not end of package
                 else {
                     console.error("got more data but no end of package, concatenating!");
-                    globArray = globArray.concat(arrayBuffer);
+                    globArray = globArray.concat(arrayBuffer.trim());
+                    console.error("data: " + arrayBuffer.trim());
 
                 }
                  
