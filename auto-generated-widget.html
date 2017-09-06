@@ -532,7 +532,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 //    if (globArray.substring(globArray.length -2, globArray.length).localeCompare("c0") === 0) {
                         console.error("got package end, package finished!");
                         started = 0;
-                        globArray = globArray.concat(arrayBuffer);
+                        globArray = globArray.concat(arrayBuffer.trim());
                         counter += 1;
                         console.error("counter: " + counter);
                         console.error("data: " + globArray.trim());
