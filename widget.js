@@ -455,18 +455,18 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         onRecvLine: function(data) {
             console.error("received!");
-            var arrayBuffer = data.dataline.trim();
+            var arrayBuffer = data.dataline;
             console.error("length: " + arrayBuffer.length);
             console.error("data: " + arrayBuffer);
             arrayBuffer = arrayBuffer.replace(/\n$/, "")
             console.error("length2: " + arrayBuffer.length);
             console.error("data2: " + arrayBuffer);
             
-        /*    var arrayBuffer = data.dataline.trim();
-            console.error("firstCs: " + arrayBuffer.trim().substring(0,2));
-            console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
+        //  var arrayBuffer = data.dataline.trim();
+            console.error("firstCs: " + arrayBuffer.substring(0,2));
+            console.error("compare: " + arrayBuffer.substring(0,2).localeCompare("c0"));
             // Starting a new package that begins with c0
-            if (arrayBuffer.trim().substring(0,2).localeCompare("c0") === 0 && started === 0) {
+            if (arrayBuffer.substring(0,2).localeCompare("c0") === 0 && started === 0) {
                 console.error("valid data, starting new payload!");
                 console.error("last: " + arrayBuffer.substring(arrayBuffer.length -2, arrayBuffer.length));
                 // Got complete package because length >= 4 and ends with c0
@@ -475,13 +475,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error("got complete package!");
                     counter += 1;
                     console.error("counter: " + counter);
-                    console.error("data: " + arrayBuffer.trim());
-                    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer.trim() + '\n');
+                    console.error("data: " + arrayBuffer);
+                    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer);
                 }
                 else {
                     console.error("uncomplete package, storing!");
-                    console.error("data: " + arrayBuffer.trim());
-                    globArray = arrayBuffer.trim().concat("");
+                    console.error("data: " + arrayBuffer);
+                    globArray = arrayBuffer.concat("");
                     started = 1;
                    
                 }
@@ -500,27 +500,27 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 //    if (globArray.substring(globArray.length -2, globArray.length).localeCompare("c0") === 0) {
                         console.error("got package end, package finished!");
                         started = 0;
-                        globArray = globArray.concat(arrayBuffer.trim());
+                        globArray = globArray.concat(arrayBuffer);
                         counter += 1;
                         console.error("counter: " + counter);
-                        console.error("data: " + globArray.trim());
-                        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", globArray.trim() + '\n');
+                        console.error("data: " + globArray);
+                        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", globArray);
                         globArray = "";
                     }
                     // Got end of package and more data
                     else {
                         console.error("got package end and more!");
-                        console.error("data: " + arrayBuffer.trim());
+                        console.error("data: " + arrayBuffer);
                     }
                 }
                 // Got more data but not end of package
                 else {
                     console.error("got more data but no end of package, concatenating!");
-                    globArray = globArray.concat(arrayBuffer.trim());
-                    console.error("data: " + arrayBuffer.trim());
+                    globArray = globArray.concat(arrayBuffer);
+                    console.error("data: " + arrayBuffer);
 
-                }*/
-                  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
+                }
+                 // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
                 
             }  
            
@@ -599,8 +599,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         
 
                 }
-            }
-        }*/,
+            }*/
+        },
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
