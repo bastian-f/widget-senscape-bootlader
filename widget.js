@@ -458,7 +458,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             var arrayBuffer = data.dataline;
             console.error("length: " + arrayBuffer.length);
             console.error("data: " + arrayBuffer);
-            arrayBuffer = arrayBuffer.replace(/\n$/, "")
+            //arrayBuffer = arrayBuffer.replace(/\n$/, "")
+            arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("length2: " + arrayBuffer.length);
             console.error("data2: " + arrayBuffer);
             
