@@ -5,6 +5,7 @@
 
 var started = 0;
 var globArray = "";
+var counter = 0;
 
 function toHexString(byteArray) {
   return Array.from(byteArray, function(byte) {
@@ -457,11 +458,17 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             var arrayBuffer = data.dataline.trim();
             console.error("firstCs: " + arrayBuffer.trim().substring(0,2));
             console.error("compare: " + arrayBuffer.trim().substring(0,2).localeCompare("c0"));
+            // Starting a new package that begins with c0
             if (arrayBuffer.trim().substring(0,2).localeCompare("c0") === 0 && started === 0) {
                 console.error("valid data, starting new payload!");
                 console.error("last: " + arrayBuffer.substring(arrayBuffer.length -2, arrayBuffer.length));
+                // Got complete package because length >= 4 and ends with c0
+                // TODO: case: receive a complete package and more
                 if (arrayBuffer.length >= 4 && arrayBuffer.substring(arrayBuffer.length -2, arrayBuffer.length).localeCompare("c0") === 0) {
                     console.error("got complete package!");
+                    counter += 1;
+                    console.error("counter: " + counter);
+                    console.error("data: " + arrayBuffer.trim());
                     chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer.trim() + '\n');
                 }
                 else {
@@ -471,25 +478,38 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                    
                 }
             }
+            // Package already started, receiving more data
             else if (started == 1){
                 console.error("concatenating!");
+                // Got end of package
                 if (arrayBuffer.includes("c0")) {
                     console.error("got package end!");
                  
                     console.error("arrayBuffer length: " + arrayBuffer.length);
                     console.error("pos c0: " + arrayBuffer.indexOf("c0"));
+                    // Got only end of package
                     if (arrayBuffer.indexOf("c0") == arrayBuffer.length -1) {
                 //    if (globArray.substring(globArray.length -2, globArray.length).localeCompare("c0") === 0) {
                         console.error("got package end, package finished!");
                         started = 0;
                         globArray = globArray.concat(arrayBuffer);
+                        counter += 1;
+                        console.error("counter: " + counter);
+                        console.error("data: " + globArray.trim());
                         chilipeppr.publish("/com-chilipeppr-widget-serialport/send", globArray.trim() + '\n');
                         globArray = "";
                     }
+                    // Got end of package and more data
                     else {
                         console.error("got package end and more!");
                         
                     }
+                }
+                // Got more data but not end of package
+                else {
+                    console.error("got more data but no end of package, concatenating!");
+                    globArray = globArray.concat(arrayBuffer);
+
                 }
                  
                 
