@@ -412,7 +412,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          */
         onMessageTestBtnClick: function(evt) {
         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
+            //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D0A080F1E2D3C4B5A69787B8FC0");
         },
         /**
          * onTomcatBtnClick is an example of a button click event callback
