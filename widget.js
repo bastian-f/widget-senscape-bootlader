@@ -415,6 +415,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D0A080F1E2D3C4B5A69787B8FC0");
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A0D080F1E2D3C4B5A69783CBAC0");
+            
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A00080F1E2D3C4B5A69780732C0");
         },
         /**
