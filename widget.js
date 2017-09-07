@@ -416,7 +416,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D0A080F1E2D3C4B5A69787B8FC0");
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A0D080F1E2D3C4B5A69783CBAC0");
             
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A00080F1E2D3C4B5A69780732C0");
+   //         chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A00080F1E2D3C4B5A69780732C0");
+            
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D00080F1E2D3C4B5A6978BA1BC0");
+            
+            
         },
         /**
          * onTomcatBtnClick is an example of a button click event callback
