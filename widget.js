@@ -468,8 +468,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("length2: " + arrayBuffer.length);
             console.error("data2: " + arrayBuffer);
-            postServletRecString(arrayBuffer, url, 20000, showMessage);
             var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
+            postServletRecString(arrayBuffer, url, 20000, showMessage);
+            
         //  var arrayBuffer = data.dataline.trim();
       /*      console.error("firstCs: " + arrayBuffer.substring(0,2));
             console.error("compare: " + arrayBuffer.substring(0,2).localeCompare("c0"));
