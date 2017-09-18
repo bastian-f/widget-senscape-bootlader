@@ -102,6 +102,7 @@ function postServletRecString(data, sUrl, timeout, callback){
     xhr.responseType = "text";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
+    console.error("data to send: " +data);
     xhr.send(data);
 }
 
