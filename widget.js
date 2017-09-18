@@ -86,7 +86,7 @@ function postServlet(sUrl, timeout, callback){
     xhr.send('test');
 }
 
-function postServletRecString(sUrl, timeout, callback){
+function postServletRecString(data, sUrl, timeout, callback){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
@@ -98,10 +98,10 @@ function postServletRecString(sUrl, timeout, callback){
         console.error("sending")
         chilipeppr.publish("/com-chilipeppr-widget-serialport/send", res);
     };
-    xhr.responseType = "test";
+    xhr.responseType = "text";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
-    xhr.send('test');
+    xhr.send(data);
 }
 
 function showMessage (sMsg) {
@@ -390,7 +390,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             );
         },
         /**
-         * onTomcatBtnClick is an example of a button click event callback
+         * onTomcatBtnClick shows status of the Tomcat server in a popup message
          */
         onTomcatBtnClick: function(evt) {
             console.log("saying hello 2 from btn in tab 1");
@@ -468,9 +468,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("length2: " + arrayBuffer.length);
             console.error("data2: " + arrayBuffer);
-            
+            postServletRecString(arrayBuffer, url, 20000, showMessage);
+            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
         //  var arrayBuffer = data.dataline.trim();
-            console.error("firstCs: " + arrayBuffer.substring(0,2));
+      /*      console.error("firstCs: " + arrayBuffer.substring(0,2));
             console.error("compare: " + arrayBuffer.substring(0,2).localeCompare("c0"));
             // Starting a new package that begins with c0
             if (arrayBuffer.substring(0,2).localeCompare("c0") === 0 && started === 0) {
