@@ -86,7 +86,7 @@ function postServlet(sUrl, timeout, callback){
     xhr.send('test');
 }
 
-function postServletRecString(data, sUrl, timeout, callback){
+function postServletRecString(sUrl, timeout, callback){
     console.error(sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
@@ -104,8 +104,9 @@ function postServletRecString(data, sUrl, timeout, callback){
     xhr.responseType = "text";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
-    console.error("data to send: " +data);
-    xhr.send(data);
+    var message = {"test": "data"};
+    console.error("data to send: " + message);
+    xhr.send(message);
 }
 
 function showMessage (sMsg) {
@@ -466,7 +467,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletTestBtnClick: function(evt) {
             var message = {"test": "data"};
             var url = "http://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
-            postServletRecString(message, url, 20000, showMessage);
+            postServletRecString(url, 20000, showMessage);
         },
         onRecvLine: function(data) {
             console.error("received!");
