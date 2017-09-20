@@ -87,6 +87,7 @@ function postServlet(sUrl, timeout, callback){
 }
 
 function postServletRecString(data, sUrl, timeout, callback){
+    console.error(sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
