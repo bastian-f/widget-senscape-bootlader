@@ -467,6 +467,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletTestBtnClick: function(evt) {
             var message = {"test": "data"};
             var url = "http://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+            console.error("url");
             postServletRecString(url, 20000, showMessage);
         },
         onRecvLine: function(data) {
