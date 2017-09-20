@@ -103,6 +103,7 @@ function postServletRecString(sUrl, timeout, callback){
     };
     
     xhr.responseType = "text";
+    xhr.withCredentials = true;
     xhr.open("POST", sUrl, true);
   //  xhr.setRequestHeader("Access-Control-Request-Headers", "X-HEADER_NAME_OF_YOUR_CHOOSE");
   //  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
