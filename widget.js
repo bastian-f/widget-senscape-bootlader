@@ -104,7 +104,8 @@ function postServletRecString(sUrl, timeout, callback){
     
     xhr.responseType = "text";
     xhr.open("POST", sUrl, true);
-    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.setRequestHeader("Access-Control-Request-Headers", "X-HEADER_NAME_OF_YOUR_CHOOSE");
+  //  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.timeout = timeout;
     var message = {"test": "data"};
     console.error("data to send: " + message);
