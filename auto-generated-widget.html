@@ -140,12 +140,13 @@ function postServletRecString(sUrl, timeout, callback){
          callback.apply(xhr);
        // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", res);
     };
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.responseType = "text";
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
     var message = {"test": "data"};
     console.error("data to send: " + message);
-    xhr.send(message);
+    xhr.send(JSON.stringify(message));
 }
 
 function showMessage (sMsg) {
