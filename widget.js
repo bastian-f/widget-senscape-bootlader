@@ -97,6 +97,7 @@ function postServletRecString(data, sUrl, timeout, callback){
         var res = xhr.responseText
         console.error("response text")
         console.error(res)
+         callback.apply(xhr);
        // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", res);
     };
     xhr.responseType = "text";
@@ -346,9 +347,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // It sends sends a message to the servlet, waits for the response and it is correct 
             // it sends a message to the node via the serial connection.
             // It turns a led off.
-            $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this))
+            $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this));
             
-            $('#' + this.id + ' .btn-servlet-slip-test').click(this.onServletSlipTestBtnClick.bind(this))
+            $('#' + this.id + ' .btn-servlet-slip-test').click(this.onServletSlipTestBtnClick.bind(this));
+            
+            $('#' + this.id + ' .btn-servlet-test').click(this.onServletTestBtnClick.bind(this));
 
         },
         isAlreadySubscribedToWsRecv: false,
@@ -458,6 +461,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onLedOnTestBtnClick: function(evt) {
             var ledOn = '{"device":"senscape","led":{"state":true}}';
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
+        },
+        onServletTestBtnClick: function(evt) {
+            var message = {"test": "data"};
+            var url = "http://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+            postServletRecString(message, url, 20000, showMessage);
         },
         onRecvLine: function(data) {
             console.error("received!");
