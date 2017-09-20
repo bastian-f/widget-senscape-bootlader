@@ -465,9 +465,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
         },
         onServletTestBtnClick: function(evt) {
+            console.error("Servlet Test");
             var message = {"test": "data"};
             var url = "http://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
-            console.error("url");
+            console.error("url: " + url);
             postServletRecString(url, 20000, showMessage);
         },
         onRecvLine: function(data) {
