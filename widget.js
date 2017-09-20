@@ -469,7 +469,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onServletTestBtnClick: function(evt) {
             console.error("Servlet Test");
             var message = {"test": "data"};
-            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+            //var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+            var url = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
             console.error("url: " + url);
             postServletRecString(url, 20000, showMessage);
         },
