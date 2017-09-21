@@ -14,6 +14,9 @@ var TIMEOUT = 20000;
 
 
 // For handling sending of http request sequentially
+// TODO use something more sophisticated
+// kue looks promising
+// check out this: https://wiredcraft.com/blog/parallel-sequential-job-queue-redis-kue/
 var queue = [];
 var busy = false;
 
