@@ -527,8 +527,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("length2: " + arrayBuffer.length);
             console.error("data2: " + arrayBuffer);
-          //  var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
-    //        postServletRecString(arrayBuffer, url, 20000, showMessage);
+            var url = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+            postServletRecString(arrayBuffer, url, 20000, showMessage);
             
         //  var arrayBuffer = data.dataline.trim();
       /*      console.error("firstCs: " + arrayBuffer.substring(0,2));
