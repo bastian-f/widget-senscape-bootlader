@@ -86,7 +86,7 @@ function postServlet(sUrl, timeout, callback){
     xhr.send('test');
 }
 
-function postServletRecString(sUrl, timeout, callback){
+function postServletRecString(data, sUrl, timeout, callback){
     console.error("URL: " + sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
@@ -103,6 +103,7 @@ function postServletRecString(sUrl, timeout, callback){
     };
     
     xhr.responseType = "text";
+    // Necessary to maintain session credentials using cross domain requests
     xhr.withCredentials = true;
     xhr.open("POST", sUrl, true);
   //  xhr.setRequestHeader("Access-Control-Request-Headers", "X-HEADER_NAME_OF_YOUR_CHOOSE");
@@ -110,7 +111,7 @@ function postServletRecString(sUrl, timeout, callback){
     xhr.timeout = timeout;
     var message = {"data": "test"};
     console.error("data to send: " + JSON.stringify(message));
-    xhr.send(JSON.stringify(message));
+    xhr.send(JSON.stringify(data));
 }
 
 function showMessage (sMsg) {
@@ -128,7 +129,7 @@ function showMessage (sMsg) {
     else if (res.trim() == "led=off"){
         ledOff();
     }
-    else*/ console.error("Invalid message!");
+   else*/ //console.error("Invalid message!");
 }
 
 requirejs.config({
@@ -474,7 +475,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             //var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
             var url = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
             console.error("url: " + url);
-            postServletRecString(url, 20000, showMessage);
+            postServletRecString(message, url, 20000, showMessage);
         },
         onRecvLine: function(data) {
             console.error("received!");
