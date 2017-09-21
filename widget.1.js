@@ -1,42 +1,3 @@
- <!DOCTYPE html>
-<html>
-
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-
-    <title>Widget / Senscape Bootloader</title>
-
-    <!-- ChiliPeppr is based on bootstrap CSS. -->
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-
-    <!-- Customized version of require.js for ChiliPeppr. Please see require.js docs for how
-    ChiliPeppr's dependency system works as it's based on require.js. -->
-    <script type='text/javascript' src="//i2dcui.appspot.com/js/require.js"></script>
-
-    <style type='text/css'>
-/* CSS for ChiliPeppr Widget */
-
-#com-senscape-widget-bootloader {
-   
-}
-
-#com-senscape-widget-bootloader .nav-tabs>li>a {
-    padding: 2px 6px;
-}
-
-#com-senscape-widget-bootloader .bootloader-buttons{
-    height:100px;
-    border:1px solid;
-    border-radius:4px;
-    padding:10px;
-    
-}
-
-
-    </style>
-
-    <script type='text/javascript'>
-    //<![CDATA[
 /* global requirejs cprequire cpdefine chilipeppr THREE */
 // Defining the globals above helps Cloud9 not show warnings for those variables
 
@@ -274,10 +235,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         id: "com-senscape-widget-bootloader", // Make the id the same as the cpdefine id
         name: "Widget / Senscape Bootloader", // The descriptive name of your widget.
         desc: "Widget to upload programs to Senscape Boards.", // A description of what your widget does
-        url: "http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
-        fiddleurl: "http://ide.c9.io/bastianf/widget-senscape-bootloader", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
-        githuburl: "http://github.com/bastian-f/widget-senscape-bootlader", // The backing github repo
-        testurl: "http://widget-senscape-bootloader-bastianf.c9users.io/widget.html",   // The standalone working widget so can view it working by itself
+        url: "(auto fill by runme.js)",       // The final URL of the working widget as a single HTML file with CSS and Javascript inlined. You can let runme.js auto fill this if you are using Cloud9.
+        fiddleurl: "(auto fill by runme.js)", // The edit URL. This can be auto-filled by runme.js in Cloud9 if you'd like, or just define it on your own to help people know where they can edit/fork your widget
+        githuburl: "(auto fill by runme.js)", // The backing github repo
+        testurl: "(auto fill by runme.js)",   // The standalone working widget so can view it working by itself
         /**
          * Define pubsub signals below. These are basically ChiliPeppr's event system.
          * ChiliPeppr uses amplify.js's pubsub system so please refer to docs at
@@ -862,59 +823,3 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
     };
 });
-    //]]>
-    </script>
-
-</head>
-
-<body>
-    <div id="com-senscape-widget-bootloader" class="panel panel-default">
-        <div class="panel-heading ">
-
-            <div class="btn-toolbar pull-right" role="toolbar">
-                <!--<div class="btn-group">-->
-                <!--    <button type="button" class="btn btn-xs btn-default btn-sayhello" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Say Hello" data-content="Generate a hello message">Say Hello-->
-                <!--    </button>-->
-                <!--</div>-->
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default hidebody"><span class="glyphicon glyphicon-chevron-up"></span>
-                    </button>
-                </div>
-                <div class="btn-group">
-                    <div class="dropdown">
-                        <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
-                    </div>
-                </div>
-            </div> <span class="panel-title" data-toggle="popover">Senscape Bootloader</span>
-
-        </div>
-        <div class="panel-body">
-
-            <div class="bootloader-buttons">
-                            <div id="drop-test-widget-instance">
-                <p class="sample">drop test goes here</p>
-            </div>
-                 <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default btn-inject" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Inject" data-content="Inject the chosen image file to the flash memory of your Senscape Board.">Inject
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default btn-reprogram" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Reprogram your Senscape Board.">Reprogram
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default btn-tomcat-test" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Reprogram your Senscape Board.">Tomcat Test
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default btn-message-test" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Reprogram your Senscape Board.">Message Test
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-xs btn-default btn-servlet-test" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Test servlet sending a test message.">Servlet Test
-                </div>
-            </div>
-
-        </div>
-    </div>
-</body>
-
-</html>
