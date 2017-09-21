@@ -120,7 +120,7 @@ function showMessage (sMsg) {
     console.error(jsonResponse.data.valid);
     chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
-        "Tomcat Server Status",
+        "Tomcat Server Response",
         this.responseText,
         2000 /* show for 2 second */
     );
