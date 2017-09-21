@@ -118,6 +118,7 @@ function showMessage (sMsg) {
     var jsonResponse = JSON.parse(this.responseText);
     console.error("valid");
     console.error(jsonResponse.data.valid);
+    if (jsonResponse.data.valid) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
     chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
         "Tomcat Server Response",
