@@ -155,7 +155,7 @@ function postServletRecString(data, sUrl, timeout, callback){
 
 function showMessage (sMsg) {
     var jsonResponse = JSON.parse(this.responseText);
-    console.eror("valid");
+    console.error("valid");
     console.error(jsonResponse.data.valid);
     chilipeppr.publish(
         '/com-chilipeppr-elem-flashmsg/flashmsg',
