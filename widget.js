@@ -110,7 +110,7 @@ function postServletRecString(data, sUrl, timeout, callback){
   //  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.timeout = timeout;
     var message = {"data": "test"};
-    console.error("data to send: " + JSON.stringify(message));
+    console.error("data to send: " + JSON.stringify(data));
     xhr.send(JSON.stringify(data));
 }
 
