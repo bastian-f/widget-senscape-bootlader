@@ -31,11 +31,9 @@ function postServletRecString(data, sUrl, timeout){
         if (jsonResponse.data.valid) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
         }
-        // TODO: do we need this?
-     //   callback.apply(xhr);
         if(queue.length) {
             // run the next queued item
-            postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT, showMessage);
+            postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT);
         } else {
             busy = false;
         }
@@ -50,15 +48,6 @@ function postServletRecString(data, sUrl, timeout){
     
 }
 
-
-function showMessage (sMsg) {
-    chilipeppr.publish(
-        '/com-chilipeppr-elem-flashmsg/flashmsg',
-        "Tomcat Server Response",
-        this.responseText,
-        2000 /* show for 2 second */
-    );
-}
 
 requirejs.config({
     /*
@@ -231,31 +220,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 trigger: "hover",
                 container: 'body'
             });
-            
-            // TODO: unil here!
-
-            // Init Say Hello Button on Main Toolbar
-            // We are inlining an anonymous method as the callback here
-            // as opposed to a full callback method in the Hello Word 2
-            // example further below. Notice we have to use "that" so 
-            // that the this is set correctly inside the anonymous method
-            $('#' + this.id + ' .btn-sayhello').click(function() {
-                console.log("saying hello");
-                // Make sure popover is immediately hidden
-                $('#' + that.id + ' .btn-sayhello').popover("hide");
-                // Show a flash msg
-                chilipeppr.publish(
-                    "/com-chilipeppr-elem-flashmsg/flashmsg",
-                    "Hello Title",
-                    "Hello World from widget " + that.id,
-                    1000
-                );
-            });
-
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
-            $('#' + this.id + ' .btn-helloworld2').click(this.onHelloBtnClick.bind(this));
              
             // This buttons tests the connection to the Tomcat server where the servlet is hosted.
             // It returns the status of the server.
@@ -265,28 +229,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
-            
-            // This button tests the serial connection sending a direct message to the node.
-            // It turns a led on.
-            $('#' + this.id + ' .btn-led-on-test').click(this.onLedOnTestBtnClick.bind(this));
-            
-            // This button tests the serial connection sending a direct message to the node.
-            // It turns a led off.
-            $('#' + this.id + ' .btn-led-off-test').click(this.onLedOffTestBtnClick.bind(this));
-            
-            // This button tests the connection to the node via the servlet on the tomcat server.
-            // It sends sends a message to the servlet, waits for the response and it is correct 
-            // it sends a message to the node via the serial connection.
-            // It turns a led on.
-            $('#' + this.id + ' .btn-servlet-led-on-test').click(this.onServletLedOnTestBtnClick.bind(this));
-            
-            // This button tests the connection to the node via the servlet on the tomcat server.
-            // It sends sends a message to the servlet, waits for the response and it is correct 
-            // it sends a message to the node via the serial connection.
-            // It turns a led off.
-            $('#' + this.id + ' .btn-servlet-led-off-test').click(this.onServletLedOffTestBtnClick.bind(this));
-            
-            $('#' + this.id + ' .btn-servlet-slip-test').click(this.onServletSlipTestBtnClick.bind(this));
             
             $('#' + this.id + ' .btn-servlet-test').click(this.onServletTestBtnClick.bind(this));
 
@@ -308,28 +250,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         if (this.portBoundTo && this.portBoundTo.Name && data.P && data.P == this.portBoundTo.Name) {
                             // this is our serial port data
                             var d = data.D;
-                            // convert newlines
-                            //console.log("data before replace:", d);
-                            //d.replace(/\r\n|\r|\n/gm, "<br/>");
-                            //var spd = $("<div/>").text(data.D);
-                            //console.log("data after replace:", d);
-                            console.error(d);
                         }
             //        }
                 });
             }
-},
-        /**
-         * onHelloBtnClick is an example of a button click event callback
-         */
-        onHelloBtnClick: function(evt) {
-            console.log("saying hello 2 from btn in tab 1");
-            chilipeppr.publish(
-                '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Hello 2 Title",
-                "Hello World 2 from Tab 1 from widget " + this.id,
-                2000 /* show for 2 second */
-            );
         },
         /**
          * onTomcatBtnClick shows status of the Tomcat server in a popup message
@@ -361,210 +285,25 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D00080F1E2D3C4B5A6978BA1BC0");
         },
         /**
-         * onTomcatBtnClick is an example of a button click event callback
+         * onServletTestBtnClick sends a test message to the servlet 
          */
-        onServletLedOnTestBtnClick: function(evt) {
-            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=on";
-            getServlet(url, 2000, showMessage);
-        },
-                /**
-         * onTomcatBtnClick is an example of a button click event callback
-         */
-        onServletSlipTestBtnClick: function(evt) {
-            
-            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink";
-            postServletRecString(url, 20000, showMessage);
-        },
-          /**
-         * onTomcatBtnClick is an example of a button click event callback
-         */
-        onServletLedOffTestBtnClick: function(evt) {
-            var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/led-blink/blink?led=off";
-            getServlet(url, 2000, showMessage);
-        },
-        /**
-         * onTomcatBtnClick is an example of a button click event callback
-         */
-        onLedOffTestBtnClick: function(evt) {
-              var that = this;
-
-                that.consoleSubscribeToLowLevelSerial();
-            var ledOff = '{"device":"senscape","led":{"state":false}}';
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOff + "\r\n");
-        },
-        /**
-         * onTomcatBtnClick is an example of a button click event callback
-         */
-        onLedOnTestBtnClick: function(evt) {
-            var ledOn = '{"device":"senscape","led":{"state":true}}';
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", ledOn + "\r\n");
-        },
         onServletTestBtnClick: function(evt) {
             console.error("Servlet Test");
             var message = {"data": "test"};
-            //var url = "https://chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
-            var url = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
-            console.error("url: " + url);
-            postServletRecString(message, url, 20000, showMessage);
+            postServletRecString(message, URL_SERVLET, 20000);
         },
         onRecvLine: function(data) {
             console.error("received!");
-         //    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
-        
             var arrayBuffer = data.dataline;
-            console.error("length: " + arrayBuffer.length);
-            console.error("data: " + arrayBuffer);
-            //arrayBuffer = arrayBuffer.replace(/\n$/, "")
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
-            console.error("length2: " + arrayBuffer.length);
-            console.error("data2: " + arrayBuffer);
+            console.error("data: " + arrayBuffer);
             if(busy) {
                 queue.push(arrayBuffer);
             }
             else {
                 busy = true;
-                postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT, showMessage);
+                postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
             }
-           // postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT, showMessage);
-            
-        //  var arrayBuffer = data.dataline.trim();
-      /*      console.error("firstCs: " + arrayBuffer.substring(0,2));
-            console.error("compare: " + arrayBuffer.substring(0,2).localeCompare("c0"));
-            // Starting a new package that begins with c0
-            if (arrayBuffer.substring(0,2).localeCompare("c0") === 0 && started === 0) {
-                console.error("valid data, starting new payload!");
-                console.error("last: " + arrayBuffer.substring(arrayBuffer.length -2, arrayBuffer.length));
-                // Got complete package because length >= 4 and ends with c0
-                // TODO: case: receive a complete package and more
-                if (arrayBuffer.length >= 4 && arrayBuffer.substring(arrayBuffer.length -2, arrayBuffer.length).localeCompare("c0") === 0) {
-                    console.error("got complete package!");
-                    counter += 1;
-                    console.error("counter: " + counter);
-                    console.error("data: " + arrayBuffer);
-                    chilipeppr.publish("/com-chilipeppr-widget-serialport/send", arrayBuffer);
-                }
-                else {
-                    console.error("uncomplete package, storing!");
-                    console.error("data: " + arrayBuffer);
-                    globArray = arrayBuffer.concat("");
-                    started = 1;
-                   
-                }
-            }
-            // Package already started, receiving more data
-            else if (started == 1){
-                console.error("concatenating!");
-                // Got end of package
-                if (arrayBuffer.includes("c0")) {
-                    console.error("got package end!");
-                 
-                    console.error("arrayBuffer length: " + arrayBuffer.length);
-                    console.error("pos c0: " + arrayBuffer.indexOf("c0"));
-                    // Got only end of package
-                    if (arrayBuffer.indexOf("c0") == arrayBuffer.length -2) {
-                //    if (globArray.substring(globArray.length -2, globArray.length).localeCompare("c0") === 0) {
-                        console.error("got package end, package finished!");
-                        started = 0;
-                        globArray = globArray.concat(arrayBuffer);
-                        counter += 1;
-                        console.error("counter: " + counter);
-                        console.error("data: " + globArray);
-                        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", globArray);
-                        globArray = "";
-                    }
-                    // Got end of package and more data
-                    else {
-                        console.error("got package end and more!");
-                        console.error("data: " + arrayBuffer);
-                    }
-                }
-                // Got more data but not end of package
-                else {
-                    console.error("got more data but no end of package, concatenating!");
-                    globArray = globArray.concat(arrayBuffer);
-                    console.error("data: " + arrayBuffer);
-
-                }
-                 // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
-                
-            }  
-           
-   /*         if (arrayBuffer) {
-                var noErrorRes = '{"device":"senscape","error":false}';
-                if (arrayBuffer.trim() == noErrorRes){
-                    passToServlet("true");
-                }
-                else {
-                    console.error("type of arrayBuffer: " + typeof arrayBuffer);
-                    console.error("arrayBuffer: " + arrayBuffer.toString());
-                     // Note: not oReq.responseText
-                    var byteArray = new Uint8Array(arrayBuffer);
-                    console.error("length: " + byteArray.byteLength);
-                    for (var i = 0; i < byteArray.byteLength; i++) {
-                        // do something with each byte in the array
-                        console.error(byteArray[i]);
-                        //  chilipeppr.publish("/com-chilipeppr-widget-serialport/send", byteArray[i]);
-                    }
-                    var hexas = toHexString(byteArray);
-                    console.error(hexas);
-                   
-                    var utf8 = unescape(encodeURIComponent(arrayBuffer));
-                    console.error("utf8: " + utf8);
-                    var ints = parseInt(arrayBuffer, 2);
-                    console.error(ints);
-                    
-              /*      var binary_string =  window.atob(arrayBuffer);
-                    var len = binary_string.length;
-                    var bytes = new Uint8Array( len );
-                    for (var i = 0; i < len; i++)        {
-                        bytes[i] = binary_string.charCodeAt(i);
-                        console.error(bytes[i]);
-                    }
-                    */
-                    
-      /*              var str = String.fromCharCode.apply(null, new Uint16Array(arrayBuffer));
-                    console.error("str: " + str);
-                      var buf = new ArrayBuffer(str.length*2); // 2 bytes for each char
-                      var bufView = new Uint16Array(buf);
-                      for (var i=0, strLen=str.length; i<strLen; i++) {
-                        bufView[i] = str.charCodeAt(i);
-                        console.error(bufView[i]);
-                      }
-                      console.error(buf);
-
-                  /*  var arr = [];
-                    for (var i = 0; i < utf8.length; i++) {
-                        arr.push(utf8.charCodeAt(i));
-                        console.error(utf8.charcodeAt(i));
-                    }
-*/
-/*    str = arrayBuffer;
-    byteArray = [];
-    for (var i = 0; i < str.length; i++)
-        if (str.charCodeAt(i) <= 0x7F)
-            byteArray.push(str.charCodeAt(i));
-        else {
-            var h = encodeURIComponent(str.charAt(i)).substr(1).split('%');
-            for (var j = 0; j < h.length; j++)
-                byteArray.push(parseInt(h[j], 16));
-        }
-    console.error("byteArray: " + byteArray);
-    
-    str = utf8;
-    byteArray = [];
-    for (var i = 0; i < str.length; i++)
-        if (str.charCodeAt(i) <= 0x7F)
-            byteArray.push(str.charCodeAt(i));
-        else {
-            h = encodeURIComponent(str.charAt(i)).substr(1).split('%');
-            for (var j = 0; j < h.length; j++)
-                byteArray.push(parseInt(h[j], 16));
-        }
-    console.error("byteArrayUtf8: " + byteArray);
-        
-
-                }
-            }*/
         },
         /**
          * User options are available in this property for reference by your
