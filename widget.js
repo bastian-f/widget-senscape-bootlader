@@ -47,6 +47,7 @@ function postServletRecString(data, sUrl, timeout){
     xhr.timeout = timeout;
     console.error("data to send: " + JSON.stringify(data));
     xhr.send(JSON.stringify(data));
+    
 }
 
 
