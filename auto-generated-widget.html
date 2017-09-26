@@ -55,7 +55,7 @@ var queue = [];
 var busy = false;
 
 
-function postServletRecString(data, sUrl, timeout, callback){
+function postServletRecString(data, sUrl, timeout){
     console.error("URL: " + sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
@@ -71,7 +71,7 @@ function postServletRecString(data, sUrl, timeout, callback){
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
         }
         // TODO: do we need this?
-        callback.apply(xhr);
+     //   callback.apply(xhr);
         if(queue.length) {
             // run the next queued item
             postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT, showMessage);
