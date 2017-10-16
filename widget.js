@@ -183,7 +183,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
             this.setupUiFromLocalStorage();
             this.btnSetup();
-         //   this.forkSetup();
+            this.forkSetup();
          //   this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
 
