@@ -24,6 +24,56 @@ var mimeTypes = {
   "css": "text/css"
 };
 
+var generateInlinedFile = function() {
+    // We are developing a widget with 3 main files of css, html, and js
+    // but ChiliPeppr really wants one monolithic file so we have to generate
+    // it to make things clean when chilipeppr.load() is called with a single
+    // URL to this widget. This file should get checked into Github and should
+    // be the file that is loaded by ChiliPeppr.
+    var fileCss = fs.readFileSync("widget.css").toString();
+    var fileHtml = fs.readFileSync("widget.html").toString();
+    var fileJs = widgetSrc; // fs.readFileSync("widget.js").toString();
+
+    // auto fill title if they're asking for it
+    if (widget) {
+        var re = /<title>[\s\r\n]*<!--\(auto-fill by runme\.js-->[\s\r\n]*<\/title>/i;
+        if (fileHtml.match(re)) {
+            fileHtml = fileHtml.replace(re, "<title>" + widget.name + "</title>");
+            console.log("Swapped in title for final HTML page.");
+        } else {
+            console.log('Went to swap in title, but the auto fill comment not found.');
+        }
+    } else {
+        console.log("Could not auto-fill title of HTML page because widget object not defined.");
+    }
+
+    // now inline css
+    var re = /<!-- widget.css[\s\S]*?end widget.css -->/i;
+    fileHtml = fileHtml.replace(re,
+        '<style type=\'text/css\'>\n' +
+        fileCss +
+        '\n    </style>'
+    );
+
+    // now inline javascript
+    var re = /<!-- widget.js[\s\S]*?end widget.js -->/i;
+    fileHtml = fileHtml.replace(re,
+        '<script type=\'text/javascript\'>\n' +
+        '    //<![CDATA[\n' +
+        fileJs +
+        '\n    //]]>\n    </script>'
+    );
+
+    // now write out the auto-gen file
+    fs.writeFileSync("auto-generated-widget.html", fileHtml);
+    console.log("Updated auto-generated-widget.html");
+
+}
+
+generateInlinedFile();
+
+
+
 http.createServer(function(req, res) {
 
   var uri = url.parse(req.url).pathname;
@@ -1435,51 +1485,7 @@ var forkYourOwnRepo = function() {
   */
 }
 
-var generateInlinedFile = function() {
-  // We are developing a widget with 3 main files of css, html, and js
-  // but ChiliPeppr really wants one monolithic file so we have to generate
-  // it to make things clean when chilipeppr.load() is called with a single
-  // URL to this widget. This file should get checked into Github and should
-  // be the file that is loaded by ChiliPeppr.
-  var fileCss = fs.readFileSync("widget.css").toString();
-  var fileHtml = fs.readFileSync("widget.html").toString();
-  var fileJs = widgetSrc; // fs.readFileSync("widget.js").toString();
 
-  // auto fill title if they're asking for it
-  if (widget) {
-    var re = /<title>[\s\r\n]*<!--\(auto-fill by runme\.js-->[\s\r\n]*<\/title>/i;
-    if (fileHtml.match(re)) {
-    fileHtml = fileHtml.replace(re, "<title>" + widget.name + "</title>");
-    console.log("Swapped in title for final HTML page.");
-    } else {
-      console.log('Went to swap in title, but the auto fill comment not found.');
-    }
-  } else {
-    console.log("Could not auto-fill title of HTML page because widget object not defined.");
-  }
-
-  // now inline css
-  var re = /<!-- widget.css[\s\S]*?end widget.css -->/i;
-  fileHtml = fileHtml.replace(re,
-    '<style type=\'text/css\'>\n' +
-    fileCss +
-    '\n    </style>'
-  );
-
-  // now inline javascript
-  var re = /<!-- widget.js[\s\S]*?end widget.js -->/i;
-  fileHtml = fileHtml.replace(re,
-    '<script type=\'text/javascript\'>\n' +
-    '    //<![CDATA[\n' +
-    fileJs +
-    '\n    //]]>\n    </script>'
-  );
-
-  // now write out the auto-gen file
-  fs.writeFileSync("auto-generated-widget.html", fileHtml);
-  console.log("Updated auto-generated-widget.html");
-
-}
 
 var getMainPage = function() {
   var html = "";
