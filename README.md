@@ -15,9 +15,9 @@ not conflict with other ChiliPeppr widgets.
 | Name                  | Widget / Senscape Bootloader |
 | Description           | Widget to upload programs to Senscape Boards. |
 | chilipeppr.load() URL | http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html |
-| Edit URL              | http://ide.c9.io/bastianf/widget-senscape-bootloader |
+| Edit URL              | http://ide.c9.io/undefined/undefined |
 | Github URL            | http://github.com/bastian-f/widget-senscape-bootlader |
-| Test URL              | https://preview.c9users.io/bastianf/widget-senscape-bootloader/widget.html |
+| Test URL              | https://preview.c9users.io/undefined/undefined/widget.html |
 
 ## Example Code for chilipeppr.load() Statement
 
@@ -132,13 +132,13 @@ The table below shows, in order, the methods and properties inside the widget/el
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>id</td><td>string</td><td>"com-senscape-widget-bootloader"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / Senscape Bootloader"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"Widget to upload programs to Senscape Boards."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/bastianf/widget-senscape-bootloader"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"http://github.com/bastian-f/widget-senscape-bootlader"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://widget-senscape-bootloader-bastianf.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
+      <tr valign="top"><td>id</td><td>string</td><td>"com-senscape-widget-bootloader"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / Senscape Bootloader"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"Widget to upload programs to Senscape Boards."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/undefined/undefined"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"http://github.com/bastian-f/widget-senscape-bootlader"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://undefined-undefined.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>subscribe</td><td>object</td><td>Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>foreignPublish</td><td>object</td><td>Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgets
 or elements, that this widget/element publishes to.</td></tr><tr valign="top"><td>foreignSubscribe</td><td>object</td><td>Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgets
 or elements, that this widget/element subscribes to.</td></tr><tr valign="top"><td>init</td><td>function</td><td>function () <br><br>All widgets should have an init method. It should be run by the
 instantiating code like a workspace or a different widget.</td></tr><tr valign="top"><td>btnSetup</td><td>function</td><td>function () <br><br>Call this method from init to setup all the buttons when this widget
-is first loaded. This basically attaches click events to your 
+is first loaded. This basically attaches click events to your
 buttons. It also turns on all the bootstrap popovers by scanning
 the entire DOM of the widget.</td></tr><tr valign="top"><td>isAlreadySubscribedToWsRecv</td><td>boolean</td><td></td></tr><tr valign="top"><td>consoleSubscribeToLowLevelSerial</td><td>function</td><td>function () </td></tr><tr valign="top"><td>onTomcatBtnClick</td><td>function</td><td>function (evt) <br><br>onTomcatBtnClick shows status of the Tomcat server in a popup message</td></tr><tr valign="top"><td>onMessageTestBtnClick</td><td>function</td><td>function (evt) <br><br>onMessageTestBtnClick sends a binary test message to the Senscape Board</td></tr><tr valign="top"><td>onServletTestBtnClick</td><td>function</td><td>function (evt) <br><br>onServletTestBtnClick sends a test message to the servlet</td></tr><tr valign="top"><td>onRecvLine</td><td>function</td><td>function (data) </td></tr><tr valign="top"><td>options</td><td>object</td><td>User options are available in this property for reference by your
 methods. If any change is made on these options, please call
@@ -147,16 +147,16 @@ stored settings from localStorage and then adjust the UI to reflect
 what the user wants.</td></tr><tr valign="top"><td>saveOptionsLocalStorage</td><td>function</td><td>function () <br><br>When a user changes a value that is stored as an option setting, you
 should call this method immediately so that on next load the value
 is correctly set.</td></tr><tr valign="top"><td>showBody</td><td>function</td><td>function (evt) <br><br>Show the body of the panel.
-<br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we 
-know it was clicked by the user and thus we store it for the next 
-load so we can reset the user's preference. If you don't pass this 
-value in we don't store the preference because it was likely code 
+<br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we
+know it was clicked by the user and thus we store it for the next
+load so we can reset the user's preference. If you don't pass this
+value in we don't store the preference because it was likely code
 that sent in the param.</td></tr><tr valign="top"><td>hideBody</td><td>function</td><td>function (evt) <br><br>Hide the body of the panel.
-<br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we 
-know it was clicked by the user and thus we store it for the next 
-load so we can reset the user's preference. If you don't pass this 
-value in we don't store the preference because it was likely code 
-that sent in the param.</td></tr><tr valign="top"><td>forkSetup</td><td>function</td><td>function () <br><br>This method loads the pubsubviewer widget which attaches to our 
+<br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we
+know it was clicked by the user and thus we store it for the next
+load so we can reset the user's preference. If you don't pass this
+value in we don't store the preference because it was likely code
+that sent in the param.</td></tr><tr valign="top"><td>forkSetup</td><td>function</td><td>function () <br><br>This method loads the pubsubviewer widget which attaches to our
 upper right corner triangle menu and generates 3 menu items like
 Pubsub Viewer, View Standalone, and Fork Widget. It also enables
 the modal dialog that shows the documentation for this widget.<br><br>By using chilipeppr.load() we can ensure that the pubsubviewer widget

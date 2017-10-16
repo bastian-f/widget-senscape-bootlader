@@ -264,7 +264,7 @@ String.prototype.regexIndexOf = function(regex, startpos) {
 
 var widgetSrc, widget, id, deps, cpdefine, requirejs, cprequire_test;
 var widgetDocs = {};
-generateInlinedFile();
+
 
 /**
  * This method will actually eval your widget.js to bring it into memory
@@ -1563,3 +1563,6 @@ var getGithubUrl = function(callback) {
   return ret;
     
 }
+
+generateWidgetReadme();
+generateInlinedFile();
