@@ -45,7 +45,7 @@ function postServletRecString(data, sUrl, timeout){
     xhr.timeout = timeout;
     console.error("data to send: " + JSON.stringify(data));
     xhr.send(JSON.stringify(data));
-    
+
 }
 
 
@@ -143,7 +143,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          */
         publish: {
             // Define a key:value pair here as strings to document what signals you publish.
-           // '/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
+            // '/onExampleGenerate': 'Example: Publish this signal when we go to generate gcode.'
         },
         /**
          * Define the subscribe signals that this widget/element owns or defines so that
@@ -171,7 +171,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Define a key:value pair here as strings to document what signals you subscribe to
             // that are owned by foreign/other widgets.
             // '/com-chilipeppr-elem-dragdrop/ondropped': 'Example: We subscribe to this signal at a higher priority to intercept the signal. We do not let it propagate by returning false.'
-                  //       '/com-chilipeppr-widget-serialport/recvline': "(High-level mode) When in high-level mode, i.e. setSinglePortMode(), this is the signal we receive incoming serial data on. This signal sends us data in a per-line format so we do not have to piece the data together like we do in low-level mode.",
+            //       '/com-chilipeppr-widget-serialport/recvline': "(High-level mode) When in high-level mode, i.e. setSinglePortMode(), this is the signal we receive incoming serial data on. This signal sends us data in a per-line format so we do not have to piece the data together like we do in low-level mode.",
 
         },
         /**
@@ -191,7 +191,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         /**
          * Call this method from init to setup all the buttons when this widget
-         * is first loaded. This basically attaches click events to your 
+         * is first loaded. This basically attaches click events to your
          * buttons. It also turns on all the bootstrap popovers by scanning
          * the entire DOM of the widget.
          */
@@ -220,16 +220,16 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 trigger: "hover",
                 container: 'body'
             });
-             
+
             // This buttons tests the connection to the Tomcat server where the servlet is hosted.
             // It returns the status of the server.
             $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
-            
+
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
-            
+
             $('#' + this.id + ' .btn-servlet-test').click(this.onServletTestBtnClick.bind(this));
 
         },
@@ -241,17 +241,17 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             } else {
                 this.isAlreadySubscribedToWsRecv = true;
                 chilipeppr.subscribe("/com-chilipeppr-widget-serialport/ws/recv", this, function(msg) {
-            
+
                     // make sure the data is for the port we're bound to
-            //        if (msg.match(/^\{/)) {
-                        // it's json
-                        //console.log("it is json");
-                        var data = $.parseJSON(msg);
-                        if (this.portBoundTo && this.portBoundTo.Name && data.P && data.P == this.portBoundTo.Name) {
-                            // this is our serial port data
-                            var d = data.D;
-                        }
-            //        }
+                    //        if (msg.match(/^\{/)) {
+                    // it's json
+                    //console.log("it is json");
+                    var data = $.parseJSON(msg);
+                    if (this.portBoundTo && this.portBoundTo.Name && data.P && data.P == this.portBoundTo.Name) {
+                        // this is our serial port data
+                        var d = data.D;
+                    }
+                    //        }
                 });
             }
         },
@@ -285,7 +285,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D00080F1E2D3C4B5A6978BA1BC0");
         },
         /**
-         * onServletTestBtnClick sends a test message to the servlet 
+         * onServletTestBtnClick sends a test message to the servlet
          */
         onServletTestBtnClick: function(evt) {
             console.error("Servlet Test");
@@ -370,10 +370,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         /**
          * Show the body of the panel.
-         * @param {jquery_event} evt - If you pass the event parameter in, we 
-         * know it was clicked by the user and thus we store it for the next 
-         * load so we can reset the user's preference. If you don't pass this 
-         * value in we don't store the preference because it was likely code 
+         * @param {jquery_event} evt - If you pass the event parameter in, we
+         * know it was clicked by the user and thus we store it for the next
+         * load so we can reset the user's preference. If you don't pass this
+         * value in we don't store the preference because it was likely code
          * that sent in the param.
          */
         showBody: function(evt) {
@@ -391,10 +391,10 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         },
         /**
          * Hide the body of the panel.
-         * @param {jquery_event} evt - If you pass the event parameter in, we 
-         * know it was clicked by the user and thus we store it for the next 
-         * load so we can reset the user's preference. If you don't pass this 
-         * value in we don't store the preference because it was likely code 
+         * @param {jquery_event} evt - If you pass the event parameter in, we
+         * know it was clicked by the user and thus we store it for the next
+         * load so we can reset the user's preference. If you don't pass this
+         * value in we don't store the preference because it was likely code
          * that sent in the param.
          */
         hideBody: function(evt) {
@@ -411,11 +411,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             $(window).trigger("resize");
         },
         /**
-         * This method loads the pubsubviewer widget which attaches to our 
+         * This method loads the pubsubviewer widget which attaches to our
          * upper right corner triangle menu and generates 3 menu items like
          * Pubsub Viewer, View Standalone, and Fork Widget. It also enables
          * the modal dialog that shows the documentation for this widget.
-         * 
+         *
          * By using chilipeppr.load() we can ensure that the pubsubviewer widget
          * is only loaded and inlined once into the final ChiliPeppr workspace.
          * We are given back a reference to the instantiated singleton so its
@@ -444,7 +444,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             });
 
         },
-                        /**
+        /**
          * Load Senscape Bootloader Wedget via chilipeppr.load()
          */
         loadDropTestWidget: function(callback) {
@@ -452,8 +452,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 "#drop-test-widget-instance",
                 "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
                 function() {
-                // Callback after widget loaded into #myDivElemDragdrop
-                // Now use require.js to get reference to instantiated widget
+                    // Callback after widget loaded into #myDivElemDragdrop
+                    // Now use require.js to get reference to instantiated widget
                     cprequire(
                         ["inline:com-chilipeppr-elem-dragdrop"], // the id you gave your widget
                         function(myObjElemDragdrop) {
