@@ -447,7 +447,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         /**
          * Load Senscape Bootloader Wedget via chilipeppr.load()
          */
-        loadDropTestWidget: function(callback) {
+     /*   loadDropTestWidget: function(callback) {
             chilipeppr.load(
                 "#drop-test-widget-instance",
                 "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
@@ -464,7 +464,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     );
                 }
             );
-        },
+        },*/
 
     };
 });
