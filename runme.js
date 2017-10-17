@@ -1556,3 +1556,6 @@ var getGithubUrl = function(callback) {
   return ret;
     
 }
+
+generateWidgetReadme();
+generateInlinedFile();

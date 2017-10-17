@@ -15,9 +15,9 @@ not conflict with other ChiliPeppr widgets.
 | Name                  | Widget / Senscape Bootloader |
 | Description           | Widget to upload programs to Senscape Boards. |
 | chilipeppr.load() URL | http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html |
-| Edit URL              | http://ide.c9.io/bastianf/widget-senscape-bootloader |
+| Edit URL              | http://ide.c9.io/undefined/undefined |
 | Github URL            | http://github.com/bastian-f/widget-senscape-bootlader |
-| Test URL              | https://preview.c9users.io/bastianf/widget-senscape-bootloader/widget.html |
+| Test URL              | https://preview.c9users.io/undefined/undefined/widget.html |
 
 ## Example Code for chilipeppr.load() Statement
 
@@ -132,7 +132,7 @@ The table below shows, in order, the methods and properties inside the widget/el
           </tr>
       </thead>
       <tbody>
-      <tr valign="top"><td>id</td><td>string</td><td>"com-senscape-widget-bootloader"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / Senscape Bootloader"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"Widget to upload programs to Senscape Boards."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/bastianf/widget-senscape-bootloader"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"http://github.com/bastian-f/widget-senscape-bootlader"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://widget-senscape-bootloader-bastianf.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
+      <tr valign="top"><td>id</td><td>string</td><td>"com-senscape-widget-bootloader"<br><br>The ID of the widget. You must define this and make it unique.</td></tr><tr valign="top"><td>name</td><td>string</td><td>"Widget / Senscape Bootloader"</td></tr><tr valign="top"><td>desc</td><td>string</td><td>"Widget to upload programs to Senscape Boards."</td></tr><tr valign="top"><td>url</td><td>string</td><td>"http://raw.githubusercontent.com/bastian-f/widget-senscape-bootlader/master/auto-generated-widget.html"</td></tr><tr valign="top"><td>fiddleurl</td><td>string</td><td>"http://ide.c9.io/undefined/undefined"</td></tr><tr valign="top"><td>githuburl</td><td>string</td><td>"http://github.com/bastian-f/widget-senscape-bootlader"</td></tr><tr valign="top"><td>testurl</td><td>string</td><td>"http://undefined-undefined.c9users.io/widget.html"</td></tr><tr valign="top"><td>publish</td><td>object</td><td>Please see docs above.<br><br>Define the publish signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>subscribe</td><td>object</td><td>Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>foreignPublish</td><td>object</td><td>Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgets
 or elements, that this widget/element publishes to.</td></tr><tr valign="top"><td>foreignSubscribe</td><td>object</td><td>Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgets
