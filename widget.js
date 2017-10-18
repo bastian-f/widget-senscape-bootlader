@@ -300,7 +300,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 } else {
                     width++;
                     elem.style.width = width + '%';
-                    elem.innerHTML = width * 1 + '%';
+                    elem.innerHTML = width + '%';
                 }
             }
         },
