@@ -16,15 +16,13 @@
 
 .progress {
     background-color:#ddd;
-    display:inline-block;
-   /* float:left; */
+   float:left;
     /*padding-left:10px;*/
 }
 
 
 .btn-group {
-    /* float:left; */
-    display:inline-block;
+    float:left;
     margin:0px 4px 0px 0px;
 }
 
