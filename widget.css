@@ -16,11 +16,14 @@
 .progress {
     background-color:#ddd;
     width:30%;
-    display: inline-block;
+    float:left;
 }
 
 .btn-group {
-    display: inline-block;
-    vertical-align:top;
+    float:left;
+}
+
+.panel-body {
+    overflow: hidden; /* add this to contain floated children */
 }
 
