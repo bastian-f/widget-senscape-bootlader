@@ -16,5 +16,6 @@
 .progress {
     background-color:#ddd;
     width:30%;
+    display: inline-block;
 }
 
