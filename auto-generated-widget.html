@@ -344,19 +344,20 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function move(evt) {
-        var elem = document.getElementById("progbar");
-        var width = 10;
-        var id = setInterval(frame, 10);
-        function frame() {
-            if (width >= 100) {
-                clearInterval(id);
-            } else {
-                width++;
-                elem.style.width = width + '%';
-                //elem.innerHTML = width * 1 + '%';
+            console.error("reprogram");
+            var elem = document.getElementById("progbar");
+            var width = 10;
+            var id = setInterval(frame, 10);
+            function frame() {
+                if (width >= 100) {
+                    clearInterval(id);
+                } else {
+                    width++;
+                    elem.style.width = width + '%';
+                    //elem.innerHTML = width * 1 + '%';
+                }
             }
-        }
-    },
+        },
     /**
          * onServletTestBtnClick sends a test message to the servlet 
          */
