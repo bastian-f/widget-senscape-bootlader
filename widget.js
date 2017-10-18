@@ -289,7 +289,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         /**
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
-        onReprogramBtnClick: function move(evt) {
+        onReprogramBtnClick: function (evt) {
             console.error("reprogram");
             var elem = document.getElementById("progbar");
             var width = 10;
