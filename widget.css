@@ -13,16 +13,9 @@
     
 }
 
-.progress, .btn-group {
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
-
 
 .progress {
     background-color:#ddd;
-    width:20%;
     display:inline-block;
    /* float:left; */
     /*padding-left:10px;*/
