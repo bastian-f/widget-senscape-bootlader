@@ -21,5 +21,6 @@
 
 .btn-group {
     display: inline-block;
+    vertical-align:top;
 }
 
