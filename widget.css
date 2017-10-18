@@ -29,7 +29,7 @@
 }
 
 .panel-body {
-   /* overflow: hidden; /* add this to contain floated children */
+    overflow: hidden; /* add this to contain floated children */
 }
 
 
