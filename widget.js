@@ -285,6 +285,23 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D00080F1E2D3C4B5A6978BA1BC0");
         },
         /**
+         * onMessageTestBtnClick sends a binary test message to the Senscape Board
+         */
+        onMessageTestBtnClick: function move(evt) {
+        var elem = document.getElementById("progbar");
+        var width = 10;
+        var id = setInterval(frame, 10);
+        function frame() {
+            if (width >= 100) {
+                clearInterval(id);
+            } else {
+                width++;
+                elem.style.width = width + '%';
+                //elem.innerHTML = width * 1 + '%';
+            }
+        }
+    },
+    /**
          * onServletTestBtnClick sends a test message to the servlet 
          */
         onServletTestBtnClick: function(evt) {
