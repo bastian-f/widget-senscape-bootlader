@@ -232,6 +232,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             
             $('#' + this.id + ' .btn-servlet-test').click(this.onServletTestBtnClick.bind(this));
 
+            $('#' + this.id + ' .btn-reprogram').click(this.onReprogramBtnClick.bind(this));
+
         },
         isAlreadySubscribedToWsRecv: false,
         consoleSubscribeToLowLevelSerial: function() {
@@ -287,7 +289,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         /**
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
-        onMessageTestBtnClick: function move(evt) {
+        onReprogramBtnClick: function move(evt) {
         var elem = document.getElementById("progbar");
         var width = 10;
         var id = setInterval(frame, 10);
