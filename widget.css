@@ -17,7 +17,7 @@
 
 .progress {
     background-color:#ddd;
-    width:60%;
+    width:auto;
     float:left;
     /*padding-left:10px;*/
 }
