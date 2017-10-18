@@ -292,7 +292,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onReprogramBtnClick: function (evt) {
             console.error("reprogram");
             var elem = document.getElementById("progbar");
-            var width = 10;
+            var width = 0;
             var id = setInterval(frame, 10);
             function frame() {
                 if (width >= 100) {
