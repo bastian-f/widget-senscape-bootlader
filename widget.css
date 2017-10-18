@@ -25,7 +25,7 @@
     background-color:#ddd;
     width:30%;
     float:left;
-    padding-left:10px;
+    /*padding-left:10px;*/
 }
 
 #wrapper {
@@ -35,7 +35,7 @@
 
 .btn-group {
     float:left;
-    margin:10px 10px 10px 10px;
+    margin:0px 4px 0px 0px;
 }
 
 .panel-body {
