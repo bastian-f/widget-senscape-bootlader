@@ -27,13 +27,18 @@
     float:left;
 }
 
+#wrapper {
+    width: 100%;
+    border: 1px solid black;
+}
+
 .btn-group {
     float:left;
     marign:4px 4px 4px 4px:
 }
 
 .panel-body {
-    overflow: hidden; /* add this to contain floated children */
+   /* overflow: hidden; /* add this to contain floated children */
 }
 
 .btn-group, .progress{
