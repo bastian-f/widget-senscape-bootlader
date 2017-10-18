@@ -23,7 +23,7 @@
 
 .progress {
     background-color:#ddd;
-    width:30%;
+    width:60%;
     float:left;
     /*padding-left:10px;*/
 }
@@ -34,6 +34,7 @@
 }
 
 .btn-group {
+    width:10%;
     float:left;
     margin:0px 4px 0px 0px;
 }
