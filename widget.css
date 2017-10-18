@@ -13,6 +13,14 @@
     
 }
 
+.clearfix:after {
+    content: " ";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}
+
 .progress {
     background-color:#ddd;
     width:30%;
@@ -21,10 +29,16 @@
 
 .btn-group {
     float:left;
-    marign-right:4px:
+    marign:4px 4px 4px 4px:
 }
 
 .panel-body {
     overflow: hidden; /* add this to contain floated children */
+}
+
+.btn-group, .progress{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
