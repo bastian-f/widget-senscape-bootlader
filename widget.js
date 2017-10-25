@@ -4,7 +4,9 @@
 // ChiliPeppr Widget/Element Javascript
 
 // Constants
-var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+// var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
+
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
 var TIMEOUT = 20000;
 
