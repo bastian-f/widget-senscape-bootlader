@@ -59,7 +59,7 @@ function getServletRecString(sUrl, timeout){
         console.error("response text");
         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse);
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
        // console.error("valid");
        // console.error(jsonResponse.data.valid);
     };
