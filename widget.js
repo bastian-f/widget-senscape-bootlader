@@ -59,8 +59,9 @@ function getServletRecString(sUrl, timeout){
         console.error("response text");
         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-        console.error("valid");
-        console.error(jsonResponse.data.valid);
+        chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse);
+       // console.error("valid");
+       // console.error(jsonResponse.data.valid);
     };
     xhr.responseType = "text";
     // Necessary to maintain session credentials using cross domain requests
