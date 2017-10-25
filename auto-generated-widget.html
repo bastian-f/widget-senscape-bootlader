@@ -103,7 +103,7 @@ function postServletRecString(data, sUrl, timeout){
     
 }
 
-function getServletRecString(data, sUrl, timeout){
+function getServletRecString(sUrl, timeout){
     console.error("URL: " + sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
