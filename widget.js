@@ -5,6 +5,7 @@
 
 // Constants
 var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
+var URL_PING = "//127.0.0.1:8081/SenschiliServlet/packet";
 var TIMEOUT = 20000;
 
 
@@ -46,6 +47,28 @@ function postServletRecString(data, sUrl, timeout){
     console.error("data to send: " + JSON.stringify(data));
     xhr.send(JSON.stringify(data));
     
+}
+
+function getServletRecString(data, sUrl, timeout){
+    console.error("URL: " + sUrl);
+    var xhr = new XMLHttpRequest();
+    xhr.ontimeout = function () {
+        console.error("The request for " + sUrl + " timed out.");
+    };
+    xhr.onload = function (oEvent) {
+        console.error("response text");
+        console.error(xhr.responseText);
+        var jsonResponse = JSON.parse(xhr.responseText);
+        console.error("valid");
+        console.error(jsonResponse.data.valid);
+    };
+    xhr.responseType = "text";
+    // Necessary to maintain session credentials using cross domain requests
+    xhr.withCredentials = true;
+    xhr.open("GET", sUrl, true);
+    xhr.timeout = timeout;
+    xhr.send();
+
 }
 
 
@@ -234,6 +257,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
             $('#' + this.id + ' .btn-reprogram').click(this.onReprogramBtnClick.bind(this));
 
+            $('#' + this.id + ' .btn-ping').click(this.onPingBtnClick.bind(this));
+
         },
         isAlreadySubscribedToWsRecv: false,
         consoleSubscribeToLowLevelSerial: function() {
@@ -311,6 +336,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             console.error("Servlet Test");
             var message = {"data": "test"};
             postServletRecString(message, URL_SERVLET, 20000);
+        },
+        /**
+         * onPingBtnClick sends a test message to the servlet
+         */
+        onPingBtnClick: function(evt) {
+            console.error("Servlet Test");
+            var message = {"data": "test"};
+            getServletRecString(URL_PING, 20000);
         },
         onRecvLine: function(data) {
             console.error("received!");
