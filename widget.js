@@ -36,6 +36,9 @@ function postServletRecString(data, sUrl, timeout){
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
         }
+        else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
+            console.error("Packet not valid.");
+        }
         else console.error("Got rRESULT!: "  + jsonResponse.data.error);
         if(queue.length) {
             // run the next queued item
