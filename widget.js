@@ -216,7 +216,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             this.setupUiFromLocalStorage();
             this.btnSetup();
          //   this.forkSetup();
-            this.loadDropTestWidget();
+           // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
 
             console.log("I am done being initted.");
@@ -472,7 +472,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // themselves since this widget is now taking up less room since it's hiding
             $(window).trigger("resize");
         },
-  
+
 
     };
 });
