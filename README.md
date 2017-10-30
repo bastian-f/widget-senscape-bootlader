@@ -156,15 +156,7 @@ that sent in the param.</td></tr><tr valign="top"><td>hideBody</td><td>function<
 know it was clicked by the user and thus we store it for the next 
 load so we can reset the user's preference. If you don't pass this 
 value in we don't store the preference because it was likely code 
-that sent in the param.</td></tr><tr valign="top"><td>forkSetup</td><td>function</td><td>function () <br><br>This method loads the pubsubviewer widget which attaches to our 
-upper right corner triangle menu and generates 3 menu items like
-Pubsub Viewer, View Standalone, and Fork Widget. It also enables
-the modal dialog that shows the documentation for this widget.<br><br>By using chilipeppr.load() we can ensure that the pubsubviewer widget
-is only loaded and inlined once into the final ChiliPeppr workspace.
-We are given back a reference to the instantiated singleton so its
-not instantiated more than once. Then we call it's attachTo method
-which creates the full pulldown menu for us and attaches the click
-events.</td></tr><tr valign="top"><td>loadDropTestWidget</td><td>function</td><td>function (callback) <br><br>Load Senscape Bootloader Wedget via chilipeppr.load()</td></tr>
+that sent in the param.</td></tr>
       </tbody>
   </table>
 
