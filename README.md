@@ -156,7 +156,7 @@ that sent in the param.</td></tr><tr valign="top"><td>hideBody</td><td>function<
 know it was clicked by the user and thus we store it for the next 
 load so we can reset the user's preference. If you don't pass this 
 value in we don't store the preference because it was likely code 
-that sent in the param.</td></tr><tr valign="top"><td>loadDropTestWidget</td><td>function</td><td>function (callback) <br><br>Load Senscape Bootloader Wedget via chilipeppr.load()</td></tr>
+that sent in the param.</td></tr>
       </tbody>
   </table>
 
