@@ -472,6 +472,61 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // themselves since this widget is now taking up less room since it's hiding
             $(window).trigger("resize");
         },
+        /**
+         * This method loads the pubsubviewer widget which attaches to our
+         * upper right corner triangle menu and generates 3 menu items like
+         * Pubsub Viewer, View Standalone, and Fork Widget. It also enables
+         * the modal dialog that shows the documentation for this widget.
+         *
+         * By using chilipeppr.load() we can ensure that the pubsubviewer widget
+         * is only loaded and inlined once into the final ChiliPeppr workspace.
+         * We are given back a reference to the instantiated singleton so its
+         * not instantiated more than once. Then we call it's attachTo method
+         * which creates the full pulldown menu for us and attaches the click
+         * events.
+         */
+        forkSetup: function() {
+            var topCssSelector = '#' + this.id;
+
+            $(topCssSelector + ' .panel-title').popover({
+                title: this.name,
+                content: this.desc,
+                html: true,
+                delay: 1000,
+                animation: true,
+                trigger: 'hover',
+                placement: 'auto'
+            });
+
+            var that = this;
+            chilipeppr.load("http://fiddle.jshell.net/chilipeppr/zMbL9/show/light/", function() {
+                require(['inline:com-chilipeppr-elem-pubsubviewer'], function(pubsubviewer) {
+                    pubsubviewer.attachTo($(topCssSelector + ' .panel-heading .dropdown-menu'), that);
+                });
+            });
+
+        },
+                        /**
+         * Load Senscape Bootloader Wedget via chilipeppr.load()
+         */
+        loadDropTestWidget: function(callback) {
+            chilipeppr.load(
+                "#drop-test-widget-instance",
+                "http://raw.githubusercontent.com/bastian-f/elem-dragdrop/master/auto-generated-widget.html",
+                function() {
+                // Callback after widget loaded into #myDivElemDragdrop
+                // Now use require.js to get reference to instantiated widget
+                    cprequire(
+                        ["inline:com-chilipeppr-elem-dragdrop"], // the id you gave your widget
+                        function(myObjElemDragdrop) {
+                            // Callback that is passed reference to the newly loaded widget
+                            console.log("Element / Drag Drop just got loaded.", myObjElemDragdrop);
+                            myObjElemDragdrop.init();
+                        }
+                    );
+                }
+            );
+        },
 
     };
 });
