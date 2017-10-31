@@ -132,7 +132,7 @@ cprequire_test(["inline:com-senscape-widget-bootloader"], function(myWidget) {
 
     $('body').prepend('<div id="testDivForFlashMessageWidget"></div>');
 
-    chilipeppr.load(
+  /*  chilipeppr.load(
         "#testDivForFlashMessageWidget",
         "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
         function() {
@@ -142,7 +142,7 @@ cprequire_test(["inline:com-senscape-widget-bootloader"], function(myWidget) {
                 fm.init();
             });
         }
-    );
+    );*/
 
     // init my widget
     myWidget.init();
