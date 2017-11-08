@@ -10,6 +10,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 
 
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
+URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
 var TIMEOUT = 20000;
 
 
@@ -268,6 +269,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
             $('#' + this.id + ' .btn-ping').click(this.onPingBtnClick.bind(this));
 
+            $('#' + this.id + ' .btn-InjectFast').click(this.onInjectFastBtnClick.bind(this));
+
         },
         isAlreadySubscribedToWsRecv: false,
         consoleSubscribeToLowLevelSerial: function() {
@@ -350,9 +353,12 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
-            console.error("Servlet Test");
-            var message = {"data": "test"};
+            console.error("Ping");
             getServletRecString(URL_PING, 20000);
+        },
+        onInjectFastBtnClick: function(evt) {
+            console.error("Inject fast blink");
+            getServletRecString(URL_INJECT_FAST, 20000);
         },
         onRecvLine: function(data) {
             console.error("received!");
