@@ -90,7 +90,7 @@ function postServletRecString(data, sUrl, timeout){
         console.error("valid");
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
-            waiting = false;
+            waiting = true;
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
             var start = new Date().getTime();
             var elapsed = 0.0;
