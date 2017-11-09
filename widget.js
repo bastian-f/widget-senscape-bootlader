@@ -11,6 +11,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
 URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
+URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var TIMEOUT = 20000;
 var waiting = false;
 
@@ -22,6 +23,18 @@ var waiting = false;
 var queue = [];
 var busy = false;
 
+// We want to call a function 15 seconds after  we send a message to the node
+// asking the server if it received ack or is retransmitting
+var initial;
+
+function invocation() {
+    console.error("Invocation");
+    initial = window.setTimeout(
+        function() {
+            console.error("Checking if there is a retransmission");
+            postServletRecString(null, URL_RETRANS, TIMEOUT);
+        }, 15000);
+}
 
 function postServletRecString(data, sUrl, timeout){
     console.error("URL: " + sUrl);
@@ -36,23 +49,9 @@ function postServletRecString(data, sUrl, timeout){
         console.error("valid");
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
-            waiting = true;
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
-            var start = new Date().getTime();
-            var elapsed = 0.0;
-            while (waiting && elapsed < 10) {
-                var time = new Date().getTime() - start;
-                console.error("ELAPSED: " + elapsed);
-
-                elapsed = Math.floor(time / 100) / 10;
-                console.error("ELAPSED2: " + elapsed);
-            /*    if (Math.round(elapsed) == elapsed) {
-                    elapsed += '.0';
-                }
-            */
-
-            }
-
+            clearTimeout(initial);
+            invocation();
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
