@@ -50,6 +50,11 @@ function postServletRecString(data, sUrl, timeout){
         console.error("valid");
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
+            if (jsonResponse.data.hasOwnProperty('progress')) {
+                var elem = document.getElementById("progbar");
+                elem.style.width = jsonResponse.data.progress + '%';
+                elem.innerHTML = jsonResponse.data.progress + '%';
+            }
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
             console.error("Clearing timeout!");
             window.clearTimeout(initial);
