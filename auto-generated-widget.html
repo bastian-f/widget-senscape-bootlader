@@ -64,8 +64,8 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 
 
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
-URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
-URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
+var URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
+var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
 var TIMEOUT = 5000;
 var waiting = false;
@@ -89,7 +89,7 @@ function invocation() {
             console.error("Checking if there is a retransmission");
             postServletRecString(null, URL_RETRANS, TIMEOUT);
             invocation();
-        }, 20000);
+        }, 5000);
 }
 
 function postServletRecString(data, sUrl, timeout){
