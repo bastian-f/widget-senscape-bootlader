@@ -12,6 +12,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
 URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
 URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
+var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
 var TIMEOUT = 5000;
 var waiting = false;
 
@@ -357,18 +358,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          */
         onReprogramBtnClick: function (evt) {
             console.error("reprogram");
-            var elem = document.getElementById("progbar");
-            var width = 0;
-            var id = setInterval(frame, 10);
-            function frame() {
-                if (width >= 100) {
-                    clearInterval(id);
-                } else {
-                    width++;
-                    elem.style.width = width + '%';
-                    elem.innerHTML = width + '%';
-                }
-            }
+            getServletRecString(URL_REPROGRAM, 20000);
         },
     /**
          * onServletTestBtnClick sends a test message to the servlet 
