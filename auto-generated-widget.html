@@ -105,6 +105,7 @@ function postServletRecString(data, sUrl, timeout){
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
+            console.error("Clearing timeout!");
             clearTimeout(initial);
        //     invocation();
         }
