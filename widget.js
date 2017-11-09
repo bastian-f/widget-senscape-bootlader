@@ -52,7 +52,13 @@ function postServletRecString(data, sUrl, timeout){
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
             console.error("Clearing timeout!");
-            clearTimeout(initial);
+            window.clearTimeout(initial);
+            initial = window.setTimeout(
+                function() {
+                    console.error("Checking if there is a retransmission");
+                    postServletRecString(null, URL_RETRANS, TIMEOUT);
+                    invocation();
+                }, 20000);
        //     invocation();
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
