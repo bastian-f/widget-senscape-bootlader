@@ -33,7 +33,7 @@ function invocation() {
         function() {
             console.error("Checking if there is a retransmission");
             postServletRecString(null, URL_RETRANS, TIMEOUT);
-        }, 15000);
+        }, 20000);
 }
 
 function postServletRecString(data, sUrl, timeout){
