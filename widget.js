@@ -12,7 +12,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
 URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
 URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
-var TIMEOUT = 20000;
+var TIMEOUT = 5000;
 var waiting = false;
 
 
@@ -386,6 +386,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             getServletRecString(URL_PING, 20000);
         },
         onInjectFastBtnClick: function(evt) {
+            var elem = document.getElementById("progbar");
+            elem.style.width = '0%';
+            elem.innerHTML = '0%';
             console.error("Inject fast blink");
             getServletRecString(URL_INJECT_FAST, 20000);
         },
