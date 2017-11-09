@@ -33,6 +33,7 @@ function invocation() {
         function() {
             console.error("Checking if there is a retransmission");
             postServletRecString(null, URL_RETRANS, TIMEOUT);
+            
         }, 20000);
 }
 
@@ -51,7 +52,7 @@ function postServletRecString(data, sUrl, timeout){
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
             clearTimeout(initial);
-            invocation();
+       //     invocation();
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
@@ -235,7 +236,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          //   this.forkSetup();
            // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
-
+            invocation();
             console.log("I am done being initted.");
         },
         /**
