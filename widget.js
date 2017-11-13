@@ -70,7 +70,7 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     elem = document.getElementsByClassName("btn-repgrogram");
-    elem.addClass("disabled")
+    elem.classname += (" disabled");
     getServletRecString(URL_PING, 20000);
 }
 
@@ -155,7 +155,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
                     elem = document.getElementsByClassName("btn-repgrogram");
-                    elem.removeClass("disabled")
+                    $('#reprog').removeClass('disabled');
                 }
             }
         }
