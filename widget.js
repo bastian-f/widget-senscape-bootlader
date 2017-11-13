@@ -85,6 +85,16 @@ function ping() {
     $('#reprog').addClass('disabled');
     getServletRecString(URL_PING, 20000);
 }
+function postPing() {
+if (status == STATUS_REPROG_C) {
+    console.error("Post Ping");
+    postCountdown = window.setTimeout(
+        function () {
+            console.error("Performing post ping");
+            getServletRecString(URL_PING, 20000);
+            if (!status == STATUS_SUCCESS) postPing();
+        }, 10000);
+}
 
 function reprogram() {
     console.error("reprogram");
@@ -106,13 +116,7 @@ function postServletRecString(data, sUrl, timeout){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
-        if (status == STATUS_REPROG_C) {
-            console.error("Post Ping");
-            postCountdown = window.setTimeout(
-                function() {
-                    console.error("Performing post ping");
-                    getServletRecString(URL_PING, 20000);
-                }, 10000);
+
         }
     };
     xhr.onload = function (oEvent) {
@@ -157,11 +161,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("Post Ping");
-                    postCountdown = window.setTimeout(
-                        function() {
-                            console.error("Performing post ping");
-                            getServletRecString(URL_PING, 20000);
-                        }, 10000);
+                    postPing();
                 }
                 else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
@@ -457,8 +457,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-            reprogram();
-           // ping();
+           // reprogram();
+           ping();
 
         },
     /**
