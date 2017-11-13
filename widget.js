@@ -68,7 +68,7 @@ function setStatus(s) {
         $( "#statustext").removeClass("alert-info");
         $( "#statustext").addClass("alert-warning");
     }
-    else if (s == STATUS_PINGING) {
+    else if (s == STATUS_SUCCESS) {
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }

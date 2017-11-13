@@ -122,7 +122,7 @@ function setStatus(s) {
         $( "#statustext").removeClass("alert-info");
         $( "#statustext").addClass("alert-warning");
     }
-    else if (s == STATUS_PINGING) {
+    else if (s == STATUS_SUCCESS) {
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }
@@ -705,13 +705,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default btn-servlet-test" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Servlet Test" data-content="Test servlet sending a test message. Will return an error.">Servlet Test
                     </div> -->
-                    <div class="btn-group">
+                 <!--   <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default btn-ping hidden" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Servlet Test" data-content="Test servlet sending a test message. Will return an error.">Ping
                     </div>
 
                     <div class="btn-group">
                         <button type="button" class="btn btn-xs btn-default btn-injectFast hidden" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Servlet Test" data-content="Test servlet sending a test message. Will return an error.">Inject Fast
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-md-7">
                     <div class="progress">
