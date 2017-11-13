@@ -20,7 +20,7 @@ var STATUS_IDLE = "Idle";
 var STATUS_PINGING = "Status: Pinging...";
 var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Repgrogramming - Please, do not disconnect the device!";
-var STATUS_REPROG_C = "Status: Repgrogramming C";
+var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
 var TIMEOUT = 20000;
 var waiting = false;
@@ -456,8 +456,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-            reprogram();
-           // ping();
+            //reprogram();
+           ping();
 
         },
     /**
