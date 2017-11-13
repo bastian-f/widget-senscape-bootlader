@@ -475,8 +475,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onPingBtnClick: function(evt) {
             console.error("Ping");
             setStatus("ping");
-            elem = document.getElementsByClassName("btn-repgrogram");
-            $('#reprog').addClass('disabled');
             getServletRecString(URL_PING, 20000);
 
         },
