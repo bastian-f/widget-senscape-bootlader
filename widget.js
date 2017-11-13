@@ -473,7 +473,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
-            ping();
+            console.error("Ping");
+            setStatus("ping");
+            elem = document.getElementsByClassName("btn-repgrogram");
+            $('#reprog').addClass('disabled');
+            getServletRecString(URL_PING, 20000);
 
         },
         onInjectFastBtnClick: function(evt) {
