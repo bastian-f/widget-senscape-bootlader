@@ -61,7 +61,7 @@ function setStatus(s) {
         elem.innerHTML = s;
     }
     else if (s == STATUS_PINGING) {
-        $( "#statustext").removeClass("alert-succes");
+        $( "#statustext").removeClass("alert-success");
         $( "#statustext").addClass("alert-info");
     }
     else if (s == STATUS_REPROG) {
