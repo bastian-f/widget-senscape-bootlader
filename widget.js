@@ -69,6 +69,8 @@ function setStatus(s) {
 function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
+    elem = document.getElementsByClassName("btn-repgrogram");
+    elem.addClass("disabled")
     getServletRecString(URL_PING, 20000);
 }
 
@@ -152,6 +154,8 @@ function postServletRecString(data, sUrl, timeout){
                 else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
+                    elem = document.getElementsByClassName("btn-repgrogram");
+                    elem.removeClass("disabled")
                 }
             }
         }
