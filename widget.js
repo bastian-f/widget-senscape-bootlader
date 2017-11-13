@@ -74,7 +74,7 @@ function reprogram() {
 
 function inject() {
     var elem = document.getElementById("progbar");
-    setStatus(STATUS_PINGING);
+    setStatus(STATUS_REPROG);
     elem.style.width = '0%';
     elem.innerHTML = '0%';
     console.error("Inject fast blink");
