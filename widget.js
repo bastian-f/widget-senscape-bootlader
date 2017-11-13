@@ -3,6 +3,8 @@
 
 // ChiliPeppr Widget/Element Javascript
 
+
+
 // Constants
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
@@ -13,6 +15,12 @@ var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
 var URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
 var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
+var STATUS_IDLE = "Idle";
+var STATUS_READY = "Ready";
+var STATUS_PINGING = "Pinging";
+var STATUS_UPLOADING = "Uploading";
+var STATUS_REPROG = "Repgrogramming";
+var STATUS_SUCCESS = "Succes";
 var TIMEOUT = 5000;
 var waiting = false;
 
@@ -28,6 +36,10 @@ var busy = false;
 // asking the server if it received ack or is retransmitting
 var initial;
 
+// Global to define the current status of reprogramming
+var status = STATUS_IDLE;
+
+
 function invocation() {
     console.error("Invocation");
     initial = window.setTimeout(
@@ -36,6 +48,34 @@ function invocation() {
             postServletRecString(null, URL_RETRANS, TIMEOUT);
             invocation();
         }, 5000);
+}
+
+function setStatus(s) {
+    var elem = document.getElementById("status");
+    element.html = s;
+
+    status = s;
+}
+
+function ping() {
+    console.error("Ping");
+    setStatus(STATUS_PINGING);
+    getServletRecString(URL_PING, 20000);
+}
+
+function reprogram() {
+    console.error("reprogram");
+    setStatus(STATUS_REPROG);
+    getServletRecString(URL_REPROGRAM, 20000);
+}
+
+function inject() {
+    var elem = document.getElementById("progbar");
+    setStatus(STATUS_PINGING);
+    elem.style.width = '0%';
+    elem.innerHTML = '0%';
+    console.error("Inject fast blink");
+    getServletRecString(URL_INJECT_FAST, 20000);
 }
 
 function postServletRecString(data, sUrl, timeout){
@@ -70,9 +110,22 @@ function postServletRecString(data, sUrl, timeout){
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
         }
-        else console.error("Got Result: Error:"  + jsonResponse.data.error);
+        else {
+            console.error("Got Result: Error:"  + jsonResponse.data.error);
+            if (!jsonResponse.data.error) {
+                if (status == STATUS_PINGING) {
+                    inject()
+                }
+                if (status == STATUS_UPLOADING) {
+                    reprogram();
+                }
+                if (status == STATUS_REPROG){
+                    setStatus(STATUS_SUCCESS);
+                }
+            }
+        }
         if(queue.length) {
-            // run the next queued item
+            // run the next queued itemvar status = STATUS_IDLE;
             postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT);
         } else {
             busy = false;
@@ -357,8 +410,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-            console.error("reprogram");
-            getServletRecString(URL_REPROGRAM, 20000);
+            reprogram();
+
         },
     /**
          * onServletTestBtnClick sends a test message to the servlet 
@@ -372,15 +425,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
-            console.error("Ping");
-            getServletRecString(URL_PING, 20000);
+            ping();
+
         },
         onInjectFastBtnClick: function(evt) {
-            var elem = document.getElementById("progbar");
-            elem.style.width = '0%';
-            elem.innerHTML = '0%';
-            console.error("Inject fast blink");
-            getServletRecString(URL_INJECT_FAST, 20000);
+            inject();
         },
         onRecvLine: function(data) {
             console.error("received!");
