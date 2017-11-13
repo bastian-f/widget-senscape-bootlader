@@ -17,11 +17,11 @@ var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
 var STATUS_IDLE = "Idle";
 // var STATUS_READY = "Ready";
-var STATUS_PINGING = "Status: Pinging";
-var STATUS_UPLOADING = "Status: Uploading";
+var STATUS_PINGING = "Status: Pinging...";
+var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Repgrogramming - Don't disconnect the device!";
 var STATUS_REPROG_C = "Status: Repgrogramming C";
-var STATUS_SUCCESS = "Succes";
+var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
 var TIMEOUT = 20000;
 var waiting = false;
 
