@@ -70,10 +70,10 @@ var URL_INJECT_FAST = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
 var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
 var STATUS_IDLE = "Idle";
-var STATUS_READY = "Ready";
-var STATUS_PINGING = "Pinging";
-var STATUS_UPLOADING = "Uploading";
-var STATUS_REPROG = "Repgrogramming";
+// var STATUS_READY = "Ready";
+var STATUS_PINGING = "Status: Pinging";
+var STATUS_UPLOADING = "Status: Uploading";
+var STATUS_REPROG = "Status: Repgrogramming";
 var STATUS_SUCCESS = "Succes";
 var TIMEOUT = 20000;
 var waiting = false;
@@ -105,7 +105,7 @@ function invocation() {
 }
 
 function setStatus(s) {
-    var elem = document.getElementById("textelement");
+    var elem = document.getElementById("statustext");
     console.error("SETTING STATUS: " + s);
     elem.innerHTML = s;
     console.error("SETTING STATUS: " + s);
@@ -175,7 +175,7 @@ function postServletRecString(data, sUrl, timeout){
                     inject()
                 }
                 else if (status == STATUS_UPLOADING) {
-                    console.error("PING UPLOAD! STARTING REPROGRAMMING!")
+                    console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
                     reprogram();
                 }
                 else if (status == STATUS_REPROG){
@@ -682,7 +682,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <div class="status" <p id="textelement">Status: Idle..</p>
+                    <div class="status" <p id="statustext">Status: Idle..</p>
 
                 </div>
                 </div>
