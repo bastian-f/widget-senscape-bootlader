@@ -52,10 +52,12 @@ function invocation() {
 
 function setStatus(s) {
     var elem = document.getElementById("status");
-    console.error("SETTING STATUS: : " + s);
+    console.error("SETTING STATUS: " + s);
     element.html = s;
+    console.error("SETTING STATUS: " + s);
 
     status = s;
+    console.error("SETTING STATUS: " + s);
 }
 
 function ping() {
