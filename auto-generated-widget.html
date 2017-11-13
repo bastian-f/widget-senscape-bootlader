@@ -120,6 +120,16 @@ function invocation() {
         }, 10000);
 }
 
+function postPing() {
+    console.error("Post Ping");
+    var postPingCount = window.setTimeout(
+        function() {
+            console.error("Checking if for post ping");
+            postServletRecString(null, URL_RETRANS, TIMEOUT);
+            if (!(status == STATUS_SUCCESS)) postPing();
+        }, 10000);
+}
+
 function setStatus(s) {
     var elem = document.getElementById("statustext");
     console.error("SETTING STATUS: " + s);
@@ -146,27 +156,11 @@ function setStatus(s) {
 }
 
 function ping() {
-    initial = window.setTimeout(
-        function() {
-            console.error("Checking if there is a retransmission");
-            postServletRecString(null, URL_RETRANS, TIMEOUT);
-            invocation();
-        }, 10000);
     console.error("Ping");
     setStatus(STATUS_PINGING);
     elem = document.getElementsByClassName("btn-repgrogram");
     $('#reprog').addClass('disabled');
     getServletRecString(URL_PING, 20000);
-}
-function postPing() {
-if (status == STATUS_REPROG_C) {
-    console.error("Post Ping");
-    postCountdown = window.setTimeout(
-        function () {
-            console.error("Performing post ping");
-            getServletRecString(URL_PING, 20000);
-            if (!status == STATUS_SUCCESS) postPing();
-        }, 10000);
 }
 
 function reprogram() {
@@ -189,8 +183,6 @@ function postServletRecString(data, sUrl, timeout){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
-
-        }
     };
     xhr.onload = function (oEvent) {
         console.error("response text");
@@ -530,8 +522,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-           // reprogram();
-           ping();
+            reprogram();
+           // ping();
 
         },
     /**
@@ -561,11 +553,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("data: " + arrayBuffer);
             if(busy) {
-                console.error("busy queueing");
                 queue.push(arrayBuffer);
             }
             else {
-                console.error("not busy: sending");
                 busy = true;
                 postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
             }
