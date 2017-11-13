@@ -20,6 +20,7 @@ var STATUS_IDLE = "Idle";
 var STATUS_PINGING = "Status: Pinging";
 var STATUS_UPLOADING = "Status: Uploading";
 var STATUS_REPROG = "Status: Repgrogramming";
+var STATUS_REPROG_C = "Status: Repgrogramming";
 var STATUS_SUCCESS = "Succes";
 var TIMEOUT = 20000;
 var waiting = false;
@@ -53,7 +54,7 @@ function invocation() {
 function setStatus(s) {
     var elem = document.getElementById("statustext");
     console.error("SETTING STATUS: " + s);
-    elem.innerHTML = s;
+    if (!s == STATUS_REPROG_C) elem.innerHTML = s;
     console.error("SETTING STATUS: " + s);
 
     status = s;
@@ -125,6 +126,10 @@ function postServletRecString(data, sUrl, timeout){
                     reprogram();
                 }
                 else if (status == STATUS_REPROG){
+                    console.error("REPROGRAMMING!")
+                    setStatus(STATUS_REPROG_C);
+                }
+                else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
                 }
