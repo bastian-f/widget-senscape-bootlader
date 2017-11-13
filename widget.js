@@ -79,6 +79,12 @@ function setStatus(s) {
 }
 
 function ping() {
+    initial = window.setTimeout(
+        function() {
+            console.error("Checking if there is a retransmission");
+            postServletRecString(null, URL_RETRANS, TIMEOUT);
+            invocation();
+        }, 10000);
     console.error("Ping");
     setStatus(STATUS_PINGING);
     elem = document.getElementsByClassName("btn-repgrogram");
@@ -473,6 +479,12 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
+            initial = window.setTimeout(
+                function() {
+                    console.error("Checking if there is a retransmission");
+                    postServletRecString(null, URL_RETRANS, TIMEOUT);
+                    invocation();
+                }, 10000);
             console.error("Ping");
             setStatus("ping");
             getServletRecString(URL_PING, 20000);
@@ -488,9 +500,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("data: " + arrayBuffer);
             if(busy) {
+                console.error("busy queueing");
                 queue.push(arrayBuffer);
             }
             else {
+                console.error("not busy: sending");
                 busy = true;
                 postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
             }
