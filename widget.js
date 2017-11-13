@@ -113,7 +113,7 @@ function postServletRecString(data, sUrl, timeout){
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
         }
-        else {
+        else if (jsonResponse.data.hasOwnProperty('error')){
             console.error("Got Result: Error:"  + jsonResponse.data.error);
             if (!jsonResponse.data.error) {
                 if (status == STATUS_PINGING) {
