@@ -70,7 +70,7 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     elem = document.getElementsByClassName("btn-repgrogram");
-    elem.classname += (" disabled");
+    $('#reprog').removeClass('disabled');
     getServletRecString(URL_PING, 20000);
 }
 
