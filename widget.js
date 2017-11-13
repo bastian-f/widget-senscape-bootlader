@@ -126,6 +126,7 @@ function postServletRecString(data, sUrl, timeout){
                 }
                 else if (status == STATUS_UPLOADING) {
                     console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
+                    setStatus(STATUS_REPROG);
                     reprogram();
                 }
                 else if (status == STATUS_REPROG){
