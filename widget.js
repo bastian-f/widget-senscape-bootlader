@@ -51,9 +51,9 @@ function invocation() {
 }
 
 function setStatus(s) {
-    var elem = document.getElementById("status");
+    var elem = document.getElementById("textelement");
     console.error("SETTING STATUS: " + s);
-    element.innerHTML = s;
+    elem.innerHTML = s;
     console.error("SETTING STATUS: " + s);
 
     status = s;
