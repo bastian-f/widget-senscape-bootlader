@@ -60,7 +60,7 @@ function setStatus(s) {
         console.error("NOT REPROG_C");
         elem.innerHTML = s;
     }
-    else if (s == STATUS_PINGING) {
+    if (s == STATUS_PINGING) {
         $( "#statustext").removeClass("alert-success");
         $( "#statustext").addClass("alert-info");
     }
