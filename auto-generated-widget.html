@@ -73,7 +73,7 @@ var STATUS_IDLE = "Idle";
 // var STATUS_READY = "Ready";
 var STATUS_PINGING = "Status: Pinging";
 var STATUS_UPLOADING = "Status: Uploading";
-var STATUS_REPROG = "Status: Repgrogramming";
+var STATUS_REPROG = "Status: Repgrogramming - Don't disconnect the device!";
 var STATUS_REPROG_C = "Status: Repgrogramming C";
 var STATUS_SUCCESS = "Succes";
 var TIMEOUT = 20000;
@@ -90,9 +90,11 @@ var busy = false;
 // We want to call a function 15 seconds after  we send a message to the node
 // asking the server if it received ack or is retransmitting
 var initial;
+var postCountdown;
 
 // Global to define the current status of reprogramming
 var status = STATUS_IDLE;
+
 
 
 function invocation() {
@@ -144,6 +146,14 @@ function postServletRecString(data, sUrl, timeout){
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
         console.error("The request for " + sUrl + " timed out.");
+        if (status == STATUS_REPROG_C) {
+            console.error("Post Ping");
+            postCountdown = window.setTimeout(
+                function() {
+                    console.error("Performing post ping");
+                    getServletRecString(URL_PING, 20000);
+                }, 10000);
+        }
     };
     xhr.onload = function (oEvent) {
         console.error("response text");
@@ -186,6 +196,12 @@ function postServletRecString(data, sUrl, timeout){
                 else if (status == STATUS_REPROG){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
+                    console.error("Post Ping");
+                    postCountdown = window.setTimeout(
+                        function() {
+                            console.error("Performing post ping");
+                            getServletRecString(URL_PING, 20000);
+                        }, 10000);
                 }
                 else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
