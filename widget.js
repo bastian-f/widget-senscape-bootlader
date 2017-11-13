@@ -441,7 +441,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-            reprogram();
+            //reprogram();
+            ping();
 
         },
     /**
