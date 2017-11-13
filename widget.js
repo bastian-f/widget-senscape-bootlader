@@ -59,6 +59,7 @@ function postPing() {
         function() {
             console.error("Checking if for post ping");
             getServletRecString(URL_PING, 20000);
+            console.error("Status: " + status);
             if (!(status == STATUS_SUCCESS)) postPing();
         }, 10000);
 }
