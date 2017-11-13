@@ -55,7 +55,7 @@ function invocation() {
 
 function postPing() {
     console.error("Post Ping");
-    var postPingCount = window.setTimeout(
+    postCountdown = window.setTimeout(
         function() {
             console.error("Checking if for post ping");
             getServletRecString(URL_PING, 20000);
