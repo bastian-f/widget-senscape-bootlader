@@ -60,6 +60,18 @@ function setStatus(s) {
         console.error("NOT REPROG_C");
         elem.innerHTML = s;
     }
+    else if (s == STATUS_PINGING) {
+        $( "#statustext").removeClass("alert-succes");
+        $( "#statustext").addClass("alert-info");
+    }
+    else if (s == STATUS_REPROG) {
+        $( "#statustext").removeClass("alert-info");
+        $( "#statustext").addClass("alert-warning");
+    }
+    else if (s == STATUS_PINGING) {
+        $( "#statustext").removeClass("alert-warning");
+        $( "#statustext").addClass("alert-success");
+    }
     console.error("SETTING STATUS: " + s);
 
     status = s;
