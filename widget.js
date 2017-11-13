@@ -58,7 +58,7 @@ function postPing() {
     var postPingCount = window.setTimeout(
         function() {
             console.error("Checking if for post ping");
-            postServletRecString(null, URL_RETRANS, TIMEOUT);
+            getServletRecString(URL_PING, 20000);
             if (!(status == STATUS_SUCCESS)) postPing();
         }, 10000);
 }
