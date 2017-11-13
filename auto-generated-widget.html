@@ -124,7 +124,7 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     elem = document.getElementsByClassName("btn-repgrogram");
-    $('#reprog').removeClass('disabled');
+    $('#reprog').addClass('disabled');
     getServletRecString(URL_PING, 20000);
 }
 
