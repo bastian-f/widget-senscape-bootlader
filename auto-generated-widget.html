@@ -108,7 +108,7 @@ function invocation() {
 function setStatus(s) {
     var elem = document.getElementById("statustext");
     console.error("SETTING STATUS: " + s);
-    if (!s == STATUS_REPROG_C) elem.innerHTML = s;
+    if (!(s == STATUS_REPROG_C)) elem.innerHTML = s;
     console.error("SETTING STATUS: " + s);
 
     status = s;
