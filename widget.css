@@ -16,6 +16,7 @@
 
 .progress {
     height: 34px;
+    line-height: 34px;
     background-color:#ddd;
   /* float:right; */
     width: 100%;
