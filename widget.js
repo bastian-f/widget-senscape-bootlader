@@ -120,11 +120,11 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!")
                     inject()
                 }
-                if (status == STATUS_UPLOADING) {
+                else if (status == STATUS_UPLOADING) {
                     console.error("PING UPLOAD! STARTING REPROGRAMMING!")
                     reprogram();
                 }
-                if (status == STATUS_REPROG){
+                else if (status == STATUS_REPROG){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
                 }

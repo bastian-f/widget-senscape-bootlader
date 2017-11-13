@@ -167,18 +167,18 @@ function postServletRecString(data, sUrl, timeout){
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
         }
-        else {
+        else if (jsonResponse.data.hasOwnProperty('error')){
             console.error("Got Result: Error:"  + jsonResponse.data.error);
             if (!jsonResponse.data.error) {
                 if (status == STATUS_PINGING) {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!")
                     inject()
                 }
-                if (status == STATUS_UPLOADING) {
+                else if (status == STATUS_UPLOADING) {
                     console.error("PING UPLOAD! STARTING REPROGRAMMING!")
                     reprogram();
                 }
-                if (status == STATUS_REPROG){
+                else if (status == STATUS_REPROG){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
                 }
