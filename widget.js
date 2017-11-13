@@ -479,12 +479,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
-            initial = window.setTimeout(
-                function() {
-                    console.error("Checking if there is a retransmission");
-                    postServletRecString(null, URL_RETRANS, TIMEOUT);
-                    invocation();
-                }, 30000);
             console.error("Ping");
             setStatus("ping");
             getServletRecString(URL_PING, 20000);
