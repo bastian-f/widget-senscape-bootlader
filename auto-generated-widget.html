@@ -105,11 +105,13 @@ function invocation() {
 }
 
 function setStatus(s) {
-    var elem = document.getElementById("status");
-    console.error("SETTING STATUS: : " + s);
-    element.html = s;
+    var elem = document.getElementById("textelement");
+    console.error("SETTING STATUS: " + s);
+    elem.innerHTML = s;
+    console.error("SETTING STATUS: " + s);
 
     status = s;
+    console.error("SETTING STATUS: " + s);
 }
 
 function ping() {
@@ -677,7 +679,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <div class="status"</div>
+                    <div class="status" <p id="textelement">I am a text element</p>
+
+                </div>
                 </div>
             </div>
 
