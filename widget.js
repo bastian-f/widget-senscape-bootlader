@@ -42,10 +42,13 @@ var postCountdown;
 var status = STATUS_IDLE;
 
 function processPost(data, url, timeout) {
+    console.error("Processing Post");
     if(busy) {
+        console.error("Busy, queueing...")
         queue.push({"data": data, "url": url, "timeout": timeout});
     }
     else {
+        console.error("Not busy, processing data: " + data + ", url: " + url + ", timeout: " + timeout);
         busy = true;
         postServletRecString(data, url, timeout);
     }
