@@ -80,7 +80,7 @@ function postPing() {
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
-        }, 10000);
+        }, 5000);
 }
 
 function setStatus(s) {
