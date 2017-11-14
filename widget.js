@@ -189,6 +189,7 @@ function postServletRecString(data, sUrl, timeout){
             console.error("Petition URL:" + petition.url);
             console.error("Petition Timeout:" + petition.timeout);
         } else {
+            console.error("No more petitions queued.")
             busy = false;
         }
     };
