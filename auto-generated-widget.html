@@ -255,10 +255,11 @@ function postServletRecString(data, sUrl, timeout){
             console.error("Posting from queue.")
             petition = queue.shift();
             console.error("Petition: " + petition);
-            postServletRecString(petiton.data, petition.url, petition.timeout);
             console.error("Petition Data:" + petition.data);
             console.error("Petition URL:" + petition.url);
             console.error("Petition Timeout:" + petition.timeout);
+            postServletRecString(petiton.data, petition.url, petition.timeout);
+
         } else {
             console.error("No more petitions queued.")
             busy = false;
