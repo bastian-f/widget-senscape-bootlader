@@ -79,7 +79,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 
 
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
-var URL_INJECT = "//127.0.0.1:8080/SenschiliServlet/inject-fast";
+var URL_INJECT = "//127.0.0.1:8080/SenschiliServlet/inject";
 var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
 var STATUS_IDLE = "Idle";
@@ -247,9 +247,14 @@ function postServletRecString(data, sUrl, timeout){
             }
         }
         if(queue.length) {
-            // run the next queued itemvar status = STATUS_IDLE;
+            // run the next queued item
+            console.error("Posting from queue.")
             petition = queue.shift();
+            console.error("Petition: " + petition);
             postServletRecString(petiton.data, petition.url, petition.timeout);
+            console.error("Petition Data:" + petition.data);
+            console.error("Petition URL:" + petition.url);
+            console.error("Petition Timeout:" + petition.timeout);
         } else {
             busy = false;
         }
