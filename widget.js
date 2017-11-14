@@ -74,6 +74,7 @@ function postPing() {
     postCountdown = window.setTimeout(
         function() {
             console.error("Checking if for post ping");
+            console.error(status);
             getServletRecString(URL_PING, 5000);
             console.error("Status: " + status);
             if (!(status == STATUS_SUCCESS)) {
@@ -177,7 +178,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("Post Ping");
-                 //   postPing();
+                    postPing();
                 }
                 else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
