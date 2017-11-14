@@ -191,7 +191,7 @@ function postServletRecString(data, sUrl, timeout){
             console.error("Petition Data:" + petition.data);
             console.error("Petition URL:" + petition.url);
             console.error("Petition Timeout:" + petition.timeout);*/
-            postServletRecString(queue.shift());
+            postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT);
 
         } else {
             console.error("No more petitions queued.")
