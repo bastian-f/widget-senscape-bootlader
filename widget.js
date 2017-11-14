@@ -150,13 +150,13 @@ function postServletRecString(data, sUrl, timeout){
             }
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
             console.error("Clearing timeout!");
-            window.clearTimeout(initial);
+      /*      window.clearTimeout(initial);
             initial = window.setTimeout(
                 function() {
                     console.error("Checking if there is a retransmission");
                     postServletRecString(null, URL_RETRANS, TIMEOUT);
                     invocation();
-                }, 10000);
+                }, 10000);*/
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
@@ -177,7 +177,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("Post Ping");
-                    postPing();
+                 //   postPing();
                 }
                 else if (status == STATUS_REPROG_C){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
@@ -372,7 +372,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          //   this.forkSetup();
            // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
-            invocation();
+        //    invocation();
             console.log("I am done being initted.");
         },
         /**
