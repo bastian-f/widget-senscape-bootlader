@@ -71,7 +71,7 @@ function invocation() {
 }
 
 function postPing() {
-    console.error("Post Ping");
+    console.error("Inside Post Ping");
     postCountdown = window.setTimeout(
         function() {
             console.error("Checking if for post ping");
@@ -144,7 +144,7 @@ function postServletRecString(data, sUrl, timeout){
         var jsonResponse = JSON.parse(xhr.responseText);
         console.error("valid");
         console.error(jsonResponse.data.valid);
-        if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
+        if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error') && !(status == STATUS_SUCCESS)) {
             if (jsonResponse.data.hasOwnProperty('progress')) {
                 var elem = document.getElementById("progbar");
                 elem.style.width = jsonResponse.data.progress + '%';
