@@ -74,11 +74,11 @@ function postPing() {
     console.error("Inside Post Ping");
     postCountdown = window.setTimeout(
         function() {
-            console.error("Checking if for post ping");
-            console.error(status);
-            getServletRecString(URL_PING, 20000);
-            console.error("Status: " + status);
             if (!(status == STATUS_SUCCESS)) {
+                console.error("Checking if for post ping");
+                console.error(status);
+                getServletRecString(URL_PING, 20000);
+                console.error("Status: " + status);
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
