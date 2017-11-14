@@ -188,7 +188,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("Post Ping");
-                    postPing();
+                 //   postPing();
                 }
                 // We are reprogramming with start confirmed
                 // and receiving a result with no error meaning
