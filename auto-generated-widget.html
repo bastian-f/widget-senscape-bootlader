@@ -149,6 +149,7 @@ function postPing() {
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
+            else console.error("SUCCESS: finalizing post ping");
         }, 30000);
 }
 
@@ -751,7 +752,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                    <p>9</p>
+                    <p>10</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Reprogram your Senscape Board.">Reprogram
                    <!--  </div> -->

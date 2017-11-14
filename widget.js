@@ -82,6 +82,7 @@ function postPing() {
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
+            else console.error("SUCCESS: finalizing post ping");
         }, 30000);
 }
 
