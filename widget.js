@@ -63,8 +63,8 @@ function invocation() {
     initial = window.setTimeout(
         function() {
             console.error("Checking if there is a retransmission");
-       //     postServletRecString(null, URL_RETRANS, TIMEOUT);
-            processPost(null, URL_RETRANS, TIMEOUT);
+            postServletRecString(null, URL_RETRANS, TIMEOUT);
+       //     processPost(null, URL_RETRANS, TIMEOUT);
             invocation();
         }, 10000);
 }
@@ -151,7 +151,7 @@ function postServletRecString(data, sUrl, timeout){
             initial = window.setTimeout(
                 function() {
                     console.error("Checking if there is a retransmission");
-                    processPost(null, URL_RETRANS, TIMEOUT);
+                    postServletRecString(null, URL_RETRANS, TIMEOUT);
                     invocation();
                 }, 10000);
         }
