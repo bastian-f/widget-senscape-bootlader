@@ -22,6 +22,7 @@ var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Reprogramming - Please, do not disconnect the device!";
 var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
+var STATUS_POST_PING = "postPing";
 var TIMEOUT = 20000;
 var waiting = false;
 
@@ -75,7 +76,7 @@ function postPing() {
         function() {
             console.error("Checking if for post ping");
             console.error(status);
-            getServletRecString(URL_PING, 5000);
+            getServletRecString(URL_PING, 20000);
             console.error("Status: " + status);
             if (!(status == STATUS_SUCCESS)) {
                 console.error("No success, pinging AGAIN!");
@@ -87,8 +88,8 @@ function postPing() {
 function setStatus(s) {
     var elem = document.getElementById("statustext");
     console.error("SETTING STATUS: " + s);
-    if (!(s == STATUS_REPROG_C)) {
-        console.error("NOT REPROG_C");
+    if (!(s == STATUS_REPROG_C) && !(s == STATUS_POST_PING)) {
+        console.error("NOT REPROG_C and NOT POST_PING");
         elem.innerHTML = s;
     }
     if (s == STATUS_PINGING) {
@@ -165,22 +166,34 @@ function postServletRecString(data, sUrl, timeout){
         else if (jsonResponse.data.hasOwnProperty('error')){
             console.error("Got Result: Error:"  + jsonResponse.data.error);
             if (!jsonResponse.data.error) {
+                // We are doing the initial ping
+                // and receiving an result with no error meaning
+                // initial ping was successful and we can inject
                 if (status == STATUS_PINGING) {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!")
-                    inject()
+                    inject();
                 }
+                // We are injecting
+                // and receiving an result witn no error meaning
+                // uploading was successful and we can reprogram
                 else if (status == STATUS_UPLOADING) {
                     console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
                     setStatus(STATUS_REPROG);
                     reprogram();
                 }
+                // We are reprogramming
+                // and receiving a result with no error meaning
+                // that the reprgramming was successfully started
                 else if (status == STATUS_REPROG){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("Post Ping");
                     postPing();
                 }
-                else if (status == STATUS_REPROG_C){
+                // We are reprogramming with start confirmed
+                // and receiving a result with no error meaning
+                // the post ping executed successfully and reprogramming is finished
+                else if (status == STATUS_REPROG_C) {
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     setStatus(STATUS_SUCCESS);
                     $('#reprog').removeClass('disabled');
@@ -481,8 +494,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
-            //reprogram();
-           ping();
+            reprogram();
+           //ping();
 
         },
     /**
