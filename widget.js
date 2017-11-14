@@ -82,7 +82,7 @@ function postPing() {
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
-        }, 5000);
+        }, 30000);
 }
 
 function setStatus(s) {
@@ -144,7 +144,7 @@ function postServletRecString(data, sUrl, timeout){
         var jsonResponse = JSON.parse(xhr.responseText);
         console.error("valid");
         console.error(jsonResponse.data.valid);
-        if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error') && !(status == STATUS_SUCCESS)) {
+        if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             if (jsonResponse.data.hasOwnProperty('progress')) {
                 var elem = document.getElementById("progbar");
                 elem.style.width = jsonResponse.data.progress + '%';
@@ -235,7 +235,8 @@ function getServletRecString(sUrl, timeout){
         console.error("response text");
         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-        if (!(status == STATUS_SUCCESS)) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
+      //  if (!(status == STATUS_SUCCESS))
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
        // console.error("valid");
        // console.error(jsonResponse.data.valid);
     };
