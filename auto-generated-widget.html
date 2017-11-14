@@ -253,12 +253,12 @@ function postServletRecString(data, sUrl, timeout){
         if(queue.length) {
             // run the next queued item
             console.error("Posting from queue.")
-            petition = queue.shift();
+           /* petition = queue.shift();
             console.error("Petition: " + petition);
             console.error("Petition Data:" + petition.data);
             console.error("Petition URL:" + petition.url);
-            console.error("Petition Timeout:" + petition.timeout);
-            postServletRecString(petiton.data, petition.url, petition.timeout);
+            console.error("Petition Timeout:" + petition.timeout);*/
+            postServletRecString(queue.shift());
 
         } else {
             console.error("No more petitions queued.")
@@ -581,7 +581,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 petition.data = arrayBuffer;
                 petition.url = URL_SERVLET;
                 petition.timeout = TIMEOUT;
-                queue.push(petition);
+                queue.push(arrayBuffer);
             }
             else {
                 console.error("Not busy, processing data: " + arrayBuffer + ", url: " + URL_SERVLET + ", timeout: " + TIMEOUT);
