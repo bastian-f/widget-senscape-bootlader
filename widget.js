@@ -16,6 +16,7 @@ var URL_POST_PING = "//192.168.1.53:8080/SenschiliServlet/post-ping";
 var URL_INJECT = "//192.168.1.53:8080/SenschiliServlet/inject";
 var URL_RETRANS = "//192.168.1.53:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//192.168.1.53:8080/SenschiliServlet/reprogram";
+
 var STATUS_IDLE = "Idle";
 // var STATUS_READY = "Ready";
 var STATUS_PINGING = "Status: Pinging...";
@@ -25,7 +26,7 @@ var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
 var STATUS_POST_PING = "postPing";
 var TIMEOUT = 20000;
-var waiting = false;
+//var waiting = false;
 
 
 // For handling sending of http request sequentially
@@ -131,6 +132,7 @@ function reprogram() {
 }
 
 function inject() {
+    console.error("Inject");
     setStatus(STATUS_UPLOADING);
     var elem = document.getElementById("progbar");
     elem.style.width = '0%';
@@ -187,7 +189,6 @@ function postServletRecString(data, sUrl, timeout){
                 // uploading was successful and we can reprogram
                 else if (status == STATUS_UPLOADING) {
                     console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
-                    setStatus(STATUS_REPROG);
                     reprogram();
                 }
                 // We are reprogramming
@@ -248,10 +249,8 @@ function getServletRecString(sUrl, timeout){
         console.error("response text");
         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-      //  if (!(status == STATUS_SUCCESS))
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
-       // console.error("valid");
-       // console.error(jsonResponse.data.valid);
+        if (!(status == STATUS_SUCCESS)) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
+        else console.error("GET: Not sending because success!");
     };
     xhr.responseType = "text";
     // Necessary to maintain session credentials using cross domain requests
@@ -450,7 +449,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
             $('#' + this.id + ' .btn-ping').click(this.onPingBtnClick.bind(this));
 
-            $('#' + this.id + ' .btn-injectFast').click(this.onInjectFastBtnClick.bind(this));
+       //     $('#' + this.id + ' .btn-injectFast').click(this.onInjectFastBtnClick.bind(this));
 
         },
         isAlreadySubscribedToWsRecv: false,
@@ -529,28 +528,34 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             getServletRecString(URL_PING, 20000);
 
         },
-        onInjectFastBtnClick: function(evt) {
+      /*  onInjectFastBtnClick: function(evt) {
             inject();
         },
+        /**
+         * Process data received from node
+         *
+         */
         onRecvLine: function(data) {
             console.error("received!");
-            waiting = false;
+          //  waiting = false;
             var arrayBuffer = data.dataline;
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("data: " + arrayBuffer);
        //     processPost(arrayBuffer, URL_SERVLET, TIMEOUT);
-            if(busy) {
-                console.error("Busy, queueing...");
-                var petition = {};
-                petition.data = arrayBuffer;
-                petition.url = URL_SERVLET;
-                petition.timeout = TIMEOUT;
-                queue.push(arrayBuffer);
-            }
-            else {
-                console.error("Not busy, processing data: " + arrayBuffer + ", url: " + URL_SERVLET + ", timeout: " + TIMEOUT);
-                busy = true;
-                postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
+            if (!(status == STATUS_SUCCESS)) {
+                if (busy) {
+                    console.error("Busy, queueing...");
+                    var petition = {};
+                    petition.data = arrayBuffer;
+                    petition.url = URL_SERVLET;
+                    petition.timeout = TIMEOUT;
+                    queue.push(arrayBuffer);
+                }
+                else {
+                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + URL_SERVLET + ", timeout: " + TIMEOUT);
+                    busy = true;
+                    postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
+                }
             }
         },
         /**
