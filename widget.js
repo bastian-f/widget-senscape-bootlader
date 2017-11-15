@@ -175,7 +175,9 @@ function postServletRecString(data, sUrl, timeout){
             console.error("Packet not valid.");
         }
         else if (jsonResponse.data.hasOwnProperty('error')){
+
             console.error("Got Result: Error:"  + jsonResponse.data.error);
+            queue.length = 0;
             if (!jsonResponse.data.error) {
                 // We are doing the initial ping
                 // and receiving an result with no error meaning
