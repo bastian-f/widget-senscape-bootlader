@@ -66,7 +66,7 @@ function invocation() {
             console.error("Checking if there is a retransmission");
             postServletRecString(null, URL_RETRANS, TIMEOUT);
        //     processPost(null, URL_RETRANS, TIMEOUT);
-            invocation();
+            if (!(status == STATUS_SUCCESS)) invocation();
         }, 20000);
 }
 
@@ -151,15 +151,17 @@ function postServletRecString(data, sUrl, timeout){
                 elem.style.width = jsonResponse.data.progress + '%';
                 elem.innerHTML = jsonResponse.data.progress + '%';
             }
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
-            console.error("Clearing timeout!");
-            window.clearTimeout(initial);
-            initial = window.setTimeout(
-                function() {
-                    console.error("Checking if there is a retransmission");
-                    postServletRecString(null, URL_RETRANS, TIMEOUT);
-                    invocation();
-                }, 20000);
+            if (!(status == STATUS_SUCCESS)) {
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
+                console.error("Clearing timeout!");
+                window.clearTimeout(initial);
+                initial = window.setTimeout(
+                    function () {
+                        console.error("Checking if there is a retransmission");
+                        postServletRecString(null, URL_RETRANS, TIMEOUT);
+                        invocation();
+                    }, 20000);
+            }
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             console.error("Packet not valid.");
@@ -188,6 +190,8 @@ function postServletRecString(data, sUrl, timeout){
                 else if (status == STATUS_REPROG){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
+                    console.error("clearing queue");
+                    queue.length = 0;
                     console.error("Post Ping");
                     postPing();
                 }
@@ -196,6 +200,8 @@ function postServletRecString(data, sUrl, timeout){
                 // the post ping executed successfully and reprogramming is finished
                 else if (status == STATUS_REPROG_C) {
                     console.error("REPROGRAMMING SUCCESSFUL!!")
+                    console.error("clearing queue");
+                    queue.length = 0;
                     setStatus(STATUS_SUCCESS);
                     $('#reprog').removeClass('disabled');
                 }
