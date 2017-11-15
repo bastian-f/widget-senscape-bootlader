@@ -212,7 +212,7 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("clearing queue");
                     queue.length = 0;
                     setStatus(STATUS_SUCCESS);
-                    $('#reprog').removeClass('disabled');
+                //    $('#reprog').removeClass('disabled');
                 }
             }
         }
