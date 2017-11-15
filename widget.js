@@ -4,12 +4,12 @@
 var URL_SERVLET = "//192.168.1.53:8080/SenschiliServlet/process-packet";
 
 
-var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
-var URL_POST_PING = "//127.0.0.1:8080/SenschiliServlet/post-ping";
-var URL_INJECT = "//127.0.0.1:8080/SenschiliServlet/inject";
-var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
-var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
-var URL_RESET = "//127.0.0.1:8080/SenschiliServlet/reset";
+var URL_PING = "//52.29.6.200:8080/SenschiliServlet/ping";
+var URL_POST_PING = "//52.29.6.200:8080/SenschiliServlet/post-ping";
+var URL_INJECT = "//52.29.6.200:8080/SenschiliServlet/inject";
+var URL_RETRANS = "//52.29.6.200:8080/SenschiliServlet/retransmission";
+var URL_REPROGRAM = "//52.29.6.200:8080/SenschiliServlet/reprogram";
+var URL_RESET = "//52.29.6.200:8080/SenschiliServlet/reset";
 
 var STATUS_IDLE = "Idle";
 // var STATUS_READY = "Ready";
