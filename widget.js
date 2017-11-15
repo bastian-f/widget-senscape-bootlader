@@ -1,10 +1,3 @@
-/* global requirejs cprequire cpdefine chilipeppr THREE */
-// Defining the globals above helps Cloud9 not show warnings for those variables
-
-// ChiliPeppr Widget/Element Javascript
-
-
-
 // Constants
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
@@ -25,6 +18,7 @@ var STATUS_REPROG = "Status: Reprogramming - Please, do not disconnect the devic
 var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
 var STATUS_POST_PING = "postPing";
+var STATUS_RESETTING = "resetting";
 var TIMEOUT = 20000;
 //var waiting = false;
 
@@ -60,6 +54,13 @@ var status = STATUS_IDLE;
         postServletRecString(data, url, timeout);
     }
 }*/
+
+function reset(){
+    console.error("RESET!");
+    status = STATUS_RESETTING;
+    getServletRecString(URL_RESET, TIMEOUT);
+
+}
 
 function invocation() {
     console.error("Invocation");
@@ -251,8 +252,12 @@ function getServletRecString(sUrl, timeout){
         console.error("response text");
         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-        if (!(status == STATUS_SUCCESS)) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
-        else console.error("GET: Not sending because success!");
+        if (!(status == STATUS_SUCCESS) && !(status == STATUS_RESETTING)) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
+        else if (status == STATUS_SUCCESS) console.error("GET: Not sending because success!");
+        else if (status == STATUS_RESETTING) {
+            console.error("Not sending because resetting");
+            queue.length = 0;
+        }
     };
     xhr.responseType = "text";
     // Necessary to maintain session credentials using cross domain requests
@@ -401,6 +406,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          //   this.forkSetup();
            // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
+
         //    invocation();
             console.log("I am done being initted.");
         },
