@@ -64,10 +64,15 @@ function invocation() {
     console.error("Invocation");
     initial = window.setTimeout(
         function() {
-            console.error("Checking if there is a retransmission");
-            postServletRecString(null, URL_RETRANS, TIMEOUT);
-       //     processPost(null, URL_RETRANS, TIMEOUT);
-            if (!(status == STATUS_SUCCESS)) invocation();
+            if (!(status == STATUS_SUCCESS)) {
+                console.error("Checking if there is a retransmission");
+                postServletRecString(null, URL_RETRANS, TIMEOUT);
+           //     processPost(null, URL_RETRANS, TIMEOUT);
+                invocation();
+            }
+            else {
+                console.error("SUCCESS: No need to check for retransmission!");
+            }
         }, 20000);
 }
 
