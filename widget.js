@@ -12,6 +12,7 @@ var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/process-packet";
 
 
 var URL_PING = "//127.0.0.1:8080/SenschiliServlet/ping";
+var URL_POST_PING = "//127.0.0.1:8080/SenschiliServlet/post-ping";
 var URL_INJECT = "//127.0.0.1:8080/SenschiliServlet/inject";
 var URL_RETRANS = "//127.0.0.1:8080/SenschiliServlet/retransmission";
 var URL_REPROGRAM = "//127.0.0.1:8080/SenschiliServlet/reprogram";
@@ -115,7 +116,7 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     $('#reprog').addClass('disabled');
-    getServletRecString(URL_PING, 20000);
+    getServletRecString(URL_POST_PING, 20000);
 }
 
 function reprogram() {
