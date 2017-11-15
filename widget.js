@@ -78,7 +78,7 @@ function postPing() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if for post ping");
                 console.error(status);
-                getServletRecString(URL_PING, 20000);
+                getServletRecString(URL_POST_PING, 20000);
                 console.error("Status: " + status);
                 console.error("No success, pinging AGAIN!");
                 postPing();
@@ -116,7 +116,7 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     $('#reprog').addClass('disabled');
-    getServletRecString(URL_POST_PING, 20000);
+    getServletRecString(URL_PING, 20000);
 }
 
 function reprogram() {
