@@ -186,9 +186,6 @@ function postServletRecString(data, sUrl, timeout){
                 // initial ping was successful and we can inject
                 if (status == STATUS_PINGING) {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!")
-                    var elem = document.getElementById("progbar");
-                    elem.style.width = '1%';
-                    elem.innerHTML = '1%';
                     inject();
                 }
                 // We are injecting
