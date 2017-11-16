@@ -1,15 +1,15 @@
 // Constants
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
-var URL_SERVLET = "//192.168.1.53:8080/SenschiliServlet/process-packet";
 
-
-var URL_PING = "//52.29.6.200:8080/SenschiliServlet/ping";
-var URL_POST_PING = "//52.29.6.200:8080/SenschiliServlet/post-ping";
-var URL_INJECT = "//52.29.6.200:8080/SenschiliServlet/inject";
-var URL_RETRANS = "//52.29.6.200:8080/SenschiliServlet/retransmission";
-var URL_REPROGRAM = "//52.29.6.200:8080/SenschiliServlet/reprogram";
-var URL_RESET = "//52.29.6.200:8080/SenschiliServlet/reset";
+var BASE_URL = "//52.29.6.200:8080";
+var URL_SERVLET = BASE_URL + "/SenschiliServlet/process-packet";
+var URL_PING = BASE_URL + "/SenschiliServlet/ping";
+var URL_POST_PING = BASE_URL + "/SenschiliServlet/post-ping";
+var URL_INJECT = BASE_URL + "/SenschiliServlet/inject";
+var URL_RETRANS = BASE_URL + "/SenschiliServlet/retransmission";
+var URL_REPROGRAM = BASE_URL + "/SenschiliServlet/reprogram";
+var URL_RESET = BASE_URL + "/SenschiliServlet/reset";
 
 var STATUS_IDLE = "Idle";
 // var STATUS_READY = "Ready";
