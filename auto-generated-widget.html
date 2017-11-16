@@ -252,7 +252,10 @@ function postServletRecString(data, sUrl, timeout){
                 // and receiving an result with no error meaning
                 // initial ping was successful and we can inject
                 if (status == STATUS_PINGING) {
-                    console.error("PING SUCCESSFUL! STARTING UPLOAD!")
+                    console.error("PING SUCCESSFUL! STARTING UPLOAD!");
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '1%';
+                    elem.innerHTML = '1%';
                     inject();
                 }
                 // We are injecting
@@ -787,7 +790,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                    <p>28</p>
+                    <p>29</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" data-delay="1000" data-animation="true" data-placement="auto" data-container="body" data-trigger="hover" data-title="Reprogram" data-content="Reprogram your Senscape Board.">Reprogram
                    <!--  </div> -->
