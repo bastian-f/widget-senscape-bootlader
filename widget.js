@@ -420,7 +420,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
            // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
             reset();
-        //    invocation();
+            invocation();
             console.log("I am done being initted.");
         },
         /**
