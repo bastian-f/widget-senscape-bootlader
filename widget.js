@@ -17,7 +17,7 @@ var STATUS_PINGING = "Status: Pinging...";
 var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Reprogramming - Please, do not disconnect the device!";
 var STATUS_REPROG_C = "Status: Reprogramming C";
-var STATUS_SUCCESS = "Success! - Your device is reprogrammed.";
+var STATUS_SUCCESS = "Success! - The device is reprogrammed. You can now disconnect your K-PROX.";
 var STATUS_POST_PING = "postPing";
 var STATUS_RESETTING = "resetting";
 var TIMEOUT = 20000;
@@ -156,7 +156,7 @@ function postServletRecString(data, sUrl, timeout){
         console.error("valid");
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
-            if (jsonResponse.data.hasOwnProperty('progress')) {
+            if (jsonResponse.data.hasOwnProperty('progress') && status == STATUS_UPLOADING) {
                 var elem = document.getElementById("progbar");
                 elem.style.width = jsonResponse.data.progress + '%';
                 elem.innerHTML = jsonResponse.data.progress + '%';
@@ -186,6 +186,9 @@ function postServletRecString(data, sUrl, timeout){
                 // initial ping was successful and we can inject
                 if (status == STATUS_PINGING) {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!")
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '1%';
+                    elem.innerHTML = '1%';
                     inject();
                 }
                 // We are injecting
@@ -193,6 +196,9 @@ function postServletRecString(data, sUrl, timeout){
                 // uploading was successful and we can reprogram
                 else if (status == STATUS_UPLOADING) {
                     console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '97%';
+                    elem.innerHTML = '97%';
                     reprogram();
                 }
                 // We are reprogramming
@@ -203,6 +209,9 @@ function postServletRecString(data, sUrl, timeout){
                     setStatus(STATUS_REPROG_C);
                     console.error("clearing queue");
                     queue.length = 0;
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '98%';
+                    elem.innerHTML = '98%';
                     console.error("Post Ping");
                     postPing();
                 }
@@ -213,6 +222,9 @@ function postServletRecString(data, sUrl, timeout){
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     console.error("clearing queue");
                     queue.length = 0;
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '100%';
+                    elem.innerHTML = '100%';
                     setStatus(STATUS_SUCCESS);
                 //    $('#reprog').removeClass('disabled');
                 }
