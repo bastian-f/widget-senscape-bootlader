@@ -139,9 +139,6 @@ function reprogram() {
 function inject() {
     console.error("Inject");
     setStatus(STATUS_UPLOADING);
-    var elem = document.getElementById("progbar");
-    elem.style.width = '0%';
-    elem.innerHTML = '0%';
     console.error("Inject");
     getServletRecString(URL_INJECT, 20000);
 }
@@ -189,6 +186,9 @@ function postServletRecString(data, sUrl, timeout){
                 // initial ping was successful and we can inject
                 if (status == STATUS_PINGING) {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!");
+                    var elem = document.getElementById("progbar");
+                    elem.style.width = '1%';
+                    elem.innerHTML = '1%';
                     inject();
                 }
                 // We are injecting
