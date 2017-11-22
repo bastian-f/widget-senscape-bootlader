@@ -42,7 +42,7 @@ var status = STATUS_IDLE;
 function reset(){
     console.error("RESET!");
     status = STATUS_RESETTING;
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reset", 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reset", 10000);
 
 }
 
@@ -52,13 +52,13 @@ function invocation() {
         function() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if there is a retransmission");
-                postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 20000);
+                postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 10000);
                 invocation();
             }
             else {
                 console.error("SUCCESS: No need to check for retransmission!");
             }
-        }, 20000);
+        }, 10000);
 }
 
 function postPing() {
@@ -68,13 +68,13 @@ function postPing() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if for post ping");
                 console.error(status);
-                getServletRecString("//52.29.6.200:8080/SenschiliServlet/post-ping", 20000);
+                getServletRecString("//52.29.6.200:8080/SenschiliServlet/post-ping", 10000);
                 console.error("Status: " + status);
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
             else console.error("SUCCESS: finalizing post ping");
-        }, 20000);
+        }, 10000);
 }
 
 function setStatus(s) {
@@ -103,20 +103,20 @@ function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     $('#reprog').addClass('disabled');
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
 }
 
 function reprogram() {
     console.error("reprogram");
     setStatus(STATUS_REPROG);
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reprogram", 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reprogram", 10000);
 }
 
 function inject() {
     console.error("Inject");
     setStatus(STATUS_UPLOADING);
     console.error("Inject");
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/inject", 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/inject", 10000);
 }
 
 function postServletRecString(data, sUrl, timeout){
@@ -144,9 +144,9 @@ function postServletRecString(data, sUrl, timeout){
                 initial = window.setTimeout(
                     function () {
                         console.error("Checking if there is a retransmission");
-                        postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 20000);
+                        postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 10000);
                         invocation();
-                    }, 20000);
+                    }, 10000);
             }
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
@@ -209,7 +209,7 @@ function postServletRecString(data, sUrl, timeout){
         if(queue.length) {
             // run the next queued item
             console.error("Posting from queue.");
-            postServletRecString(queue.shift(), "//52.29.6.200:8080/SenschiliServlet/process-packet", 20000);
+            postServletRecString(queue.shift(), "//52.29.6.200:8080/SenschiliServlet/process-packet", 10000);
 
         } else {
             console.error("No more petitions queued.")
@@ -466,7 +466,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         onPingBtnClick: function(evt) {
             console.error("Ping");
             setStatus("ping");
-            getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 20000);
+            getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
 
         },
         /**
@@ -485,9 +485,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     queue.push(arrayBuffer);
                 }
                 else {
-                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//52.29.6.200:8080/SenschiliServlet/process-packet" + ", timeout: " + 20000);
+                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//52.29.6.200:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
                     busy = true;
-                    postServletRecString(arrayBuffer, "//52.29.6.200:8080/SenschiliServlet/process-packet", 20000);
+                    postServletRecString(arrayBuffer, "//52.29.6.200:8080/SenschiliServlet/process-packet", 10000);
                 }
             }
         },
