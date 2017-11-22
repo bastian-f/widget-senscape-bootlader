@@ -2,17 +2,15 @@
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
 
-var BASE_URL = "//52.29.6.200:8080";
-var URL_SERVLET = BASE_URL + "/SenschiliServlet/process-packet";
-var URL_PING = BASE_URL + "/SenschiliServlet/ping";
-var URL_POST_PING = BASE_URL + "/SenschiliServlet/post-ping";
-var URL_INJECT = BASE_URL + "/SenschiliServlet/inject";
-var URL_RETRANS = BASE_URL + "/SenschiliServlet/retransmission";
-var URL_REPROGRAM = BASE_URL + "/SenschiliServlet/reprogram";
-var URL_RESET = BASE_URL + "/SenschiliServlet/reset";
+//var URL_SERVLET = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/process-packet";
+//var URL_PING = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/ping";
+//var URL_POST_PING = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/post-ping";
+//var URL_INJECT = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/inject";
+// var URL_RETRANS = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/retransmission";
+//var URL_REPROGRAM = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/reprogram";
+//var URL_RESET = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/reset";
 
 var STATUS_IDLE = "Idle";
-// var STATUS_READY = "Ready";
 var STATUS_PINGING = "Status: Pinging...";
 var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Reprogramming - Please, do not disconnect the device!";
@@ -20,7 +18,8 @@ var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - The device is reprogrammed. You can now disconnect your K-PROX.";
 var STATUS_POST_PING = "postPing";
 var STATUS_RESETTING = "resetting";
-var TIMEOUT = 20000;
+
+//var TIMEOUT = 20000;
 //var waiting = false;
 
 
@@ -39,27 +38,11 @@ var postCountdown;
 // Global to define the current status of reprogramming
 var status = STATUS_IDLE;
 
-/*function processPost(data, url, timeout) {
-    console.error("Processing Post");
-    if(busy) {
-        console.error("Busy, queueing...");
-        var petition = {};
-        petition.data = data;
-        petition.url = url;
-        petition.timeout = timeout;
-        queue.push(petition);
-    }
-    else {
-        console.error("Not busy, processing data: " + data + ", url: " + url + ", timeout: " + timeout);
-        busy = true;
-        postServletRecString(data, url, timeout);
-    }
-}*/
 
 function reset(){
     console.error("RESET!");
     status = STATUS_RESETTING;
-    getServletRecString(URL_RESET, TIMEOUT);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reset", 20000);
 
 }
 
@@ -69,8 +52,7 @@ function invocation() {
         function() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if there is a retransmission");
-                postServletRecString(null, URL_RETRANS, TIMEOUT);
-           //     processPost(null, URL_RETRANS, TIMEOUT);
+                postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 20000);
                 invocation();
             }
             else {
@@ -86,13 +68,13 @@ function postPing() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if for post ping");
                 console.error(status);
-                getServletRecString(URL_POST_PING, 20000);
+                getServletRecString("//52.29.6.200:8080/SenschiliServlet/post-ping", 20000);
                 console.error("Status: " + status);
                 console.error("No success, pinging AGAIN!");
                 postPing();
             }
             else console.error("SUCCESS: finalizing post ping");
-        }, 30000);
+        }, 20000);
 }
 
 function setStatus(s) {
@@ -114,33 +96,27 @@ function setStatus(s) {
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }
-    console.error("SETTING STATUS: " + s);
-
     status = s;
-    console.error("SETTING STATUS: " + s);
 }
 
 function ping() {
     console.error("Ping");
     setStatus(STATUS_PINGING);
     $('#reprog').addClass('disabled');
-    var elem = document.getElementById("progbar");
-    elem.style.width = '1%';
-    elem.innerHTML = '1%';
-    getServletRecString(URL_PING, 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 20000);
 }
 
 function reprogram() {
     console.error("reprogram");
     setStatus(STATUS_REPROG);
-    getServletRecString(URL_REPROGRAM, 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reprogram", 20000);
 }
 
 function inject() {
     console.error("Inject");
     setStatus(STATUS_UPLOADING);
     console.error("Inject");
-    getServletRecString(URL_INJECT, 20000);
+    getServletRecString("//52.29.6.200:8080/SenschiliServlet/inject", 20000);
 }
 
 function postServletRecString(data, sUrl, timeout){
@@ -168,7 +144,7 @@ function postServletRecString(data, sUrl, timeout){
                 initial = window.setTimeout(
                     function () {
                         console.error("Checking if there is a retransmission");
-                        postServletRecString(null, URL_RETRANS, TIMEOUT);
+                        postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 20000);
                         invocation();
                     }, 20000);
             }
@@ -232,13 +208,8 @@ function postServletRecString(data, sUrl, timeout){
         }
         if(queue.length) {
             // run the next queued item
-            console.error("Posting from queue.")
-           /* petition = queue.shift();
-            console.error("Petition: " + petition);
-            console.error("Petition Data:" + petition.data);
-            console.error("Petition URL:" + petition.url);
-            console.error("Petition Timeout:" + petition.timeout);*/
-            postServletRecString(queue.shift(), URL_SERVLET, TIMEOUT);
+            console.error("Posting from queue.");
+            postServletRecString(queue.shift(), "//52.29.6.200:8080/SenschiliServlet/process-packet", 20000);
 
         } else {
             console.error("No more petitions queued.")
@@ -454,23 +425,9 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 trigger: "hover",
                 container: 'body'
             });
-             
-            // This buttons tests the connection to the Tomcat server where the servlet is hosted.
-            // It returns the status of the server.
-          //  $('#' + this.id + ' .btn-tomcat-test').click(this.onTomcatBtnClick.bind(this));
-            
-            // Init Hello World 2 button on Tab 1. Notice the use
-            // of the slick .bind(this) technique to correctly set "this"
-            // when the callback is called
-       //     $('#' + this.id + ' .btn-message-test').click(this.onMessageTestBtnClick.bind(this));
-
-       //     $('#' + this.id + ' .btn-servlet-test').click(this.onServletTestBtnClick.bind(this));
 
             $('#' + this.id + ' .btn-reprogram').click(this.onReprogramBtnClick.bind(this));
 
-            $('#' + this.id + ' .btn-ping').click(this.onPingBtnClick.bind(this));
-
-       //     $('#' + this.id + ' .btn-injectFast').click(this.onInjectFastBtnClick.bind(this));
 
         },
         isAlreadySubscribedToWsRecv: false,
@@ -496,35 +453,6 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             }
         },
         /**
-         * onTomcatBtnClick shows status of the Tomcat server in a popup message
-         */
-     /*   onTomcatBtnClick: function(evt) {
-            console.log("saying hello 2 from btn in tab 1");
-            var xmlHttp = new XMLHttpRequest();
-            console.log("request created");
-            xmlHttp.open( "GET", "https://chilipeppr-servlet-c9-bastianf.c9users.io/examples/servlets/servlet/RequestInfoExample", false ); // false for synchronous request
-            xmlHttp.send( null );
-            var response = xmlHttp.responseText;
-            chilipeppr.publish(
-                '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Tomcat Server Status",
-                //       "Hello Worl from Tab 1 from widget " + this.id,
-                response,
-                2000 /* show for 2 second */
-       /*     );
-        },*/
-        /**
-         * onMessageTestBtnClick sends a binary test message to the Senscape Board
-         */
-      /*  onMessageTestBtnClick: function(evt) {
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "test\n");
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A0000FF080123456789ABCDEF7573C0");
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D0A080F1E2D3C4B5A69787B8FC0");
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A0D080F1E2D3C4B5A69783CBAC0");
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000A00080F1E2D3C4B5A69780732C0");
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", "C045000A000D00080F1E2D3C4B5A6978BA1BC0");
-        }, */
-        /**
          * onMessageTestBtnClick sends a binary test message to the Senscape Board
          */
         onReprogramBtnClick: function (evt) {
@@ -532,25 +460,14 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
            ping();
 
         },
-    /**
-         * onServletTestBtnClick sends a test message to the servlet 
-         */
-     /*   onServletTestBtnClick: function(evt) {
-            console.error("Servlet Test");
-            var message = {"data": "test"};
-            postServletRecString(message, URL_SERVLET, 20000);
-        },
         /**
          * onPingBtnClick sends a test message to the servlet
          */
         onPingBtnClick: function(evt) {
             console.error("Ping");
             setStatus("ping");
-            getServletRecString(URL_PING, 20000);
+            getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 20000);
 
-        },
-      /*  onInjectFastBtnClick: function(evt) {
-            inject();
         },
         /**
          * Process data received from node
@@ -562,20 +479,15 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             var arrayBuffer = data.dataline;
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("data: " + arrayBuffer);
-       //     processPost(arrayBuffer, URL_SERVLET, TIMEOUT);
             if (!(status == STATUS_SUCCESS)) {
                 if (busy) {
                     console.error("Busy, queueing...");
-                    var petition = {};
-                    petition.data = arrayBuffer;
-                    petition.url = URL_SERVLET;
-                    petition.timeout = TIMEOUT;
                     queue.push(arrayBuffer);
                 }
                 else {
-                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + URL_SERVLET + ", timeout: " + TIMEOUT);
+                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//52.29.6.200:8080/SenschiliServlet/process-packet" + ", timeout: " + 20000);
                     busy = true;
-                    postServletRecString(arrayBuffer, URL_SERVLET, TIMEOUT);
+                    postServletRecString(arrayBuffer, "//52.29.6.200:8080/SenschiliServlet/process-packet", 20000);
                 }
             }
         },
