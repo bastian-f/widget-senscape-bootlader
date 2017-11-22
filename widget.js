@@ -157,6 +157,7 @@ function postServletRecString(data, sUrl, timeout){
             console.error("Got Result: Error:"  + jsonResponse.data.error);
             queue.length = 0;
             if (!jsonResponse.data.error) {
+                console.error("STATE: " + jsonResponse.data.state);
                 // We are doing the initial ping
                 // and receiving an result with no error meaning
                 // initial ping was successful and we can inject
