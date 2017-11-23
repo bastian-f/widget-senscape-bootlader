@@ -311,7 +311,7 @@ function checkData(){
                     checkData();
                 }
                 else {
-                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                    console.error("Not busy, processing data: " + data + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
                     busy = true;
                     postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
                     checkData();

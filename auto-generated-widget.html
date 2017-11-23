@@ -440,7 +440,7 @@ function checkData(){
                     checkData();
                 }
                 else {
-                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                    console.error("Not busy, processing data: " + data + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
                     busy = true;
                     postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
                     checkData();
@@ -835,7 +835,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                   <p>46</p>
+                   <p>47</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" >Reprogram
                    <!--  </div> -->
