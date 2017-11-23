@@ -295,6 +295,15 @@ function checkData(){
                     console.error("got complete package and no nore data: " + DAT_BUF );
                     data = DAT_BUF;
                     DAT_BUF = "";
+                    if (busy) {
+                        console.error("Busy, queueing...");
+                        queue.push(data);
+                    }
+                    else {
+                        console.error("Not busy, processing data: " + data  + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                        busy = true;
+                        postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
+                    }
                 }
                 else {
 
@@ -304,20 +313,20 @@ function checkData(){
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
                     console.error("Rest: " + DAT_BUF);
                 //    console.error("ok");
-
+                    if (busy) {
+                        console.error("Busy, queueing...");
+                        queue.push(data);
+                        checkData();
+                    }
+                    else {
+                        console.error("Not busy, processing data: " + data  + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                        busy = true;
+                        postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
+                        checkData();
+                    }
                 }
 
-                if (busy) {
-                    console.error("Busy, queueing...");
-                    queue.push(data);
-                    checkData();
-                }
-                else {
-                    console.error("Not busy, processing data: " + data  + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
-                    busy = true;
-                    postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
-                    checkData();
-                }
+
             }
             else console.error("Not a complete package yet.");
         }
