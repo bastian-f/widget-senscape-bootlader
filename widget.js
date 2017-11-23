@@ -41,7 +41,7 @@ var status = STATUS_IDLE;
 
 function reset(){
     console.error("RESET!");
-    status = STATUS_RESETTING;
+    status = "resetting";
     getServletRecString("//52.29.6.200:8080/SenschiliServlet/reset", 10000);
 
 }
@@ -101,6 +101,7 @@ function setStatus(s) {
 
 function ping() {
     console.error("Ping");
+    status = "Status: Pinging...";
    // setStatus(STATUS_PINGING);
     invocation();
     $('#reprog').addClass('disabled');
