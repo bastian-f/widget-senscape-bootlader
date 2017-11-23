@@ -510,7 +510,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error("finished loop");
                     console.error(chunks[0]);
                     // check if buffer starts with control byte
-                    if (chunks[0].localCompare('c0') == 0) {
+                    if (chunks[0].localCompare('c0') === 0) {
                         console.error("got first control byte");
                         // Look for next control Byte
                         var i = 0
