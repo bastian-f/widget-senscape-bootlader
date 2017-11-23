@@ -397,6 +397,62 @@ function getServletRecString(sUrl, timeout){
 
 }
 
+function checkData(){
+    if (DAT_BUF.length % 2 == 0) {
+        console.error("even length: " + DAT_BUF.length);
+        var chunks = [];
+        for (var i = 0;  i < DAT_BUF.length; i += 2) {
+            console.error("i: " + i);
+            chunks.push(DAT_BUF.substring(i, i + 2));
+        }
+        console.error("finished loop");
+        // check if buffer starts with control byte
+        if (chunks[0] === "c0") {
+            console.error("got first control byte");
+            // Look for next control Byte
+            var i = 0;
+            var found = false;
+            while(!found && i < chunks.length){
+                i = i + 1;
+                if (chunks[i] === "c0") found = true;
+            }
+            if (found) {
+                console.error("found");
+                // Got complete package and no more
+                var data = "";
+                if (i == chunks.length) {
+                    console.error("got complete package and no nore data");
+                    data = DAT_BUF;
+                    DAT_BUF = "";
+                }
+                else {
+                    console.error("got complete package and more data");
+                    data = DAT_BUF.substring(0, i * 2 + 2);
+                    DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
+                }
+
+                if (busy) {
+                    console.error("Busy, queueing...");
+                    queue.push(data);
+                    checkData();
+                }
+                else {
+                    console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                    busy = true;
+                    postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
+                    checkData();
+                }
+            }
+            else console.error("Not a complete package yet.");
+        }
+        else {
+            console.error("something went wrong, data does not start with control byte");
+            DAT_BUF = "";
+        }
+    }
+    else console.error("Uneven length, not a complete package");
+}
+
 
 requirejs.config({
     /*
@@ -629,59 +685,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 // Add new data to buffered data
                 DAT_BUF = DAT_BUF.concat(arrayBuffer);
                 // Check if buffer is of even length
-                if (DAT_BUF.length % 2 == 0) {
-                    console.error("even length: " + DAT_BUF.length);
-                    var chunks = [];
-                    for (var i = 0;  i < DAT_BUF.length; i += 2) {
-                        console.error("i: " + i);
-                        chunks.push(DAT_BUF.substring(i, i + 2));
-                    }
-                    console.error("finished loop");
-                    console.error(chunks[0]);
-                    console.error(chunks[0] === "c0");
-                    // check if buffer starts with control byte
-                    if (chunks[0] === "c0") {
-                        console.error("got first control byte");
-                        // Look for next control Byte
-                        var i = 0;
-                        var found = false;
-                        while(!found && i < chunks.length){
-                            i = i + 1;
-                            if (chunks[i] === "c0") found = true;
-                        }
-                        if (found) {
-                            console.error("found");
-                            // Got complete package and no more
-                            var data = "";
-                            if (i == chunks.length) {
-                                console.error("got complete package and no nore data");
-                                data = DAT_BUF;
-                                DAT_BUF = "";
-                            }
-                            else {
-                                console.error("got complete package and more data");
-                                data = DAT_BUF.substring(0, i * 2 + 2);
-                                DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
-                            }
-
-                            if (busy) {
-                                console.error("Busy, queueing...");
-                                queue.push(data);
-                            }
-                            else {
-                                console.error("Not busy, processing data: " + arrayBuffer + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
-                                busy = true;
-                                postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
-                            }
-                        }
-                        else console.error("Not a complete package yet.");
-                    }
-                    else {
-                        console.error("something went wrong, data does not start with control byte");
-                        DAT_BUF = "";
-                    }
-                }
-                else console.error("Uneven length, not a complete package");
+                checkData();
             }
         },
         /**
@@ -828,7 +832,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                   <p>44</p>
+                   <p>45</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" >Reprogram
                    <!--  </div> -->
