@@ -398,7 +398,7 @@ function getServletRecString(sUrl, timeout){
 }
 
 function checkData(){
-    if (DAT.BUF.length > 0 && DAT_BUF.length % 2 == 0) {
+    if (DAT_BUF.length > 0 && DAT_BUF.length % 2 == 0) {
         console.error("even length: " + DAT_BUF.length);
         var chunks = [];
         for (var i = 0;  i < DAT_BUF.length; i += 2) {
@@ -837,7 +837,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                   <p>51</p>
+                   <p>52</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" >Reprogram
                    <!--  </div> -->

@@ -269,7 +269,7 @@ function getServletRecString(sUrl, timeout){
 }
 
 function checkData(){
-    if (DAT.BUF.length > 0 && DAT_BUF.length % 2 == 0) {
+    if (DAT_BUF.length > 0 && DAT_BUF.length % 2 == 0) {
         console.error("even length: " + DAT_BUF.length);
         var chunks = [];
         for (var i = 0;  i < DAT_BUF.length; i += 2) {
