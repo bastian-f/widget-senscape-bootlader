@@ -507,6 +507,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         console.error("i: " + i);
                         chunks.push(DAT_BUF.substring(i, i + 2));
                     }
+                    console.error("finished loop");
                     // check if buffer starts with control byte
                     if (chunks[0].localCompare('c0') == 0) {
                         console.error("got first control byte");
