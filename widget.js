@@ -101,21 +101,32 @@ function setStatus(s) {
 
 function ping() {
     console.error("Ping");
-    setStatus(STATUS_PINGING);
+   // setStatus(STATUS_PINGING);
+    invocation();
     $('#reprog').addClass('disabled');
+    $( "#statustext").removeClass("alert-success");
+    $( "#statustext").addClass("alert-info");
+    var elem = document.getElementById("statustext");
+    elem.innerHTML =  "Status: Pinging...";
     getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
 }
 
 function reprogram() {
     console.error("reprogram");
-    setStatus(STATUS_REPROG);
+  //  setStatus(STATUS_REPROG);
+    $( "#statustext").removeClass("alert-info");
+    $( "#statustext").addClass("alert-warning");
+    var elem = document.getElementById("statustext");
+    elem.innerHTML =  "Status: Reprogramming - Please, do not disconnect the device!";
     getServletRecString("//52.29.6.200:8080/SenschiliServlet/reprogram", 10000);
 }
 
 function inject() {
     console.error("Inject");
-    setStatus(STATUS_UPLOADING);
-    console.error("Inject");
+    var elem = document.getElementById("statustext");
+    elem.innerHTML =  "Status: Uploading...";
+   // setStatus(STATUS_UPLOADING);
+ //   console.error("Inject");
     getServletRecString("//52.29.6.200:8080/SenschiliServlet/inject", 10000);
 }
 
@@ -132,12 +143,13 @@ function postServletRecString(data, sUrl, timeout){
         console.error("valid");
         console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
-            if (jsonResponse.data.hasOwnProperty('progress') && status == STATUS_UPLOADING) {
+            if (jsonResponse.data.hasOwnProperty('progress') &&  jsonResponse.data.hasOwnProperty('state') && jsonResponse.data.state ==='upload') {
                 var elem = document.getElementById("progbar");
                 elem.style.width = jsonResponse.data.progress + '%';
                 elem.innerHTML = jsonResponse.data.progress + '%';
             }
-            if (!(status == STATUS_SUCCESS)) {
+            // If not success
+            if (!(jsonResponse.data.hasOwnProperty('error') && jsonResponse.data.error === 0 && jsonResponse.data.hasOwnProperty('state') && jsonResponse.data.state ==='post-ping')) {
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
                 console.error("Clearing timeout!");
                 window.clearTimeout(initial);
@@ -161,7 +173,7 @@ function postServletRecString(data, sUrl, timeout){
                 // We are doing the initial ping
                 // and receiving an result with no error meaning
                 // initial ping was successful and we can inject
-                if (status == STATUS_PINGING) {
+                if (jsonResponse.data.state === 'ping') {
                     console.error("PING SUCCESSFUL! STARTING UPLOAD!");
                     var elem = document.getElementById("progbar");
                     elem.style.width = '1%';
@@ -171,7 +183,7 @@ function postServletRecString(data, sUrl, timeout){
                 // We are injecting
                 // and receiving an result witn no error meaning
                 // uploading was successful and we can reprogram
-                else if (status == STATUS_UPLOADING) {
+                else if (jsonResponse.data.state === 'upload') {
                     console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
                     var elem = document.getElementById("progbar");
                     elem.style.width = '97%';
@@ -181,7 +193,7 @@ function postServletRecString(data, sUrl, timeout){
                 // We are reprogramming
                 // and receiving a result with no error meaning
                 // that the reprgramming was successfully started
-                else if (status == STATUS_REPROG){
+                else if (jsonResponse.data.state === 'reprogram'){
                     console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
                     console.error("clearing queue");
@@ -195,7 +207,7 @@ function postServletRecString(data, sUrl, timeout){
                 // We are reprogramming with start confirmed
                 // and receiving a result with no error meaning
                 // the post ping executed successfully and reprogramming is finished
-                else if (status == STATUS_REPROG_C) {
+                else if (jsonResponse.data.state === 'post-ping') {
                     console.error("REPROGRAMMING SUCCESSFUL!!")
                     console.error("clearing queue");
                     queue.length = 0;
@@ -392,7 +404,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
            // this.loadDropTestWidget();
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
             reset();
-            invocation();
+         //   invocation();
             console.log("I am done being initted.");
         },
         /**
