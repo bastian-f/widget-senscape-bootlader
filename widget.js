@@ -299,7 +299,10 @@ function checkData(){
                 else {
                     console.error("got complete package and more data");
                     data = DAT_BUF.substring(0, i * 2 + 2);
+                    console.error("ok");
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
+                    console.error("ok");
+
                 }
 
                 if (busy) {
