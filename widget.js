@@ -302,7 +302,7 @@ function checkData(){
                     console.error("got complete package and more data: " + data);
                 //    console.error("ok");
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
-                    console.error("Rest: " + rest);
+                    console.error("Rest: " + DAT_BUF);
                 //    console.error("ok");
 
                 }
