@@ -639,12 +639,11 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                     console.error("finished loop");
                     console.error(chunks[0]);
                     console.error(chunks[0] === "c0");
-                    console.error(chunks[0].localCompare("c0"));
                     // check if buffer starts with control byte
                     if (chunks[0] === "c0") {
                         console.error("got first control byte");
                         // Look for next control Byte
-                        var i = 0
+                        var i = 0;
                         var found = false;
                         while(!found && i < chunks.length){
                             i = i + 1;
@@ -829,7 +828,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                   <p>43</p>
+                   <p>44</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" >Reprogram
                    <!--  </div> -->
