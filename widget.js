@@ -273,7 +273,7 @@ function checkData(){
         console.error("even length: " + DAT_BUF.length);
         var chunks = [];
         for (var i = 0;  i < DAT_BUF.length; i += 2) {
-            console.error("i: " + i);
+         //   console.error("i: " + i);
             chunks.push(DAT_BUF.substring(i, i + 2));
         }
         console.error("finished loop");
@@ -299,9 +299,9 @@ function checkData(){
                 else {
                     console.error("got complete package and more data");
                     data = DAT_BUF.substring(0, i * 2 + 2);
-                    console.error("ok");
+                //    console.error("ok");
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
-                    console.error("ok");
+                //    console.error("ok");
 
                 }
 
@@ -311,7 +311,7 @@ function checkData(){
                     checkData();
                 }
                 else {
-                    console.error("Not busy, processing data: " + data + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                    console.error("Not busy, processing data: " + data  + ", url: " + "//127.0.0.1:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
                     busy = true;
                     postServletRecString(data, "//127.0.0.1:8080/SenschiliServlet/process-packet", 10000);
                     checkData();
