@@ -291,7 +291,7 @@ function checkData(){
                 console.error("found");
                 // Got complete package and no more
                 var data = "";
-                if (i == chunks.length) {
+                if (i === chunks.length - 1) {
                     console.error("got complete package and no nore data: " + DAT_BUF );
                     data = DAT_BUF;
                     DAT_BUF = "";
