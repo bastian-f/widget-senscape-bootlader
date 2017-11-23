@@ -508,6 +508,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         chunks.push(DAT_BUF.substring(i, i + 2));
                     }
                     console.error("finished loop");
+                    console.error(chunks[0]);
                     // check if buffer starts with control byte
                     if (chunks[0].localCompare('c0') == 0) {
                         console.error("got first control byte");
@@ -516,7 +517,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                         var found = false;
                         while(!found && i < chunks.length){
                             i = i + 1;
-                            if (chunks[0].localCompare('c0') == 0) found = true;
+                            if (chunks[i].localCompare('c0') == 0) found = true;
                         }
                         if (found) {
                             console.error("found");
