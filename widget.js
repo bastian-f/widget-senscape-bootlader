@@ -559,7 +559,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             if (!(status == STATUS_SUCCESS)) {
                 console.error("no success.")
                 // Add new data to buffered data
-                DAT_BUF = DAT_BUF.concat(arrayBuffer);
+                if (DAT_BUF.length === 0) DAT_BUF = arrayBuffer;
+                else DAT_BUF = DAT_BUF.concat(arrayBuffer);
                 // Check if buffer is of even length
                 checkData();
             }

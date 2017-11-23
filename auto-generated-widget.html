@@ -688,7 +688,8 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             if (!(status == STATUS_SUCCESS)) {
                 console.error("no success.")
                 // Add new data to buffered data
-                DAT_BUF = DAT_BUF.concat(arrayBuffer);
+                if (DAT_BUF.length === 0) DAT_BUF = arrayBuffer;
+                else DAT_BUF = DAT_BUF.concat(arrayBuffer);
                 // Check if buffer is of even length
                 checkData();
             }
@@ -837,7 +838,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 </div>  -->
             <div class="row">
                 <div class="col-md-4">
-                   <p>53</p>
+                   <p>54</p>
                    <!-- <div class="btn-group">  -->
                         <button type="button" class="btn btn-block btn-default btn-reprogram disabled" id="reprog" >Reprogram
                    <!--  </div> -->
