@@ -292,15 +292,17 @@ function checkData(){
                 // Got complete package and no more
                 var data = "";
                 if (i == chunks.length) {
-                    console.error("got complete package and no nore data");
+                    console.error("got complete package and no nore data: " + DAT_BUF );
                     data = DAT_BUF;
                     DAT_BUF = "";
                 }
                 else {
-                    console.error("got complete package and more data");
+
                     data = DAT_BUF.substring(0, i * 2 + 2);
+                    console.error("got complete package and more data: " + data);
                 //    console.error("ok");
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
+                    console.error("Rest: " + rest);
                 //    console.error("ok");
 
                 }
