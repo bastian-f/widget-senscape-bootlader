@@ -501,7 +501,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 DAT_BUF = DAT_BUF.concat(arrayBuffer);
                 // Check if buffer is of even length
                 if (DAT_BUF.length % 2 == 0) {
-                    console.error("even length");
+                    console.error("even length: " + DAT_BUF.length);
                     var chunks = [];
                     for (var i = 0;  i < DAT_BUF.length; i += 2) {
                         console.error("i: " + i);
