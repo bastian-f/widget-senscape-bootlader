@@ -496,16 +496,19 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
             console.error("data: " + arrayBuffer);
             if (!(status == STATUS_SUCCESS)) {
+                console.error("no success.")
                 // Add new data to buffered data
                 DAT_BUF = DAT_BUF.concat(arrayBuffer);
                 // Check if buffer is of even length
                 if (DAT_BUF.length % 2 == 0) {
+                    console.error("even length");
                     var chunks = [];
-                    for (var i = 0, charsLength = DAT_BUF.length; i < charsLength; i += 2) {
+                    for (var i = 0;  i < DAT_BUF.length; i += 2) {
                         chunks.push(DAT_BUF.substring(i, i + 2));
                     }
                     // check if buffer starts with control byte
                     if (chunks[0].localCompare('c0') == 0) {
+                        console.error("got first control byte");
                         // Look for next control Byte
                         var i = 0
                         var found = false;
@@ -514,13 +517,16 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                             if (chunks[0].localCompare('c0') == 0) found = true;
                         }
                         if (found) {
+                            console.error("found");
                             // Got complete package and no more
                             var data = "";
                             if (i == chunks.length - 1) {
+                                console.error("got complete package and no nore data");
                                 data = DAT_BUF;
                                 DAT_BUF = "";
                             }
                             else {
+                                console.error("got complete package and more data");
                                 data = DAT_BUF.substring(0, i * 2 + 2);
                                 DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
                             }
