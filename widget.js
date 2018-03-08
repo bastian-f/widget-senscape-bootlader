@@ -551,12 +551,12 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         /**
          * onPingBtnClick sends a test message to the servlet
          */
-        onPingBtnClick: function(evt) {
+/*        onPingBtnClick: function(evt) {
             console.error("Ping");
             setStatus("ping");
             getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
 
-        },
+        },*/
         /**
          * Process data received from node
          *
