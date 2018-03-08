@@ -2,13 +2,15 @@
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
 
-//var URL_SERVLET = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/process-packet";
-//var URL_PING = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/ping";
-//var URL_POST_PING = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/post-ping";
-//var URL_INJECT = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/inject";
-// var URL_RETRANS = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/retransmission";
-//var URL_REPROGRAM = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/reprogram";
-//var URL_RESET = BASE_URL + "//52.29.6.200:8080/SenschiliServlet/reset";
+//var BASE_URL = "//52.29.6.200:8080/SenschiliServlet";
+var BASE_URL = "//localhost:8080/SenschiliServlet";
+var URL_PROCESS = BASE_URL + "/process-packet";
+var URL_PING = BASE_URL + "/ping";
+var URL_POST_PING = BASE_URL + "/post-ping";
+var URL_INJECT = BASE_URL + "/inject";
+var URL_RETRANS = BASE_URL + "/retransmission";
+var URL_REPROGRAM = BASE_URL + "/reprogram";
+var URL_RESET = BASE_URL + "/reset";
 
 var STATUS_IDLE = "Idle";
 var STATUS_PINGING = "Status: Pinging...";
@@ -44,7 +46,7 @@ var status = STATUS_IDLE;
 function reset(){
     console.error("RESET!");
     status = "resetting";
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reset", 10000);
+    getServletRecString(URL_RESET, 10000);
 
 }
 
@@ -54,7 +56,7 @@ function invocation() {
         function() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if there is a retransmission");
-                postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 10000);
+                postServletRecString(null, URL_RETRANS, 10000);
                 invocation();
             }
             else {
@@ -70,7 +72,7 @@ function postPing() {
             if (!(status == STATUS_SUCCESS)) {
                 console.error("Checking if for post ping");
                 console.error(status);
-                getServletRecString("//52.29.6.200:8080/SenschiliServlet/post-ping", 10000);
+                getServletRecString(URL_POST_PING, 10000);
                 console.error("Status: " + status);
                 console.error("No success, pinging AGAIN!");
                 postPing();
@@ -111,7 +113,7 @@ function ping() {
     $( "#statustext").addClass("alert-info");
     var elem = document.getElementById("statustext");
     elem.innerHTML =  "Status: Pinging...";
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
+    getServletRecString(URL_PING, 10000);
 }
 
 function reprogram() {
@@ -121,7 +123,7 @@ function reprogram() {
     $( "#statustext").addClass("alert-warning");
     var elem = document.getElementById("statustext");
     elem.innerHTML =  "Status: Reprogramming - Please, do not disconnect the device!";
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/reprogram", 10000);
+    getServletRecString(URL_REPROGRAM, 10000);
 }
 
 function inject() {
@@ -130,7 +132,7 @@ function inject() {
     elem.innerHTML =  "Status: Uploading...";
    // setStatus(STATUS_UPLOADING);
  //   console.error("Inject");
-    getServletRecString("//52.29.6.200:8080/SenschiliServlet/inject", 10000);
+    getServletRecString(URL_INJECT, 10000);
 }
 
 function postServletRecString(data, sUrl, timeout){
@@ -159,7 +161,7 @@ function postServletRecString(data, sUrl, timeout){
                 initial = window.setTimeout(
                     function () {
                         console.error("Checking if there is a retransmission");
-                        postServletRecString(null, "//52.29.6.200:8080/SenschiliServlet/retransmission", 10000);
+                        postServletRecString(null, URL_RETRANS, 10000);
                         invocation();
                     }, 10000);
             }
@@ -225,7 +227,7 @@ function postServletRecString(data, sUrl, timeout){
         if(queue.length) {
             // run the next queued item
             console.error("Posting from queue.");
-            postServletRecString(queue.shift(), "//52.29.6.200:8080/SenschiliServlet/process-packet", 10000);
+            postServletRecString(queue.shift(), URL_RETRANS, 10000);
 
         } else {
             console.error("No more petitions queued.")
@@ -319,9 +321,9 @@ function checkData(){
                         checkData();
                     }
                     else {
-                        console.error("Not busy, processing data: " + data  + ", url: " + "//52.29.6.200:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                        console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
                         busy = true;
-                        postServletRecString(data, "//52.29.6.200:8080/SenschiliServlet/process-packet", 10000);
+                        postServletRecString(data, URL_PROCESS, 10000);
                         checkData();
                     }
                 }
