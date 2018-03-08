@@ -431,9 +431,9 @@ function checkData(){
                         queue.push(data);
                     }
                     else {
-                        console.error("Not busy, processing data: " + data  + ", url: " + "//52.29.6.200:8080/SenschiliServlet/process-packet" + ", timeout: " + 10000);
+                        console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
                         busy = true;
-                        postServletRecString(data, "//52.29.6.200:8080/SenschiliServlet/process-packet", 10000);
+                        postServletRecString(data, URL_PROCESS, 10000);
                     }
                 }
                 else {
