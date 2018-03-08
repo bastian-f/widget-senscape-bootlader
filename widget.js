@@ -227,7 +227,7 @@ function postServletRecString(data, sUrl, timeout){
         if(queue.length) {
             // run the next queued item
             console.error("Posting from queue.");
-            postServletRecString(queue.shift(), URL_RETRANS, 10000);
+            postServletRecString(queue.shift(), URL_PROCESS, 10000);
 
         } else {
             console.error("No more petitions queued.")
