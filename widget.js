@@ -44,48 +44,48 @@ var status = STATUS_IDLE;
 
 
 function reset(){
-    console.error("RESET!");
+    // console.error("RESET!");
     status = "resetting";
     getServletRecString(URL_RESET, 10000);
 
 }
 
 function invocation() {
-    console.error("Invocation");
+    // console.error("Invocation");
     initial = window.setTimeout(
         function() {
             if (!(status == STATUS_SUCCESS)) {
-                console.error("Checking if there is a retransmission");
+                // console.error("Checking if there is a retransmission");
                 postServletRecString(null, URL_RETRANS, 10000);
                 invocation();
             }
-            else {
-                console.error("SUCCESS: No need to check for retransmission!");
-            }
+             //else {
+                // console.error("SUCCESS: No need to check for retransmission!");
+           //  }
         }, 10000);
 }
 
 function postPing() {
-    console.error("Inside Post Ping");
+    // console.error("Inside Post Ping");
     postCountdown = window.setTimeout(
         function() {
             if (!(status == STATUS_SUCCESS)) {
-                console.error("Checking if for post ping");
-                console.error(status);
+                // console.error("Checking if for post ping");
+                // console.error(status);
                 getServletRecString(URL_POST_PING, 10000);
-                console.error("Status: " + status);
-                console.error("No success, pinging AGAIN!");
+                // console.error("Status: " + status);
+                // console.error("No success, pinging AGAIN!");
                 postPing();
             }
-            else console.error("SUCCESS: finalizing post ping");
+          //  else // console.error("SUCCESS: finalizing post ping");
         }, 10000);
 }
 
 function setStatus(s) {
     var elem = document.getElementById("statustext");
-    console.error("SETTING STATUS: " + s);
+    // console.error("SETTING STATUS: " + s);
     if (!(s == STATUS_REPROG_C) && !(s == STATUS_POST_PING)) {
-        console.error("NOT REPROG_C and NOT POST_PING");
+        // console.error("NOT REPROG_C and NOT POST_PING");
         elem.innerHTML = s;
     }
     if (s == STATUS_PINGING) {
@@ -104,7 +104,7 @@ function setStatus(s) {
 }
 
 function ping() {
-    console.error("Ping");
+    // console.error("Ping");
     status = "Status: Pinging...";
    // setStatus(STATUS_PINGING);
     invocation();
@@ -117,7 +117,7 @@ function ping() {
 }
 
 function reprogram() {
-    console.error("reprogram");
+    // console.error("reprogram");
   //  setStatus(STATUS_REPROG);
     $( "#statustext").removeClass("alert-info");
     $( "#statustext").addClass("alert-warning");
@@ -127,7 +127,7 @@ function reprogram() {
 }
 
 function inject() {
-    console.error("Inject");
+    // console.error("Inject");
     var elem = document.getElementById("statustext");
     elem.innerHTML =  "Status: Uploading...";
    // setStatus(STATUS_UPLOADING);
@@ -136,17 +136,17 @@ function inject() {
 }
 
 function postServletRecString(data, sUrl, timeout){
-    console.error("URL: " + sUrl);
+    // console.error("URL: " + sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
-        console.error("The request for " + sUrl + " timed out.");
+        // console.error("The request for " + sUrl + " timed out.");
     };
     xhr.onload = function (oEvent) {
-        console.error("response text");
-        console.error(xhr.responseText);
+        // console.error("response text");
+        // console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
-        console.error("valid");
-        console.error(jsonResponse.data.valid);
+        // console.error("valid");
+        // console.error(jsonResponse.data.valid);
         if (jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
             if (jsonResponse.data.hasOwnProperty('progress') &&  jsonResponse.data.hasOwnProperty('state') && jsonResponse.data.state ==='upload') {
                 var elem = document.getElementById("progbar");
@@ -156,30 +156,30 @@ function postServletRecString(data, sUrl, timeout){
             // If not success
             if (!(jsonResponse.data.hasOwnProperty('error') && jsonResponse.data.error === 0 && jsonResponse.data.hasOwnProperty('state') && jsonResponse.data.state ==='post-ping')) {
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data.payload);
-                console.error("Clearing timeout!");
+                // console.error("Clearing timeout!");
                 window.clearTimeout(initial);
                 initial = window.setTimeout(
                     function () {
-                        console.error("Checking if there is a retransmission");
+                        // console.error("Checking if there is a retransmission");
                         postServletRecString(null, URL_RETRANS, 10000);
                         invocation();
                     }, 10000);
             }
         }
         else if (!jsonResponse.data.valid && !jsonResponse.data.hasOwnProperty('error')) {
-            console.error("Packet not valid.");
+            // console.error("Packet not valid.");
         }
         else if (jsonResponse.data.hasOwnProperty('error')){
 
-            console.error("Got Result: Error:"  + jsonResponse.data.error);
+            // console.error("Got Result: Error:"  + jsonResponse.data.error);
             queue.length = 0;
             if (!jsonResponse.data.error) {
-                console.error("STATE: " + jsonResponse.data.state);
+                // console.error("STATE: " + jsonResponse.data.state);
                 // We are doing the initial ping
                 // and receiving an result with no error meaning
                 // initial ping was successful and we can inject
                 if (jsonResponse.data.state === 'ping') {
-                    console.error("PING SUCCESSFUL! STARTING UPLOAD!");
+                    // console.error("PING SUCCESSFUL! STARTING UPLOAD!");
                     var elem = document.getElementById("progbar");
                     elem.style.width = '1%';
                     elem.innerHTML = '1%';
@@ -189,7 +189,7 @@ function postServletRecString(data, sUrl, timeout){
                 // and receiving an result witn no error meaning
                 // uploading was successful and we can reprogram
                 else if (jsonResponse.data.state === 'upload') {
-                    console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
+                    // console.error("UPLOAD SUCCESSFUL! STARTING REPROGRAMMING!")
                     var elem = document.getElementById("progbar");
                     elem.style.width = '97%';
                     elem.innerHTML = '97%';
@@ -199,22 +199,22 @@ function postServletRecString(data, sUrl, timeout){
                 // and receiving a result with no error meaning
                 // that the reprgramming was successfully started
                 else if (jsonResponse.data.state === 'reprogram'){
-                    console.error("REPROGRAMMING!")
+                    // console.error("REPROGRAMMING!")
                     setStatus(STATUS_REPROG_C);
-                    console.error("clearing queue");
+                    // console.error("clearing queue");
                     queue.length = 0;
                     var elem = document.getElementById("progbar");
                     elem.style.width = '98%';
                     elem.innerHTML = '98%';
-                    console.error("Post Ping");
+                    // console.error("Post Ping");
                     postPing();
                 }
                 // We are reprogramming with start confirmed
                 // and receiving a result with no error meaning
                 // the post ping executed successfully and reprogramming is finished
                 else if (jsonResponse.data.state === 'post-ping') {
-                    console.error("REPROGRAMMING SUCCESSFUL!!")
-                    console.error("clearing queue");
+                    // console.error("REPROGRAMMING SUCCESSFUL!!")
+                    // console.error("clearing queue");
                     queue.length = 0;
                     var elem = document.getElementById("progbar");
                     elem.style.width = '100%';
@@ -226,11 +226,11 @@ function postServletRecString(data, sUrl, timeout){
         }
         if(queue.length) {
             // run the next queued item
-            console.error("Posting from queue.");
+            // console.error("Posting from queue.");
             postServletRecString(queue.shift(), URL_PROCESS, 10000);
 
         } else {
-            console.error("No more petitions queued.")
+            // console.error("No more petitions queued.")
             busy = false;
         }
     };
@@ -239,25 +239,25 @@ function postServletRecString(data, sUrl, timeout){
     xhr.withCredentials = true;
     xhr.open("POST", sUrl, true);
     xhr.timeout = timeout;
-    console.error("data to send: " + JSON.stringify(data));
+    // console.error("data to send: " + JSON.stringify(data));
     xhr.send(JSON.stringify(data));
     
 }
 
 function getServletRecString(sUrl, timeout){
-    console.error("URL: " + sUrl);
+    // console.error("URL: " + sUrl);
     var xhr = new XMLHttpRequest();
     xhr.ontimeout = function () {
-        console.error("The request for " + sUrl + " timed out.");
+        // console.error("The request for " + sUrl + " timed out.");
     };
     xhr.onload = function (oEvent) {
-        console.error("response text");
-        console.error(xhr.responseText);
+        // console.error("response text");
+        // console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
         if (!(status == STATUS_SUCCESS) && !(status == STATUS_RESETTING)) chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonResponse.data);
-        else if (status == STATUS_SUCCESS) console.error("GET: Not sending because success!");
+        // else if (status == STATUS_SUCCESS) // console.error("GET: Not sending because success!");
         else if (status == STATUS_RESETTING) {
-            console.error("Not sending because resetting");
+            // console.error("Not sending because resetting");
             queue.length = 0;
         }
     };
@@ -272,16 +272,16 @@ function getServletRecString(sUrl, timeout){
 
 function checkData(){
     if (DAT_BUF.length > 0 && DAT_BUF.length % 2 == 0) {
-        console.error("even length: " + DAT_BUF.length);
+        // console.error("even length: " + DAT_BUF.length);
         var chunks = [];
         for (var i = 0;  i < DAT_BUF.length; i += 2) {
-         //   console.error("i: " + i);
+            // console.error("i: " + i);
             chunks.push(DAT_BUF.substring(i, i + 2));
         }
-        console.error("finished loop");
+        // console.error("finished loop");
         // check if buffer starts with control byte
         if (chunks[0] === "c0") {
-            console.error("got first control byte");
+            // console.error("got first control byte");
             // Look for next control Byte
             var i = 0;
             var found = false;
@@ -290,19 +290,19 @@ function checkData(){
                 if (chunks[i] === "c0") found = true;
             }
             if (found) {
-                console.error("found");
+                // console.error("found");
                 // Got complete package and no more
                 var data = "";
                 if (i === chunks.length - 1) {
-                    console.error("got complete package and no more data: " + DAT_BUF );
+                    // console.error("got complete package and no more data: " + DAT_BUF );
                     data = DAT_BUF;
                     DAT_BUF = "";
                     if (busy) {
-                        console.error("Busy, queueing...");
+                        // console.error("Busy, queueing...");
                         queue.push(data);
                     }
                     else {
-                        console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
+                        // console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
                         busy = true;
                         postServletRecString(data, URL_PROCESS, 10000);
                     }
@@ -310,18 +310,18 @@ function checkData(){
                 else {
 
                     data = DAT_BUF.substring(0, i * 2 + 2);
-                    console.error("got complete package and more data: " + data);
+                    // console.error("got complete package and more data: " + data);
                 //    console.error("ok");
                     DAT_BUF = DAT_BUF.substring(i * 2 + 2, DAT_BUF.length);
-                    console.error("Rest: " + DAT_BUF);
+                    // console.error("Rest: " + DAT_BUF);
                 //    console.error("ok");
                     if (busy) {
-                        console.error("Busy, queueing...");
+                        // console.error("Busy, queueing...");
                         queue.push(data);
                         checkData();
                     }
                     else {
-                        console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
+                        // console.error("Not busy, processing data: " + data  + ", url: " + URL_PROCESS + ", timeout: " + 10000);
                         busy = true;
                         postServletRecString(data, URL_PROCESS, 10000);
                         checkData();
@@ -330,14 +330,14 @@ function checkData(){
 
 
             }
-            else console.error("Not a complete package yet.");
+        //    else // console.error("Not a complete package yet.");
         }
         else {
-            console.error("something went wrong, data does not start with control byte");
+            // console.error("something went wrong, data does not start with control byte");
             DAT_BUF = "";
         }
     }
-    else console.error("Uneven length, not a complete package");
+//    else // console.error("Uneven length, not a complete package");
 }
 
 
@@ -388,7 +388,7 @@ cprequire_test(["inline:com-senscape-widget-bootloader"], function(myWidget) {
     // get changes to load correctly. If you keep wondering why you're not seeing
     // your changes, try ?forcerefresh=true as a get parameter in your URL.
 
-    console.log("test running of " + myWidget.id);
+    // console.log("test running of " + myWidget.id);
 
     $('body').prepend('<div id="testDivForFlashMessageWidget"></div>');
 
@@ -396,7 +396,7 @@ cprequire_test(["inline:com-senscape-widget-bootloader"], function(myWidget) {
         "#testDivForFlashMessageWidget",
         "http://fiddle.jshell.net/chilipeppr/90698kax/show/light/",
         function() {
-            console.log("mycallback got called after loading flash msg module");
+            // console.log("mycallback got called after loading flash msg module");
             cprequire(["inline:com-chilipeppr-elem-flashmsg"], function(fm) {
                 //console.log("inside require of " + fm.id);
                 fm.init();
@@ -471,7 +471,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * instantiating code like a workspace or a different widget.
          */
         init: function() {
-            console.log("I am being initted. Thanks.");
+            // console.log("I am being initted. Thanks.");
 
             this.setupUiFromLocalStorage();
             this.btnSetup();
@@ -480,7 +480,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             chilipeppr.subscribe("/com-chilipeppr-widget-serialport/recvline", this, this.onRecvLine);
             reset();
          //   invocation();
-            console.log("I am done being initted.");
+            // console.log("I am done being initted.");
         },
         /**
          * Call this method from init to setup all the buttons when this widget
@@ -493,7 +493,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             // Chevron hide/show body
             var that = this;
             $('#' + this.id + ' .hidebody').click(function(evt) {
-                console.log("hide/unhide body");
+                // console.log("hide/unhide body");
                 if ($('#' + that.id + ' .panel-body').hasClass('hidden')) {
                     // it's hidden, unhide
                     that.showBody(evt);
@@ -522,7 +522,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
         consoleSubscribeToLowLevelSerial: function() {
             // subscribe to websocket events
             if (this.isAlreadySubscribedToWsRecv) {
-                console.warn("already subscribed to /ws/recv in console, so not subscribing again");
+                // console.warn("already subscribed to /ws/recv in console, so not subscribing again");
             } else {
                 this.isAlreadySubscribedToWsRecv = true;
                 chilipeppr.subscribe("/com-chilipeppr-widget-serialport/ws/recv", this, function(msg) {
@@ -552,7 +552,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          * onPingBtnClick sends a test message to the servlet
          */
 /*        onPingBtnClick: function(evt) {
-            console.error("Ping");
+            // console.error("Ping");
             setStatus("ping");
             getServletRecString("//52.29.6.200:8080/SenschiliServlet/ping", 10000);
 
@@ -562,13 +562,13 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
          *
          */
         onRecvLine: function(data) {
-            console.error("received!");
+            // console.error("received!");
           //  waiting = false;
             var arrayBuffer = data.dataline;
             arrayBuffer = arrayBuffer.substring(0, arrayBuffer.length - 1);
-            console.error("data: " + arrayBuffer);
+            // console.error("data: " + arrayBuffer);
             if (!(status == STATUS_SUCCESS)) {
-                console.error("no success.")
+                // console.error("no success.")
                 // Add new data to buffered data
                 if (DAT_BUF.length === 0) DAT_BUF = arrayBuffer;
                 else DAT_BUF = DAT_BUF.concat(arrayBuffer);
@@ -601,7 +601,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
 
             if (options) {
                 options = $.parseJSON(options);
-                console.log("just evaled options: ", options);
+                // console.log("just evaled options: ", options);
             }
             else {
                 options = {
@@ -613,7 +613,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             }
 
             this.options = options;
-            console.log("options:", options);
+            // console.log("options:", options);
 
             // show/hide body
             if (options.showBody) {
@@ -635,7 +635,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
             var options = this.options;
 
             var optionsStr = JSON.stringify(options);
-            console.log("saving options:", options, "json.stringify:", optionsStr);
+            // console.log("saving options:", options, "json.stringify:", optionsStr);
             // store settings to localStorage
             localStorage.setItem(this.id + '-options', optionsStr);
         },
