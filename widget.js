@@ -2,8 +2,8 @@
 // var URL_SERVLET = "//chilipeppr-servlet-c9-bastianf.c9users.io/SenschiliServlet/packet";
 //var URL_SERVLET = "//127.0.0.1:8080/SenschiliServlet/packet";
 
-//var BASE_URL = "//52.29.6.200:8080/SenschiliServlet";
-var BASE_URL = "//localhost:8080/SenschiliServlet";
+var BASE_URL = "//52.29.6.200:8080/SenschiliServlet";
+ //var BASE_URL = "//localhost:8080/SenschiliServlet";
 var URL_PROCESS = BASE_URL + "/process-packet";
 var URL_PING = BASE_URL + "/ping";
 var URL_POST_PING = BASE_URL + "/post-ping";
