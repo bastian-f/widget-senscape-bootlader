@@ -227,6 +227,7 @@ function setStatus(s) {
         $( "#statustext").addClass("alert-warning");
     }
     else if (s == STATUS_SUCCESS || s == STATUS_UP_TO_DATE) {
+        console.error("UP TO DATE: " + s);
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }
@@ -857,7 +858,7 @@ cpdefine("inline:com-senscape-widget-bootloader", ["chilipeppr_ready", /* other 
                 <div class="col-md-12">
                 <!--    <small> -->
                         <div class="alert alert-success">
-                            <strong>Last Update:</strong> 12/03/2018TEST2
+                            <strong>Last Update:</strong> 12/03/2018TEST3
                         </div>
                 <!--     </small>  -->
                 </div>

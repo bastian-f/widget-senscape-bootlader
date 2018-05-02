@@ -98,6 +98,7 @@ function setStatus(s) {
         $( "#statustext").addClass("alert-warning");
     }
     else if (s == STATUS_SUCCESS || s == STATUS_UP_TO_DATE) {
+        console.error("UP TO DATE: " + s);
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }
