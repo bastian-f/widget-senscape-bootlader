@@ -100,6 +100,7 @@ function setStatus(s) {
     else if (s == STATUS_SUCCESS || s == STATUS_UP_TO_DATE) {
         console.error("UP TO DATE: " + s);
         $( "#statustext").removeClass("alert-warning");
+        $( "#statustext").removeClass("alert-info");
         $( "#statustext").addClass("alert-success");
     }
     status = s;
