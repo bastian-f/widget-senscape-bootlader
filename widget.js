@@ -143,8 +143,8 @@ function postServletRecString(data, sUrl, timeout){
         // console.error("The request for " + sUrl + " timed out.");
     };
     xhr.onload = function (oEvent) {
-        // console.error("response text");
-        // console.error(xhr.responseText);
+         console.error("response text");
+         console.error(xhr.responseText);
         var jsonResponse = JSON.parse(xhr.responseText);
         // console.error("valid");
         // console.error(jsonResponse.data.valid);
