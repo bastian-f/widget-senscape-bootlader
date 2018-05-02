@@ -18,6 +18,7 @@ var STATUS_UPLOADING = "Status: Uploading...";
 var STATUS_REPROG = "Status: Reprogramming - Please, do not disconnect the device!";
 var STATUS_REPROG_C = "Status: Reprogramming C";
 var STATUS_SUCCESS = "Success! - The device is reprogrammed. You can now disconnect your K-PROX.";
+var STATUS_UP_TO_DATE = "Your K-PROX is already up to date! You can now disconnect your K-PROX.";
 var STATUS_POST_PING = "postPing";
 var STATUS_RESETTING = "resetting";
 
@@ -54,7 +55,7 @@ function invocation() {
     // console.error("Invocation");
     initial = window.setTimeout(
         function() {
-            if (!(status == STATUS_SUCCESS)) {
+            if (!(status == STATUS_SUCCESS) && !(STATUS_UP_TO_DATE)) {
                 // console.error("Checking if there is a retransmission");
                 postServletRecString(null, URL_RETRANS, 10000);
                 invocation();
@@ -96,7 +97,7 @@ function setStatus(s) {
         $( "#statustext").removeClass("alert-info");
         $( "#statustext").addClass("alert-warning");
     }
-    else if (s == STATUS_SUCCESS) {
+    else if (s == STATUS_SUCCESS || s == STATUS_UP_TO_DATE) {
         $( "#statustext").removeClass("alert-warning");
         $( "#statustext").addClass("alert-success");
     }
@@ -179,11 +180,20 @@ function postServletRecString(data, sUrl, timeout){
                 // and receiving an result with no error meaning
                 // initial ping was successful and we can inject
                 if (jsonResponse.data.state === 'ping') {
-                    // console.error("PING SUCCESSFUL! STARTING UPLOAD!");
-                    var elem = document.getElementById("progbar");
-                    elem.style.width = '1%';
-                    elem.innerHTML = '1%';
-                    inject();
+                    if (jsonResponse.data.hasOwnProperty('latest') && jsonResponse.data.latest === 1) {
+                        queue.length = 0;
+                        var elem = document.getElementById("progbar");
+                        elem.style.width = '100%';
+                        elem.innerHTML = '100%';
+                        setStatus(STATUS_UP_TO_DATE);
+                    }
+                    else {
+                        // console.error("PING SUCCESSFUL! STARTING UPLOAD!");
+                        var elem = document.getElementById("progbar");
+                        elem.style.width = '1%';
+                        elem.innerHTML = '1%';
+                        inject();
+                    }
                 }
                 // We are injecting
                 // and receiving an result witn no error meaning

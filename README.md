@@ -136,22 +136,22 @@ The table below shows, in order, the methods and properties inside the widget/el
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>subscribe</td><td>object</td><td>Please see docs above.<br><br>Define the subscribe signals that this widget/element owns or defines so that
 other widgets know how to subscribe to them and what they do.</td></tr><tr valign="top"><td>foreignPublish</td><td>object</td><td>Please see docs above.<br><br>Document the foreign publish signals, i.e. signals owned by other widgets
 or elements, that this widget/element publishes to.</td></tr><tr valign="top"><td>foreignSubscribe</td><td>object</td><td>Please see docs above.<br><br>Document the foreign subscribe signals, i.e. signals owned by other widgets
-or elements, that this widget/element subscribes to.</td></tr><tr valign="top"><td>init</td><td>function</td><td>function () <br><br>All widgets should have an init method. It should be run by the
-instantiating code like a workspace or a different widget.</td></tr><tr valign="top"><td>btnSetup</td><td>function</td><td>function () <br><br>Call this method from init to setup all the buttons when this widget
+or elements, that this widget/element subscribes to.</td></tr><tr valign="top"><td>init</td><td>function</td><td>function() <br><br>All widgets should have an init method. It should be run by the
+instantiating code like a workspace or a different widget.</td></tr><tr valign="top"><td>btnSetup</td><td>function</td><td>function() <br><br>Call this method from init to setup all the buttons when this widget
 is first loaded. This basically attaches click events to your 
 buttons. It also turns on all the bootstrap popovers by scanning
-the entire DOM of the widget.</td></tr><tr valign="top"><td>isAlreadySubscribedToWsRecv</td><td>boolean</td><td></td></tr><tr valign="top"><td>consoleSubscribeToLowLevelSerial</td><td>function</td><td>function () </td></tr><tr valign="top"><td>onReprogramBtnClick</td><td>function</td><td>function (evt) <br><br>onMessageTestBtnClick sends a binary test message to the Senscape Board</td></tr><tr valign="top"><td>onRecvLine</td><td>function</td><td>function (data) <br><br>Process data received from node</td></tr><tr valign="top"><td>options</td><td>object</td><td>User options are available in this property for reference by your
+the entire DOM of the widget.</td></tr><tr valign="top"><td>isAlreadySubscribedToWsRecv</td><td>boolean</td><td></td></tr><tr valign="top"><td>consoleSubscribeToLowLevelSerial</td><td>function</td><td>function() </td></tr><tr valign="top"><td>onReprogramBtnClick</td><td>function</td><td>function (evt) <br><br>onMessageTestBtnClick sends a binary test message to the Senscape Board</td></tr><tr valign="top"><td>onRecvLine</td><td>function</td><td>function(data) <br><br>Process data received from node</td></tr><tr valign="top"><td>options</td><td>object</td><td>User options are available in this property for reference by your
 methods. If any change is made on these options, please call
-saveOptionsLocalStorage()</td></tr><tr valign="top"><td>setupUiFromLocalStorage</td><td>function</td><td>function () <br><br>Call this method on init to setup the UI by reading the user's
+saveOptionsLocalStorage()</td></tr><tr valign="top"><td>setupUiFromLocalStorage</td><td>function</td><td>function() <br><br>Call this method on init to setup the UI by reading the user's
 stored settings from localStorage and then adjust the UI to reflect
-what the user wants.</td></tr><tr valign="top"><td>saveOptionsLocalStorage</td><td>function</td><td>function () <br><br>When a user changes a value that is stored as an option setting, you
+what the user wants.</td></tr><tr valign="top"><td>saveOptionsLocalStorage</td><td>function</td><td>function() <br><br>When a user changes a value that is stored as an option setting, you
 should call this method immediately so that on next load the value
-is correctly set.</td></tr><tr valign="top"><td>showBody</td><td>function</td><td>function (evt) <br><br>Show the body of the panel.
+is correctly set.</td></tr><tr valign="top"><td>showBody</td><td>function</td><td>function(evt) <br><br>Show the body of the panel.
 <br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we 
 know it was clicked by the user and thus we store it for the next 
 load so we can reset the user's preference. If you don't pass this 
 value in we don't store the preference because it was likely code 
-that sent in the param.</td></tr><tr valign="top"><td>hideBody</td><td>function</td><td>function (evt) <br><br>Hide the body of the panel.
+that sent in the param.</td></tr><tr valign="top"><td>hideBody</td><td>function</td><td>function(evt) <br><br>Hide the body of the panel.
 <br><br><b>evt</b> ({jquery_event})  - If you pass the event parameter in, we 
 know it was clicked by the user and thus we store it for the next 
 load so we can reset the user's preference. If you don't pass this 
